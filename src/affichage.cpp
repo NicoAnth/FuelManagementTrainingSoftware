@@ -1,6 +1,7 @@
 //
 // Created by user on 27/10/2019.
 //
+
 #include <QLayout>
 #include <QPainter>
 #include <QPushButton>
@@ -225,9 +226,9 @@
         PumpShape* pump22 = new PumpShape(NONE, "P22");
         PumpShape* pump31 = new PumpShape(ENGINE3, "P31");
         PumpShape* pump32 = new PumpShape(NONE, "P32");
-        EngineShape* engine1 = new EngineShape("Engine 1");
-        EngineShape* engine2 = new EngineShape("Engine 2");
-        EngineShape* engine3 = new EngineShape("Engine 3");
+        TankShape* engine1 = new TankShape("Engine 1");
+        TankShape* engine2 = new TankShape("Engine 2");
+        TankShape* engine3 = new TankShape("Engine 3");
         ValveShape* vt12 = new ValveShape("VT12");
         ValveShape* vt23 = new ValveShape("VT23");
         v12 = new ValveShape("V12");
