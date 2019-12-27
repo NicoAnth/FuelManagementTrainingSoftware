@@ -20,4 +20,4 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # Input
 HEADERS += affichage.h
-SOURCES += affichage.cpp simulation.cpp
+SOURCES += affichage.cpp main.cpp

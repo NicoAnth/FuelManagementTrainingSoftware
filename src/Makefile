@@ -53,9 +53,9 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = affichage.cpp \
-		simulation.cpp moc_affichage.cpp
+		main.cpp moc_affichage.cpp
 OBJECTS       = affichage.o \
-		simulation.o \
+		main.o \
 		moc_affichage.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -133,7 +133,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		src.pro affichage.h affichage.cpp \
-		simulation.cpp
+		main.cpp
 QMAKE_TARGET  = src
 DESTDIR       = 
 TARGET        = src
@@ -314,7 +314,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents affichage.h $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.cpp simulation.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.cpp main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -373,8 +373,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 affichage.o: affichage.cpp affichage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affichage.o affichage.cpp
 
-simulation.o: simulation.cpp affichage.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o simulation.o simulation.cpp
+main.o: main.cpp affichage.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 moc_affichage.o: moc_affichage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_affichage.o moc_affichage.cpp

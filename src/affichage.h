@@ -126,9 +126,6 @@ class ValveShape;
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
 
-        public slots:
-            void setChangeable(tankState state);
-
         signals:
             void valveStateChanged(valveState state);
     };
