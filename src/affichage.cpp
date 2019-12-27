@@ -182,33 +182,6 @@
         }
     }
 
-    void ValveShape::setChangeable(tankState state) {
-//        if(state == FULL) tankStateCount++;
-//        else tankStateCount--;
-//
-//        if(tankStateCount == 0 || tankStateCount == 2){
-//            if(tankStateCount == 0)
-//                this->state = OPENED;
-//
-//            stateChangeable = false;
-//            update();
-//        }
-//        else{
-//            this->state = OPENED;
-//            stateChangeable = true;
-//            update();
-//        }
-    }
-
-//    void ValveShape::setChangeable(const PumpShape& p1, const PumpShape& p2,
-//                                    const PumpShape& p3,const PumpShape& p4) {
-//        if (p1.getState() == BROKEN && p2.getState() == BROKEN && p4.getState() != BROKEN) {
-//            if (p4.getEngine() == NONE) stateChangeable = true;
-//        }
-//        else if (p3.getState() == BROKEN && p4.getState() == BROKEN && p2.getState() != BROKEN) {
-//            if (p2.getEngine() == NONE) stateChangeable = true;
-//        }
-//    }
 
 // MAIN WINDOW
     SystemeCarburantWindow::SystemeCarburantWindow(int width, int height) {
