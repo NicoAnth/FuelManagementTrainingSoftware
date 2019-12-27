@@ -1,0 +1,15 @@
+Une pompe primaire ne peut alimenter que l'engin qui lui fait face.
+Si il est deja alimenté, c'est au pilote d'éteindre la pompe secondaire qui l'alimente.
+Quand un utilisateur eteint une pompe, l'engin qu'elle alimenté n'est plus alimentée. 
+Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
+	Si les 2 vannes sont fermées, que 2 tanks sont vides et un tank pleins l	es 2 tanks deviennent pleins
+	Eval: Si les 2 tanks sont vides et fermeture vanne entre les 2 -> erreur 		sauf si futur action est de fermer la 2ème vanne pour alimenter 		ces 2 tanks
+
+- mode libre -> Denden -> 28/29
+- mode evaluation -> Nico -> 28/29
+- base de données -> Nico
+- historique -> Denden
+- tableau de bord -> Nico
+- sauvegarde -> Denden
+- Compte rendu -> Chacun ses parties
+(- uml propre -> Nico)

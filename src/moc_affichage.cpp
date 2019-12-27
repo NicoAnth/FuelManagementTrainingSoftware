@@ -20,32 +20,29 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_TankShape_t {
-    QByteArrayData data[7];
-    char stringdata0[64];
+struct qt_meta_stringdata_Tank_t {
+    QByteArrayData data[5];
+    char stringdata0[38];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_TankShape_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_Tank_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_TankShape_t qt_meta_stringdata_TankShape = {
+static const qt_meta_stringdata_Tank_t qt_meta_stringdata_Tank = {
     {
-QT_MOC_LITERAL(0, 0, 9), // "TankShape"
-QT_MOC_LITERAL(1, 10, 16), // "tankStateChanged"
-QT_MOC_LITERAL(2, 27, 0), // ""
-QT_MOC_LITERAL(3, 28, 9), // "tankState"
-QT_MOC_LITERAL(4, 38, 5), // "state"
-QT_MOC_LITERAL(5, 44, 8), // "setState"
-QT_MOC_LITERAL(6, 53, 10) // "valveState"
+QT_MOC_LITERAL(0, 0, 4), // "Tank"
+QT_MOC_LITERAL(1, 5, 16), // "tankStateChanged"
+QT_MOC_LITERAL(2, 22, 0), // ""
+QT_MOC_LITERAL(3, 23, 5), // "state"
+QT_MOC_LITERAL(4, 29, 8) // "setState"
 
     },
-    "TankShape\0tankStateChanged\0\0tankState\0"
-    "state\0setState\0valveState"
+    "Tank\0tankStateChanged\0\0state\0setState"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_TankShape[] = {
+static const uint qt_meta_data_Tank[] = {
 
  // content:
        8,       // revision
@@ -62,32 +59,32 @@ static const uint qt_meta_data_TankShape[] = {
        1,    1,   24,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    1,   27,    2, 0x0a /* Public */,
+       4,    1,   27,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, QMetaType::Bool,    3,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 6,    4,
+    QMetaType::Void, QMetaType::Bool,    3,
 
        0        // eod
 };
 
-void TankShape::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void Tank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<TankShape *>(_o);
+        auto *_t = static_cast<Tank *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->tankStateChanged((*reinterpret_cast< tankState(*)>(_a[1]))); break;
-        case 1: _t->setState((*reinterpret_cast< valveState(*)>(_a[1]))); break;
+        case 0: _t->tankStateChanged((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 1: _t->setState((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (TankShape::*)(tankState );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&TankShape::tankStateChanged)) {
+            using _t = void (Tank::*)(bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Tank::tankStateChanged)) {
                 *result = 0;
                 return;
             }
@@ -95,30 +92,30 @@ void TankShape::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject TankShape::staticMetaObject = { {
+QT_INIT_METAOBJECT const QMetaObject Tank::staticMetaObject = { {
     &QWidget::staticMetaObject,
-    qt_meta_stringdata_TankShape.data,
-    qt_meta_data_TankShape,
+    qt_meta_stringdata_Tank.data,
+    qt_meta_data_Tank,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *TankShape::metaObject() const
+const QMetaObject *Tank::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *TankShape::qt_metacast(const char *_clname)
+void *Tank::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_TankShape.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_Tank.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int TankShape::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int Tank::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -136,33 +133,33 @@ int TankShape::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void TankShape::tankStateChanged(tankState _t1)
+void Tank::tankStateChanged(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
-struct qt_meta_stringdata_PumpShape_t {
+struct qt_meta_stringdata_Pump_t {
     QByteArrayData data[4];
-    char stringdata0[30];
+    char stringdata0[25];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_PumpShape_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_Pump_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_PumpShape_t qt_meta_stringdata_PumpShape = {
+static const qt_meta_stringdata_Pump_t qt_meta_stringdata_Pump = {
     {
-QT_MOC_LITERAL(0, 0, 9), // "PumpShape"
-QT_MOC_LITERAL(1, 10, 12), // "stateChanged"
-QT_MOC_LITERAL(2, 23, 0), // ""
-QT_MOC_LITERAL(3, 24, 5) // "state"
+QT_MOC_LITERAL(0, 0, 4), // "Pump"
+QT_MOC_LITERAL(1, 5, 12), // "stateChanged"
+QT_MOC_LITERAL(2, 18, 0), // ""
+QT_MOC_LITERAL(3, 19, 5) // "state"
 
     },
-    "PumpShape\0stateChanged\0\0state"
+    "Pump\0stateChanged\0\0state"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_PumpShape[] = {
+static const uint qt_meta_data_Pump[] = {
 
  // content:
        8,       // revision
@@ -184,10 +181,10 @@ static const uint qt_meta_data_PumpShape[] = {
        0        // eod
 };
 
-void PumpShape::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void Pump::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<PumpShape *>(_o);
+        auto *_t = static_cast<Pump *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->stateChanged((*reinterpret_cast< short(*)>(_a[1]))); break;
@@ -196,8 +193,8 @@ void PumpShape::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (PumpShape::*)(short );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&PumpShape::stateChanged)) {
+            using _t = void (Pump::*)(short );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Pump::stateChanged)) {
                 *result = 0;
                 return;
             }
@@ -205,30 +202,30 @@ void PumpShape::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject PumpShape::staticMetaObject = { {
+QT_INIT_METAOBJECT const QMetaObject Pump::staticMetaObject = { {
     &QWidget::staticMetaObject,
-    qt_meta_stringdata_PumpShape.data,
-    qt_meta_data_PumpShape,
+    qt_meta_stringdata_Pump.data,
+    qt_meta_data_Pump,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *PumpShape::metaObject() const
+const QMetaObject *Pump::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *PumpShape::qt_metacast(const char *_clname)
+void *Pump::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_PumpShape.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_Pump.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int PumpShape::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int Pump::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -246,35 +243,33 @@ int PumpShape::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void PumpShape::stateChanged(short _t1)
+void Pump::stateChanged(short _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
-struct qt_meta_stringdata_ValveShape_t {
-    QByteArrayData data[5];
-    char stringdata0[47];
+struct qt_meta_stringdata_Valve_t {
+    QByteArrayData data[4];
+    char stringdata0[31];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_ValveShape_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_Valve_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_ValveShape_t qt_meta_stringdata_ValveShape = {
+static const qt_meta_stringdata_Valve_t qt_meta_stringdata_Valve = {
     {
-QT_MOC_LITERAL(0, 0, 10), // "ValveShape"
-QT_MOC_LITERAL(1, 11, 17), // "valveStateChanged"
-QT_MOC_LITERAL(2, 29, 0), // ""
-QT_MOC_LITERAL(3, 30, 10), // "valveState"
-QT_MOC_LITERAL(4, 41, 5) // "state"
+QT_MOC_LITERAL(0, 0, 5), // "Valve"
+QT_MOC_LITERAL(1, 6, 17), // "valveStateChanged"
+QT_MOC_LITERAL(2, 24, 0), // ""
+QT_MOC_LITERAL(3, 25, 5) // "state"
 
     },
-    "ValveShape\0valveStateChanged\0\0valveState\0"
-    "state"
+    "Valve\0valveStateChanged\0\0state"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_ValveShape[] = {
+static const uint qt_meta_data_Valve[] = {
 
  // content:
        8,       // revision
@@ -291,25 +286,25 @@ static const uint qt_meta_data_ValveShape[] = {
        1,    1,   19,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, QMetaType::Bool,    3,
 
        0        // eod
 };
 
-void ValveShape::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void Valve::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<ValveShape *>(_o);
+        auto *_t = static_cast<Valve *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->valveStateChanged((*reinterpret_cast< valveState(*)>(_a[1]))); break;
+        case 0: _t->valveStateChanged((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (ValveShape::*)(valveState );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ValveShape::valveStateChanged)) {
+            using _t = void (Valve::*)(bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Valve::valveStateChanged)) {
                 *result = 0;
                 return;
             }
@@ -317,30 +312,30 @@ void ValveShape::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject ValveShape::staticMetaObject = { {
+QT_INIT_METAOBJECT const QMetaObject Valve::staticMetaObject = { {
     &QWidget::staticMetaObject,
-    qt_meta_stringdata_ValveShape.data,
-    qt_meta_data_ValveShape,
+    qt_meta_stringdata_Valve.data,
+    qt_meta_data_Valve,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *ValveShape::metaObject() const
+const QMetaObject *Valve::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *ValveShape::qt_metacast(const char *_clname)
+void *Valve::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ValveShape.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_Valve.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int ValveShape::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int Valve::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -358,7 +353,7 @@ int ValveShape::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ValveShape::valveStateChanged(valveState _t1)
+void Valve::valveStateChanged(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

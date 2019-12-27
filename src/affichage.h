@@ -19,10 +19,6 @@
     #define SPACING 110
 
 // TYPES ETATS DU SYSTEME CARBURANT
-    typedef enum{
-        EMPTY = 0,
-        FULL
-    } tankState;
 
     typedef enum{
         OFF = 0,
@@ -30,26 +26,14 @@
         BROKEN
     } pumpState;
 
-    typedef enum{
-        CLOSED = 0,
-        OPENED
-    } valveState;
-
-    typedef enum{
-        NONE = 0,
-        ENGINE1,
-        ENGINE2,
-        ENGINE3
-    } enginePowered;
-
 // CLASSES WIDGET
-class ValveShape;
+class Valve;
 
     class SystemeCarburantWindow : public QWidget{
         private:
-            ValveShape* v12;
-            ValveShape* v13;
-            ValveShape* v23;
+            Valve* v12;
+            Valve* v13;
+            Valve* v23;
 
         public:
             SystemeCarburantWindow(int width, int height);
@@ -58,41 +42,41 @@ class ValveShape;
             void paintEvent(QPaintEvent*);
     };
 
-    class TankShape : public QWidget{
+    class Tank : public QWidget{
         Q_OBJECT
 
         private:
             QString name;
-            tankState state;
+            bool state;
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
 
         public:
-            TankShape(QString name);
-            ~TankShape(){}
+            Tank(QString name);
+            ~Tank(){}
 
         public slots:
-            void setState(valveState state);
+            void setState(bool state);
 
         signals:
-            void tankStateChanged(tankState state);
+            void tankStateChanged(bool state);
     };
 
-    class PumpShape : public QWidget{
+    class Pump : public QWidget{
         Q_OBJECT
 
         private:
             QString name;
             pumpState state;
-            enginePowered engine;
+            bool engine;
             bool stateChangeable;
 
         public:
-            PumpShape(enginePowered engine, QString name);
-            ~PumpShape(){}
+            Pump(QString name);
+            ~Pump(){}
             pumpState getState();
-            enginePowered getEngine();
-            void setEngine(enginePowered engine);
+            bool getEngine();
+            void setEngine(bool engine);
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
 
@@ -100,34 +84,33 @@ class ValveShape;
             void stateChanged(short state);
     };
 
-    class EngineShape : public QWidget{
+    class Engine : public QWidget{
         private:
             QString name;
 
         public:
-            EngineShape(QString name);
-            ~EngineShape(){}
+            Engine(QString name);
+            ~Engine(){}
             void paintEvent(QPaintEvent*);
     };
 
-    class ValveShape : public QWidget{
+    class Valve : public QWidget{
         Q_OBJECT
 
         private:
             QString name;
-            valveState state;
+            bool state;
             bool stateChangeable;
             unsigned short tankStateCount;
-//            PumpShape* p1, PumpShape* p2, PumpShape* p3, PumpShape* p4;
 
         public:
-            ValveShape(const QString name);
-            ~ValveShape(){}
+            Valve(const QString name);
+            ~Valve(){}
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
 
         signals:
-            void valveStateChanged(valveState state);
+            void valveStateChanged(bool state);
     };
 
 
