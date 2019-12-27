@@ -1,0 +1,2 @@
+Une pompe primaire ne peut alimenter que l'engin qui lui fait face.
+Si il est deja alimenté, c'est au pilote d'éteindre la pompe secondaire qui l'alimente.
