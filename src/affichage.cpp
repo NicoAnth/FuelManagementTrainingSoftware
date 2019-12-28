@@ -8,7 +8,7 @@
 #include <QSizePolicy>
 #include "affichage.h"
 #include <iostream>
-
+#include <QPalette> 
 
 // WIDGETS TO DRAW
 // TANKS
@@ -117,6 +117,29 @@
         emit stateChanged(emitState);
         update();
     }
+    void Pump::stateChangedSlot(){
+        short emitState = 0;
+
+        switch(state){
+            case ON :
+                emitState--;
+                state = OFF;
+                break;
+            case OFF :
+                emitState += 1;
+                state = ON;
+                break;
+            case BROKEN :
+                break;
+            default:
+                std::cerr << "unrecognized pump state" << std::endl;
+                break;
+        }
+
+        emit stateChanged(emitState);
+        update();
+    }
+    
 
 // ENGINES
     Engine::Engine(QString name){
@@ -181,12 +204,20 @@
             update();
         }
     }
+    void Valve::stateChanged(){
+        if(stateChangeable){
+            (state == false) ? state = true : state = false;
+            emit valveStateChanged(state);
+            update();
+        }
+    }
 
 // MAIN WINDOW
     SystemeCarburantWindow::SystemeCarburantWindow(int width, int height) {
         // Params mains window
         this->setMinimumWidth(width);
         this->setMinimumHeight(height);
+
 
         // Widgets to draw
         Tank* tank1 = new Tank("Tank 1");
@@ -273,6 +304,7 @@
         engineLayout->setSpacing(SPACING);
 
         // signals
+
        /*  QObject::connect(tank1, SIGNAL(tankStateChanged(bool)), vt12, SLOT(setChangeable(bool)));
         QObject::connect(tank2, SIGNAL(tankStateChanged(bool)), vt12, SLOT(setChangeable(bool)));
         QObject::connect(tank2, SIGNAL(tankStateChanged(bool)), vt23, SLOT(setChangeable(bool)));
@@ -282,6 +314,18 @@
         QObject::connect(vt12, SIGNAL(valveStateChanged(bool)), tank2, SLOT(setState(bool)));
         QObject::connect(vt23, SIGNAL(valveStateChanged(bool)), tank2, SLOT(setState(bool)));
         QObject::connect(vt23, SIGNAL(valveStateChanged(bool)), tank3, SLOT(setState(bool)));
+       
+        //Dashboard signals
+        
+        QObject::connect(vtdb1, SIGNAL(clicked()), vt12, SLOT(stateChanged()));
+        QObject::connect(vtdb2, SIGNAL(clicked()), vt23, SLOT(stateChanged()));
+        QObject::connect(pdb1, SIGNAL(clicked()), pump12, SLOT(stateChangedSlot()));
+        QObject::connect(pdb2, SIGNAL(clicked()), pump22, SLOT(stateChangedSlot()));
+        QObject::connect(pdb3, SIGNAL(clicked()), pump32, SLOT(stateChangedSlot()));
+        QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(stateChanged()));
+        QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(stateChanged()));
+        QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(stateChanged()));
+
     }
 
 // PAINT EVENT WINDOW
@@ -297,8 +341,8 @@
         // Tanks and engines
         p.drawLine(xleft, TANK_HEIGHT/2 + 10, xright, TANK_HEIGHT/2 + 10);  // between tanks
         p.drawLine(xleft, 3*TANK_HEIGHT, xleft - 20, 3*TANK_HEIGHT); // t1 e1 horizontal
-        p.drawLine(xleft - 20, 3*TANK_HEIGHT, xleft - 20, height() - TANK_HEIGHT/2);   // t1 e1 vertical
-        p.drawLine(xcenter, TANK_HEIGHT/2 + 10, xcenter, height() - TANK_HEIGHT/2);     // t2 e2
+        p.drawLine(xleft - 20, 3*TANK_HEIGHT, xleft - 20, height() - 2*TANK_HEIGHT);   // t1 e1 vertical
+        p.drawLine(xcenter, TANK_HEIGHT/2 + 10, xcenter, height() - 2*TANK_HEIGHT);     // t2 e2
 
         // Valve lines
         v12->setGeometry(width()/2 - TANK_WIDTH, 3.5*TANK_HEIGHT, VALVE_RAY*2, VALVE_RAY*2);
@@ -310,5 +354,6 @@
         p.drawLine(xright, 4.5*TANK_HEIGHT, xcenter, 4.5*TANK_HEIGHT);  // v23 horizontal
         p.drawLine(xright, TANK_HEIGHT/2 + 10, xright, 4.5*TANK_HEIGHT);   // v23 vertical
         p.drawLine(xleft, 2*TANK_HEIGHT, xright + 20, 2*TANK_HEIGHT);    // v13 horizontal
-        p.drawLine(xright + 20, 2*TANK_HEIGHT, xright + 20, height() - TANK_HEIGHT/2);   // v13 vertical
+        p.drawLine(xright + 20, 2*TANK_HEIGHT, xright + 20, height() - 2*TANK_HEIGHT);   // v13 vertical
+        
     }

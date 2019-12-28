@@ -80,9 +80,11 @@
             void setEngine(bool engine);
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
-
+        public slots:
+            void stateChangedSlot(); 
         signals:
             void stateChanged(short state);
+        
     };
 
     class Engine : public QWidget{
@@ -109,10 +111,14 @@
             ~Valve(){}
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
-
+        public slots:
+            void stateChanged();
         signals:
             void valveStateChanged(bool state);
+        
+        
     };
+
 
 
 #endif //PROJET_CARBURANT_AVION_AFFICHAGE_H
