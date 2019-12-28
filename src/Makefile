@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = src1.0.0
-DISTDIR = /home/nicolas/Projet/L3/projetCpp/langages_avances/projet_carburant_avion/src/.tmp/src1.0.0
+DISTDIR = /home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src/.tmp/src1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -352,7 +352,7 @@ compiler_moc_header_clean:
 moc_affichage.cpp: affichage.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/nicolas/Projet/L3/projetCpp/langages_avances/projet_carburant_avion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicolas/Projet/L3/projetCpp/langages_avances/projet_carburant_avion/src -I/home/nicolas/Projet/L3/projetCpp/langages_avances/projet_carburant_avion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichage.h -o moc_affichage.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src -I/home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichage.h -o moc_affichage.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:

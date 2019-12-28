@@ -9,6 +9,7 @@
 #include "affichage.h"
 #include <iostream>
 
+
 // WIDGETS TO DRAW
 // TANKS
     Tank::Tank(QString name) {
@@ -205,7 +206,16 @@
         v12 = new Valve("V12");
         v13 = new Valve("V13");
         v23 = new Valve("V23");
-
+        QPushButton *vtdb1 = new QPushButton("VT12");
+        QPushButton *vtdb2 = new QPushButton("VT23");
+        QPushButton *pdb1 = new QPushButton("P12");
+        QPushButton *pdb2 = new QPushButton("P22");
+        QPushButton *pdb3 = new QPushButton("P32");
+        QPushButton *vdb1 = new QPushButton("V12");
+        QPushButton *vdb2 = new QPushButton("V13");
+        QPushButton *vdb3 = new QPushButton("V23");
+        
+    
         // Layouts
         QVBoxLayout* mainLayout = new QVBoxLayout;
         QHBoxLayout* tankLayout = new QHBoxLayout;
@@ -213,6 +223,10 @@
         QHBoxLayout* pumpLayout2 = new QHBoxLayout;
         QHBoxLayout* pumpLayout3 = new QHBoxLayout;
         QHBoxLayout* engineLayout = new QHBoxLayout;
+        QVBoxLayout* mainDashBoardLayout = new QVBoxLayout;
+        QHBoxLayout* vtDashBoardLayout = new QHBoxLayout;
+        QHBoxLayout* pumpDashBoardLayout = new QHBoxLayout;
+        QHBoxLayout* valveDashBoardLayout = new QHBoxLayout;
 
         // add layouts to layouts
         tank1->setLayout(pumpLayout1);
@@ -221,6 +235,10 @@
         this->setLayout(mainLayout);
         mainLayout->addLayout(tankLayout);
         mainLayout->addLayout(engineLayout);
+        mainLayout-> addLayout(mainDashBoardLayout);
+        mainDashBoardLayout -> addLayout(vtDashBoardLayout);
+        mainDashBoardLayout -> addLayout(pumpDashBoardLayout);
+        mainDashBoardLayout -> addLayout(valveDashBoardLayout);
 
         // add widgets to layouts
         v12->setParent(this);
@@ -240,6 +258,14 @@
         engineLayout->addWidget(engine1);
         engineLayout->addWidget(engine2);
         engineLayout->addWidget(engine3);
+        vtDashBoardLayout->addWidget(vtdb1);
+        vtDashBoardLayout->addWidget(vtdb2);
+        pumpDashBoardLayout->addWidget(pdb1);
+        pumpDashBoardLayout->addWidget(pdb2);
+        pumpDashBoardLayout->addWidget(pdb3);
+        valveDashBoardLayout->addWidget(vdb1);
+        valveDashBoardLayout->addWidget(vdb2);
+        valveDashBoardLayout->addWidget(vdb3);
 
         // Layout params spacing and alignment
         mainLayout->setAlignment(tankLayout, Qt::AlignTop | Qt::AlignHCenter);

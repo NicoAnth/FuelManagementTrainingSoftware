@@ -27,7 +27,8 @@
     } pumpState;
 
 // CLASSES WIDGET
-class Valve;
+
+    class Valve;
 
     class SystemeCarburantWindow : public QWidget{
         private:
