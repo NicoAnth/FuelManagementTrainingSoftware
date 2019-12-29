@@ -12,5 +12,5 @@ Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
 - tableau de bord -> Nico
 - sauvegarde -> Denden
 - Compte rendu -> Chacun ses parties
-- menu -> le 1er qui a fini
+- menu -> Le premier a finir
 (- uml propre -> Nico)

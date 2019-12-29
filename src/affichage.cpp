@@ -1,7 +1,3 @@
-//
-// Created by user on 27/10/2019.
-//
-
 #include <QLayout>
 #include <QPainter>
 #include <QPushButton>
@@ -10,12 +6,13 @@
 #include <QSizePolicy>
 #include "affichage.h"
 #include <iostream>
-#include <QPalette>
 
 // WIDGETS TO DRAW
 // TANKS
-    Tank::Tank(QString name) {
+    Tank::Tank(QString name,Pump* primaryP,Pump* secondaryP)     {
         this->name = name;
+        this->primaryPump = primaryP;
+        this->secondaryPump = secondaryP;
         state = true;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
@@ -65,10 +62,11 @@
             update();
         }
     }
-
 // PUMPS
-    Pump::Pump(QString name) {
+
+    Pump::Pump(QString name,Engine* supplyingE) {
         this->name = name;
+        this->supplyingEngine = supplyingE;
         setFixedWidth(PUMP_RAY*2);
         setFixedHeight(PUMP_RAY*2);
 
@@ -169,8 +167,9 @@
     
 
 // ENGINES
-    Engine::Engine(QString name){
+    Engine::Engine(QString name,Pump* supplyingP){
         this->name = name;
+        this->supplyingPump = supplyingP;
         state = true;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
@@ -269,18 +268,18 @@
         this->setMinimumHeight(height);
 
         // Widgets to draw
-        tank1 = new Tank("Tank 1");
-        tank2 = new Tank("Tank 2");
-        tank3 = new Tank("Tank 3");
-        pump11 = new Pump("P11");
-        pump12 = new Pump("P12");
-        pump21 = new Pump( "P21");
-        pump22 = new Pump("P22");
-        pump31 = new Pump("P31");
-        pump32 = new Pump("P32");
-        engine1 = new Engine("Engine 1");
-        engine2 = new Engine("Engine 2");
-        engine3 = new Engine("Engine 3");
+        tank1 = new Tank("Tank 1",pump11,pump12);
+        tank2 = new Tank("Tank 2",pump21,pump22);
+        tank3 = new Tank("Tank 3",pump31,pump32);
+        pump11 = new Pump("P11",engine1);
+        pump12 = new Pump("P12",nullptr);
+        pump21 = new Pump( "P21",engine2);
+        pump22 = new Pump("P22",nullptr);
+        pump31 = new Pump("P31",engine3);
+        pump32 = new Pump("P32",nullptr);
+        engine1 = new Engine("Engine 1",pump11);
+        engine2 = new Engine("Engine 2",pump21);
+        engine3 = new Engine("Engine 3",pump31);
         vt12 = new Valve("VT12");
         vt23 = new Valve("VT23");
         v12 = new Valve("V12");

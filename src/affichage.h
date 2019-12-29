@@ -1,7 +1,3 @@
-//
-// Created by user on 27/10/2019.
-//
-
 #ifndef PROJET_CARBURANT_AVION_AFFICHAGE_H
 #define PROJET_CARBURANT_AVION_AFFICHAGE_H
 
@@ -42,6 +38,8 @@ class Log;
     };
 
 // TANK PUMP VALVE ENGINE
+    class Pump;
+    class Engine;
     // TANK
     class Tank : public GenericTpev{
         Q_OBJECT
@@ -49,11 +47,13 @@ class Log;
         private:
             QString name;
             bool state;
+            const Pump* primaryPump;
+            const Pump* secondaryPump;
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
 
         public:
-            Tank(QString name);
+            Tank(QString name,Pump* primaryP,Pump* secondaryP);
             ~Tank(){}
             virtual short getState();
             virtual void setState(short state);
@@ -75,9 +75,10 @@ class Log;
             pumpState state;
             bool engine;
             bool stateChangeable;
+            Engine* supplyingEngine;
 
         public:
-            Pump(QString name);
+            Pump(QString name,Engine* supplyingE);
             ~Pump(){}
             virtual short getState();
             virtual void setState(short state);
@@ -99,9 +100,9 @@ class Log;
         private:
             QString name;
             bool state;
-
+            Pump* supplyingPump;
         public:
-            Engine(QString name);
+            Engine(QString name,Pump* supplyingP);
             ~Engine(){}
             virtual short getState();
             virtual void setState(short state);

@@ -1,0 +1,20 @@
+classe eval :
+
+att: int mark
+     int mistake_nb
+     QTimer time
+
+methode:  8 méthodes, 1 pour chaque option (bouton)
+          1 méthode qui confirme la réussite du test (a connecter avec le slot stop)
+
+bool testvt12(){
+    si (t1 = vide et t2 = plein) 
+        si p11 et pt12 != BREAK
+            si e1 e2 ou e3 non alimenté
+                true
+    sinon si (t1=plein et t2=vide)
+
+    sinon false
+}
+
+si cela permet d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
