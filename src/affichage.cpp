@@ -9,22 +9,23 @@
 #include <QSizePolicy>
 #include "affichage.h"
 #include <iostream>
+#include <QPalette> 
 
 // WIDGETS TO DRAW
 // TANKS
-    TankShape::TankShape(QString name) {
+    Tank::Tank(QString name) {
         this->name = name;
-        state = FULL;
+        state = true;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
         setEnabled(true);
     }
 
-    void TankShape::paintEvent(QPaintEvent*) {
+    void Tank::paintEvent(QPaintEvent*) {
         QPainter p(this);
 
         // rect
-        if(state == FULL){
+        if(state == true){
             p.setBrush(QBrush(Qt::green));
         } else{
             p.setBrush(QBrush(Qt::red));
@@ -39,24 +40,24 @@
         p.drawText(rect(), Qt::AlignHCenter, name);
     }
 
-    void TankShape::mousePressEvent(QMouseEvent*){
-        if(state == FULL) state = EMPTY;
-        else state = FULL;
+    void Tank::mousePressEvent(QMouseEvent*){
+        if(state == true) state = false;
+        else state = true;
 
         emit tankStateChanged(state);
         update();
     }
 
-    void TankShape::setState(valveState state) {
-        if(state == CLOSED && this->state == EMPTY){
-            this->state = FULL;
+    void Tank::setState(bool state) {
+        if(state == true && this->state == false){
+            this->state = true;
             emit tankStateChanged(this->state);
             update();
         }
     }
 
 // PUMPS
-    PumpShape::PumpShape(enginePowered engine, QString name) {
+    Pump::Pump(QString name) {
         this->name = name;
         setFixedWidth(PUMP_RAY*2);
         setFixedHeight(PUMP_RAY*2);
@@ -65,19 +66,19 @@
         else state = OFF;
     }
 
-    pumpState PumpShape::getState(){
+    pumpState Pump::getState(){
         return state;
     }
 
-    enginePowered PumpShape::getEngine(){
+    bool Pump::getEngine(){
         return engine;
     }
 
-    void PumpShape::setEngine(enginePowered engine){
+    void Pump::setEngine(bool engine){
         this->engine = engine;
     }
 
-    void PumpShape::paintEvent(QPaintEvent*){
+    void Pump::paintEvent(QPaintEvent*){
         QPainter p(this);
         if(state == OFF)
             p.setBrush(QBrush(Qt::red));
@@ -93,7 +94,7 @@
         p.drawText(rect(), Qt::AlignCenter, name);
     }
 
-    void PumpShape::mousePressEvent(QMouseEvent*){
+    void Pump::mousePressEvent(QMouseEvent*){
         short emitState = 0;
 
         switch(state){
@@ -117,15 +118,38 @@
         emit stateChanged(emitState);
         update();
     }
+    void Pump::stateChangedSlot(){
+        short emitState = 0;
+
+        switch(state){
+            case ON :
+                emitState--;
+                state = OFF;
+                break;
+            case OFF :
+                emitState += 1;
+                state = ON;
+                break;
+            case BROKEN :
+                break;
+            default:
+                std::cerr << "unrecognized pump state" << std::endl;
+                break;
+        }
+
+        emit stateChanged(emitState);
+        update();
+    }
+    
 
 // ENGINES
-    EngineShape::EngineShape(QString name){
+    Engine::Engine(QString name){
         this->name = name;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
     }
 
-    void EngineShape::paintEvent(QPaintEvent *) {
+    void Engine::paintEvent(QPaintEvent *) {
         QPainter p(this);
 
         // rect
@@ -141,16 +165,16 @@
     }
 
 // VALVES
-    ValveShape::ValveShape(const QString name) {
+    Valve::Valve(const QString name) {
         this->name = name;
         tankStateCount = 2;
-        state = OPENED;
+        state = false;
         stateChangeable = true;
         setFixedWidth(VALVE_RAY*2);
         setFixedHeight(VALVE_RAY*2);
     }
 
-    void ValveShape::paintEvent(QPaintEvent *) {
+    void Valve::paintEvent(QPaintEvent *) {
         QPainter p(this);
 
         // texte
@@ -165,7 +189,7 @@
         p.drawEllipse(center, VALVE_RAY/2, VALVE_RAY/2);
 
         // line
-        if(state == OPENED){
+        if(state == false){
             p.setBrush(QBrush(Qt::white));
             p.drawRect(rect().center().rx()-3, rect().center().ry() - VALVE_RAY/2, 6,VALVE_RAY);
         } else{
@@ -174,14 +198,20 @@
         }
     }
 
-    void ValveShape::mousePressEvent(QMouseEvent *) {
+    void Valve::mousePressEvent(QMouseEvent *) {
         if(stateChangeable){
-            (state == OPENED) ? state = CLOSED : state = OPENED;
+            (state == false) ? state = true : state = false;
             emit valveStateChanged(state);
             update();
         }
     }
-
+    void Valve::stateChanged(){
+        if(stateChangeable){
+            (state == false) ? state = true : state = false;
+            emit valveStateChanged(state);
+            update();
+        }
+    }
 
 // MAIN WINDOW
     SystemeCarburantWindow::SystemeCarburantWindow(int width, int height) {
@@ -189,25 +219,35 @@
         this->setMinimumWidth(width);
         this->setMinimumHeight(height);
 
-        // Widgets to draw
-        TankShape* tank1 = new TankShape("Tank 1");
-        TankShape* tank2 = new TankShape("Tank 2");
-        TankShape* tank3 = new TankShape("Tank 3");
-        PumpShape* pump11 = new PumpShape(ENGINE1, "P11");
-        PumpShape* pump12 = new PumpShape(NONE, "P12");
-        PumpShape* pump21 = new PumpShape(ENGINE2, "P21");
-        PumpShape* pump22 = new PumpShape(NONE, "P22");
-        PumpShape* pump31 = new PumpShape(ENGINE3, "P31");
-        PumpShape* pump32 = new PumpShape(NONE, "P32");
-        TankShape* engine1 = new TankShape("Engine 1");
-        TankShape* engine2 = new TankShape("Engine 2");
-        TankShape* engine3 = new TankShape("Engine 3");
-        ValveShape* vt12 = new ValveShape("VT12");
-        ValveShape* vt23 = new ValveShape("VT23");
-        v12 = new ValveShape("V12");
-        v13 = new ValveShape("V13");
-        v23 = new ValveShape("V23");
 
+        // Widgets to draw
+        Tank* tank1 = new Tank("Tank 1");
+        Tank* tank2 = new Tank("Tank 2");
+        Tank* tank3 = new Tank("Tank 3");
+        Pump* pump11 = new Pump("P11");
+        Pump* pump12 = new Pump("P12");
+        Pump* pump21 = new Pump( "P21");
+        Pump* pump22 = new Pump("P22");
+        Pump* pump31 = new Pump("P31");
+        Pump* pump32 = new Pump("P32");
+        Engine* engine1 = new Engine("Engine 1");
+        Engine* engine2 = new Engine("Engine 2");
+        Engine* engine3 = new Engine("Engine 3");
+        Valve* vt12 = new Valve("VT12");
+        Valve* vt23 = new Valve("VT23");
+        v12 = new Valve("V12");
+        v13 = new Valve("V13");
+        v23 = new Valve("V23");
+        QPushButton *vtdb1 = new QPushButton("VT12");
+        QPushButton *vtdb2 = new QPushButton("VT23");
+        QPushButton *pdb1 = new QPushButton("P12");
+        QPushButton *pdb2 = new QPushButton("P22");
+        QPushButton *pdb3 = new QPushButton("P32");
+        QPushButton *vdb1 = new QPushButton("V12");
+        QPushButton *vdb2 = new QPushButton("V13");
+        QPushButton *vdb3 = new QPushButton("V23");
+        
+    
         // Layouts
         QVBoxLayout* mainLayout = new QVBoxLayout;
         QHBoxLayout* tankLayout = new QHBoxLayout;
@@ -215,6 +255,10 @@
         QHBoxLayout* pumpLayout2 = new QHBoxLayout;
         QHBoxLayout* pumpLayout3 = new QHBoxLayout;
         QHBoxLayout* engineLayout = new QHBoxLayout;
+        QVBoxLayout* mainDashBoardLayout = new QVBoxLayout;
+        QHBoxLayout* vtDashBoardLayout = new QHBoxLayout;
+        QHBoxLayout* pumpDashBoardLayout = new QHBoxLayout;
+        QHBoxLayout* valveDashBoardLayout = new QHBoxLayout;
 
         // add layouts to layouts
         tank1->setLayout(pumpLayout1);
@@ -223,6 +267,10 @@
         this->setLayout(mainLayout);
         mainLayout->addLayout(tankLayout);
         mainLayout->addLayout(engineLayout);
+        mainLayout-> addLayout(mainDashBoardLayout);
+        mainDashBoardLayout -> addLayout(vtDashBoardLayout);
+        mainDashBoardLayout -> addLayout(pumpDashBoardLayout);
+        mainDashBoardLayout -> addLayout(valveDashBoardLayout);
 
         // add widgets to layouts
         v12->setParent(this);
@@ -242,6 +290,14 @@
         engineLayout->addWidget(engine1);
         engineLayout->addWidget(engine2);
         engineLayout->addWidget(engine3);
+        vtDashBoardLayout->addWidget(vtdb1);
+        vtDashBoardLayout->addWidget(vtdb2);
+        pumpDashBoardLayout->addWidget(pdb1);
+        pumpDashBoardLayout->addWidget(pdb2);
+        pumpDashBoardLayout->addWidget(pdb3);
+        valveDashBoardLayout->addWidget(vdb1);
+        valveDashBoardLayout->addWidget(vdb2);
+        valveDashBoardLayout->addWidget(vdb3);
 
         // Layout params spacing and alignment
         mainLayout->setAlignment(tankLayout, Qt::AlignTop | Qt::AlignHCenter);
@@ -249,15 +305,28 @@
         engineLayout->setSpacing(SPACING);
 
         // signals
-        QObject::connect(tank1, SIGNAL(tankStateChanged(tankState)), vt12, SLOT(setChangeable(tankState)));
-        QObject::connect(tank2, SIGNAL(tankStateChanged(tankState)), vt12, SLOT(setChangeable(tankState)));
-        QObject::connect(tank2, SIGNAL(tankStateChanged(tankState)), vt23, SLOT(setChangeable(tankState)));
-        QObject::connect(tank3, SIGNAL(tankStateChanged(tankState)), vt23, SLOT(setChangeable(tankState)));
 
-        QObject::connect(vt12, SIGNAL(valveStateChanged(valveState)), tank1, SLOT(setState(valveState)));
-        QObject::connect(vt12, SIGNAL(valveStateChanged(valveState)), tank2, SLOT(setState(valveState)));
-        QObject::connect(vt23, SIGNAL(valveStateChanged(valveState)), tank2, SLOT(setState(valveState)));
-        QObject::connect(vt23, SIGNAL(valveStateChanged(valveState)), tank3, SLOT(setState(valveState)));
+       /*  QObject::connect(tank1, SIGNAL(tankStateChanged(bool)), vt12, SLOT(setChangeable(bool)));
+        QObject::connect(tank2, SIGNAL(tankStateChanged(bool)), vt12, SLOT(setChangeable(bool)));
+        QObject::connect(tank2, SIGNAL(tankStateChanged(bool)), vt23, SLOT(setChangeable(bool)));
+        QObject::connect(tank3, SIGNAL(tankStateChanged(bool)), vt23, SLOT(setChangeable(bool))); */
+
+        QObject::connect(vt12, SIGNAL(valveStateChanged(bool)), tank1, SLOT(setState(bool)));
+        QObject::connect(vt12, SIGNAL(valveStateChanged(bool)), tank2, SLOT(setState(bool)));
+        QObject::connect(vt23, SIGNAL(valveStateChanged(bool)), tank2, SLOT(setState(bool)));
+        QObject::connect(vt23, SIGNAL(valveStateChanged(bool)), tank3, SLOT(setState(bool)));
+       
+        //Dashboard signals
+        
+        QObject::connect(vtdb1, SIGNAL(clicked()), vt12, SLOT(stateChanged()));
+        QObject::connect(vtdb2, SIGNAL(clicked()), vt23, SLOT(stateChanged()));
+        QObject::connect(pdb1, SIGNAL(clicked()), pump12, SLOT(stateChangedSlot()));
+        QObject::connect(pdb2, SIGNAL(clicked()), pump22, SLOT(stateChangedSlot()));
+        QObject::connect(pdb3, SIGNAL(clicked()), pump32, SLOT(stateChangedSlot()));
+        QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(stateChanged()));
+        QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(stateChanged()));
+        QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(stateChanged()));
+
     }
 
 // PAINT EVENT WINDOW
@@ -273,8 +342,8 @@
         // Tanks and engines
         p.drawLine(xleft, TANK_HEIGHT/2 + 10, xright, TANK_HEIGHT/2 + 10);  // between tanks
         p.drawLine(xleft, 3*TANK_HEIGHT, xleft - 20, 3*TANK_HEIGHT); // t1 e1 horizontal
-        p.drawLine(xleft - 20, 3*TANK_HEIGHT, xleft - 20, height() - TANK_HEIGHT/2);   // t1 e1 vertical
-        p.drawLine(xcenter, TANK_HEIGHT/2 + 10, xcenter, height() - TANK_HEIGHT/2);     // t2 e2
+        p.drawLine(xleft - 20, 3*TANK_HEIGHT, xleft - 20, height() - 2*TANK_HEIGHT);   // t1 e1 vertical
+        p.drawLine(xcenter, TANK_HEIGHT/2 + 10, xcenter, height() - 2*TANK_HEIGHT);     // t2 e2
 
         // Valve lines
         v12->setGeometry(width()/2 - TANK_WIDTH, 3.5*TANK_HEIGHT, VALVE_RAY*2, VALVE_RAY*2);
@@ -286,5 +355,6 @@
         p.drawLine(xright, 4.5*TANK_HEIGHT, xcenter, 4.5*TANK_HEIGHT);  // v23 horizontal
         p.drawLine(xright, TANK_HEIGHT/2 + 10, xright, 4.5*TANK_HEIGHT);   // v23 vertical
         p.drawLine(xleft, 2*TANK_HEIGHT, xright + 20, 2*TANK_HEIGHT);    // v13 horizontal
-        p.drawLine(xright + 20, 2*TANK_HEIGHT, xright + 20, height() - TANK_HEIGHT/2);   // v13 vertical
+        p.drawLine(xright + 20, 2*TANK_HEIGHT, xright + 20, height() - 2*TANK_HEIGHT);   // v13 vertical
+        
     }

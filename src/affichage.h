@@ -27,7 +27,8 @@
     } pumpState;
 
 // CLASSES WIDGET
-class Valve;
+
+    class Valve;
 
     class SystemeCarburantWindow : public QWidget{
         private:
@@ -68,20 +69,22 @@ class Valve;
         private:
             QString name;
             pumpState state;
-            enginePowered engine;
+            bool engine;
             bool stateChangeable;
 
         public:
-            Pump(enginePowered engine, QString name);
+            Pump(QString name);
             ~Pump(){}
             pumpState getState();
-            enginePowered getEngine();
-            void setEngine(enginePowered engine);
+            bool getEngine();
+            void setEngine(bool engine);
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
-
+        public slots:
+            void stateChangedSlot(); 
         signals:
             void stateChanged(short state);
+        
     };
 
     class Engine : public QWidget{
@@ -102,20 +105,20 @@ class Valve;
             bool state;
             bool stateChangeable;
             unsigned short tankStateCount;
-//            Pump* p1, Pump* p2, Pump* p3, Pump* p4;
 
         public:
             Valve(const QString name);
             ~Valve(){}
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
-
         public slots:
-            void setChangeable(bool state);
-
+            void stateChanged();
         signals:
             void valveStateChanged(bool state);
+        
+        
     };
+
 
 
 #endif //PROJET_CARBURANT_AVION_AFFICHAGE_H
