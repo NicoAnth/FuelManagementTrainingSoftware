@@ -1,7 +1,3 @@
-//
-// Created by user on 27/10/2019.
-//
-
 #ifndef PROJET_CARBURANT_AVION_AFFICHAGE_H
 #define PROJET_CARBURANT_AVION_AFFICHAGE_H
 
@@ -42,6 +38,8 @@
     };
 
 // TANK PUMP VALVE ENGINE
+    class Pump;
+    class Engine;
     // TANK
     class Tank : public QWidget{
         Q_OBJECT
@@ -49,11 +47,13 @@
         private:
             QString name;
             bool state;
+            const Pump* primaryPump;
+            const Pump* secondaryPump;
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
 
         public:
-            Tank(QString name);
+            Tank(QString name,Pump* primaryP,Pump* secondaryP);
             ~Tank(){}
             bool getState();
 
@@ -73,9 +73,10 @@
             pumpState state;
             bool engine;
             bool stateChangeable;
+            Engine* supplyingEngine;
 
         public:
-            Pump(QString name);
+            Pump(QString name,Engine* supplyingE);
             ~Pump(){}
             pumpState getState();
             bool getEngine();
@@ -95,9 +96,9 @@
         private:
             QString name;
             bool state;
-
+            Pump* supplyingPump;
         public:
-            Engine(QString name);
+            Engine(QString name,Pump* supplyingP);
             ~Engine(){}
             void getState();
             void paintEvent(QPaintEvent*);

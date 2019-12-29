@@ -13,7 +13,6 @@
 #include "affichage.h"
 
 class LogItem : public QListWidgetItem{
-    Q_OBJECT
 
     private:
         QVector<qint32> stateVector;
