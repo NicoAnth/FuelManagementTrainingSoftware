@@ -160,7 +160,7 @@ class Log;
 
         public:
             SystemeCarburant(){}
-            SystemeCarburant(int width, int height, Log* log);
+            SystemeCarburant(int width, int height);
             ~SystemeCarburant(){}
 
             void paintEvent(QPaintEvent*);
