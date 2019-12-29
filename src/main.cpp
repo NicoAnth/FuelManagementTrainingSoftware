@@ -1,7 +1,3 @@
-//
-// Created by user on 26/10/2019.
-//
-
 #include <QApplication>
 #include <QWidget>
 #include "affichage.h"

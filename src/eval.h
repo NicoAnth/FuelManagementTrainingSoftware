@@ -7,9 +7,10 @@ class Evaluation: QTimer {
     private:
         int mark;
         int mistake_nb;
+        SystemeCarburant *sc;
         QTimer *time;
     public:
-        Evaluation();
+        Evaluation(SystemeCarburant *systemeC);
         ~Evaluation(){};
         void vt12();
 

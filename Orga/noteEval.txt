@@ -9,10 +9,19 @@ methode:  8 méthodes, 1 pour chaque option (bouton)
 
 bool testvt12(){
     si (t1 = vide et t2 = plein) 
-        si p11 et pt12 != BREAK
+        si p11 ou p12 != BREAK
             si e1 e2 ou e3 non alimenté
                 true
     sinon si (t1=plein et t2=vide)
+        si p21 ou p22 != BREAK
+            si e1 e2 ou e3 non alimenté
+                true
+        sinon si t3 != PLEIN
+            si p31 ou p32 != BREAK
+                si e1 e2 ou e3 non alimenté
+                    true
+
+         
 
     sinon false
 }

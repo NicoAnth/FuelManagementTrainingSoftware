@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "qlistwidget": "cpp",
+        "qtimer": "cpp"
+    }
+}
