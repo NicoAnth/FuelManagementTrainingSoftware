@@ -17,7 +17,8 @@ QMap<QString, qint32>& LogItem::getMap() {
     return logMap;
 }
 
-Log::Log(QMainWindow* mainWindow, SystemeCarburant* systemeC){
+Log::Log(QMainWindow* mainWindow, SystemeCarburant* sc){
+    systemeC = sc;
     actionList = new QListWidget();
     addLine("INITIAL STATE");
     QObject::connect(actionList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemClicked(QListWidgetItem*)));
@@ -27,25 +28,22 @@ Log::Log(QMainWindow* mainWindow, SystemeCarburant* systemeC){
     dock->setWidget(actionList);
     mainWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
 
-    this->systemeC = systemeC;
-
-
     // SIGNALS
     QMap<QString, GenericTpev*>& systemeCmap = systemeC->getMap();
-    QObject::connect(systemeCmap["tank 1"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["tank 2"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["tank 3"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["p11"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["p12"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["p21"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["p22"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["p31"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["p32"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["v12"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["v13"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["v23"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["vt12"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-    QObject::connect(systemeCmap["vt23"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["Tank 1"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["Tank 2"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["Tank 3"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["P11"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["P12"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["P21"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["P22"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["P31"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["P32"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["V12"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["V13"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["V23"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["VT12"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+    QObject::connect(systemeCmap["VT23"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
 }
 
 void Log::itemClicked(QListWidgetItem *item) {

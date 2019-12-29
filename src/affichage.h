@@ -160,12 +160,15 @@ class Log;
 
         public:
             SystemeCarburant(){}
+            SystemeCarburant(const SystemeCarburant& sc);
             SystemeCarburant(int width, int height);
             ~SystemeCarburant(){}
 
             void paintEvent(QPaintEvent*);
             void setMap(const QMap<QString, qint32>& logMap);
             QMap<QString, GenericTpev*>& getMap();
+
+//            SystemeCarburant& operator=(const SystemeCarburant&);
     };
 
 // MAIN WINDOW

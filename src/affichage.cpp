@@ -259,7 +259,7 @@
 // MAIN WINDOW
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
-//        Log* log = new Log(this, systemeC);
+        Log* log = new Log(this, systemeC);
 
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
@@ -397,6 +397,10 @@
 
     }
 
+//    SystemeCarburant::SystemeCarburant(const SystemeCarburant& sc){
+//        *this = sc;
+//    }
+
     QMap<QString, GenericTpev*>& SystemeCarburant::getMap() {
         return tpevMap;
     }
@@ -406,6 +410,30 @@
             tpevMap[it.key()]->setState(it.value());
         }
     }
+
+//    SystemeCarburant& SystemeCarburant::operator=(const SystemeCarburant& sc){
+//        tpevMap = sc.tpevMap;
+//        tank1 = sc.tank1;
+//        tank2 = sc.tank2;
+//        tank3 = sc.tank3;
+//        pump11 = sc.pump11;
+//        pump12 = sc.pump12;
+//        pump21 = sc.pump21;
+//        pump22 = sc.pump22;
+//        pump31 = sc.pump31;
+//        pump32 = sc.pump32;
+//        engine1 = sc.engine1;
+//        engine2 = sc.engine2;
+//        engine3 = sc.engine3;
+//        vt12 = sc.vt12;
+//        vt23 = sc.vt23;
+//        v12 = sc.v12;
+//        v13 = sc.v13;
+//        v23 = sc.v23;
+//
+//        return *this;
+//    }
+
 
 // PAINT EVENT WINDOW
     void SystemeCarburant::paintEvent(QPaintEvent *) {
