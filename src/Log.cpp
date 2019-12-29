@@ -3,16 +3,49 @@
 //
 
 #include "Log.h"
+#include <iostream>
 
-//Log::Log(QMainWindow* mainWindow){
-//    systemeC = new SystemeCarburant(700,600);
-//    systemeC->setParent(mainWindow);
-//    mainWindow->setCentralWidget(systemeC);
+void LogItem::setMap(const QMap<QString, GenericTpev *> &systemeCmap) {
+    int i = 0;
+
+    for(auto it = systemeCmap.cbegin(); it != systemeCmap.cend(); it++){
+        logMap[it.key()] = it.value()->getState();
+    }
+}
+
+QMap<QString, qint32>& LogItem::getMap() {
+    return logMap;
+}
+
+Log::Log(QMainWindow* mainWindow){
+    systemeC = new SystemeCarburant(700,600,this);
+    systemeC->setParent(mainWindow);
+    mainWindow->setCentralWidget(systemeC);
+
+    actionList = new QListWidget();
+
+    dock = new QDockWidget(tr("Log"), mainWindow);
+    dock->setAllowedAreas(Qt::RightDockWidgetArea);
+    dock->setWidget(actionList);
+    mainWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
+}
+
+//void Log::itemClicked(QListWidgetItem *item) {
+//    LogItem* logItem = dynamic_cast<LogItem*> (item);
+//    systemeC->setMap(logItem->getMap());
 //
-//    actionList = new QListWidget();
+//    std::cout << "item clicked !" << std::endl;
+//    systemeC->update();
 //}
 
-//void Log::addItem(QString name){
-//    LogItem item = new LogItem(tr(name), actionList);
+void Log::addLine(QString name){
+    LogItem* tmp = new LogItem;
+    tmp->setMap(systemeC->getMap());
 
-//}
+    QListWidgetItem* item = tmp;
+    item->setText(name);
+
+    actionList->addItem(item);
+
+    update();
+}

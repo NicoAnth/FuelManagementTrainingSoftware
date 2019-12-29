@@ -52,11 +52,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = affichage.cpp \
 		Log.cpp \
-		main.cpp moc_affichage.cpp
+		main.cpp moc_affichage.cpp \
+		moc_Log.cpp
 OBJECTS       = affichage.o \
 		Log.o \
 		main.o \
-		moc_affichage.o
+		moc_affichage.o \
+		moc_Log.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -356,13 +358,22 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_affichage.cpp
+compiler_moc_header_make_all: moc_affichage.cpp moc_Log.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_affichage.cpp
-moc_affichage.cpp: affichage.h \
+	-$(DEL_FILE) moc_affichage.cpp moc_Log.cpp
+moc_affichage.cpp: Log.h \
+		affichage.h \
+		affichage.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichage.h -o moc_affichage.cpp
+
+moc_Log.cpp: affichage.h \
+		Log.h \
+		Log.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Log.h -o moc_Log.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -384,14 +395,19 @@ affichage.o: affichage.cpp affichage.h \
 		Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affichage.o affichage.cpp
 
-Log.o: Log.cpp Log.h
+Log.o: Log.cpp Log.h \
+		affichage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Log.o Log.cpp
 
-main.o: main.cpp affichage.h
+main.o: main.cpp affichage.h \
+		Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 moc_affichage.o: moc_affichage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_affichage.o moc_affichage.cpp
+
+moc_Log.o: moc_Log.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Log.o moc_Log.cpp
 
 ####### Install
 

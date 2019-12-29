@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QMainWindow>
+#include "Log.h"
 #include <map>
 
 // CONSTANTES
@@ -27,23 +28,22 @@
         BROKEN
     } pumpState;
 
-// MAIN WINDOW
-    class MainWindow : public QMainWindow{
-        Q_OBJECT
+class Log;
 
+    class GenericTpev : public QWidget{
+        private:
+            QString name;
         public:
-            MainWindow();
-            ~MainWindow(){}
+            GenericTpev(){}
+            ~GenericTpev(){}
 
-           void createDockWindow();
-
-//        public slots:
-//            void test();
+            virtual short getState()=0;
+            virtual void setState(short state)=0;
     };
 
 // TANK PUMP VALVE ENGINE
     // TANK
-    class Tank : public QWidget{
+    class Tank : public GenericTpev{
         Q_OBJECT
 
         private:
@@ -55,17 +55,19 @@
         public:
             Tank(QString name);
             ~Tank(){}
-            bool getState();
+            virtual short getState();
+            virtual void setState(short state);
 
         public slots:
             void setState(bool state);
 
         signals:
-            void tankStateChanged(bool state);
+            void stateChanged(bool state);
+            void stateChanged(QString name);
     };
 
     // PUMP
-    class Pump : public QWidget{
+    class Pump : public GenericTpev{
         Q_OBJECT
 
         private:
@@ -77,7 +79,8 @@
         public:
             Pump(QString name);
             ~Pump(){}
-            pumpState getState();
+            virtual short getState();
+            virtual void setState(short state);
             bool getEngine();
             void setEngine(bool engine);
             void paintEvent(QPaintEvent*);
@@ -88,10 +91,11 @@
 
         signals:
             void stateChanged(short state);
+            void stateChanged(QString name);
     };
 
     // ENGINE
-    class Engine : public QWidget{
+    class Engine : public GenericTpev{
         private:
             QString name;
             bool state;
@@ -99,12 +103,13 @@
         public:
             Engine(QString name);
             ~Engine(){}
-            void getState();
+            virtual short getState();
+            virtual void setState(short state);
             void paintEvent(QPaintEvent*);
         };
 
     // VALVE
-    class Valve : public QWidget{
+    class Valve : public GenericTpev{
         Q_OBJECT
 
         private:
@@ -116,20 +121,24 @@
         public:
             Valve(const QString name);
             ~Valve(){}
-            void getState();
+            virtual short getState();
+            virtual void setState(short state);
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
 
         public slots:
-            void stateChanged();
+            void stateChangedSlot();
 
         signals:
-            void valveStateChanged(bool state);
+            void stateChanged(bool state);
+            void stateChanged(QString name);
+
     };
 
 // SYSTEME CARBURANT
     class SystemeCarburant: public QWidget{
         private:
+            QMap<QString, GenericTpev*> tpevMap;
             Tank* tank1;
             Tank* tank2;
             Tank* tank3;
@@ -149,11 +158,28 @@
             Valve* v23;
 
         public:
-            SystemeCarburant(int width, int height);
+            SystemeCarburant(){}
+            SystemeCarburant(int width, int height, Log* log);
             ~SystemeCarburant(){}
 
             void paintEvent(QPaintEvent*);
+            void setMap(const QMap<QString, qint32>& logMap);
+            QMap<QString, GenericTpev*>& getMap();
     };
+
+// MAIN WINDOW
+    class MainWindow : public QMainWindow{
+        Q_OBJECT
+
+        public:
+            MainWindow();
+            ~MainWindow(){}
+
+            void createDockWindow(Log* log);
+
+    //        public slots:
+    //            void test();
+};
 
 
 #endif //PROJET_CARBURANT_AVION_AFFICHAGE_H

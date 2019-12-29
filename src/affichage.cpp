@@ -6,13 +6,11 @@
 #include <QPainter>
 #include <QPushButton>
 #include <QMouseEvent>
-#include <QDockWidget>
 #include <QListWidget>
 #include <QSizePolicy>
 #include "affichage.h"
-#include "Log.h"
 #include <iostream>
-#include <QPalette> 
+#include <QPalette>
 
 // WIDGETS TO DRAW
 // TANKS
@@ -47,14 +45,23 @@
         if(state) state = false;
         else state = true;
 
-        emit tankStateChanged(state);
+        emit stateChanged(state);
+        emit stateChanged(name);
         update();
+    }
+
+    short Tank::getState() {
+        return state;
+    }
+
+    void Tank::setState(short state) {
+        this->state = state;
     }
 
     void Tank::setState(bool state) {
         if(state && !this->state){
             this->state = true;
-            emit tankStateChanged(this->state);
+            emit stateChanged(this->state);
             update();
         }
     }
@@ -69,8 +76,22 @@
         else state = OFF;
     }
 
-    pumpState Pump::getState(){
+    short Pump::getState(){
         return state;
+    }
+
+    void Pump::setState(short state) {
+        switch(state){
+            case 0 :
+                this->state = OFF;
+                break;
+            case 1 :
+                this->state = ON;
+                break;
+            default:
+                this->state = BROKEN;
+                break;
+        }
     }
 
     bool Pump::getEngine(){
@@ -119,8 +140,10 @@
         }
 
         emit stateChanged(emitState);
+        emit stateChanged(name);
         update();
     }
+
     void Pump::stateChangedSlot(){
         short emitState = 0;
 
@@ -153,6 +176,14 @@
         setFixedHeight(TANK_HEIGHT);
     }
 
+    short Engine::getState() {
+        return state;
+    }
+
+    void Engine::setState(short state) {
+        this->state = state;
+    }
+
     void Engine::paintEvent(QPaintEvent *) {
         QPainter p(this);
 
@@ -176,6 +207,14 @@
         stateChangeable = true;
         setFixedWidth(VALVE_RAY*2);
         setFixedHeight(VALVE_RAY*2);
+    }
+
+    short Valve::getState() {
+        return state;
+    }
+
+    void Valve::setState(short state) {
+        this->state = state;
     }
 
     void Valve::paintEvent(QPaintEvent *) {
@@ -205,42 +244,26 @@
     void Valve::mousePressEvent(QMouseEvent *) {
         if(stateChangeable){
             (!state) ? state = true : state = false;
-            emit valveStateChanged(state);
+            emit stateChanged(state);
+            emit stateChanged(name);
             update();
         }
     }
-    void Valve::stateChanged(){
+    void Valve::stateChangedSlot(){
         if(stateChangeable){
             (!state) ? state = true : state = false;
-            emit valveStateChanged(state);
+            emit stateChanged(state);
             update();
         }
     }
 
 // MAIN WINDOW
     MainWindow::MainWindow() {
-        SystemeCarburant* systemeC = new SystemeCarburant(700,600);
-        systemeC->setParent(this);
-        this->setCentralWidget(systemeC);
-//        Log* log = new Log(this);
-        createDockWindow();
-    }
-
-    void MainWindow::createDockWindow(){
-        QDockWidget* dock = new QDockWidget(tr("Log"), this);
-        dock->setAllowedAreas(Qt::RightDockWidgetArea);
-
-        QListWidget* widgetList = new QListWidget(dock);
-//        LogItem* logi = new LogItem("VT12");
-//        logi->addAction("VT12", 1);
-
-//        widgetList->addItems(QStringList() << logi->getName());
-        dock->setWidget(widgetList);
-        addDockWidget(Qt::RightDockWidgetArea, dock);
+        Log* log = new Log(this);
     }
 
 // SYSTEME CARBURANT WINDOW
-    SystemeCarburant::SystemeCarburant(int width, int height) {
+    SystemeCarburant::SystemeCarburant(int width, int height, Log* log) {
         // Params mains window
         this->setMinimumWidth(width);
         this->setMinimumHeight(height);
@@ -263,6 +286,24 @@
         v12 = new Valve("V12");
         v13 = new Valve("V13");
         v23 = new Valve("V23");
+
+        tpevMap["Tank 1"] = tank1;
+        tpevMap["Tank 2"] = tank2;
+        tpevMap["Tank 3"] = tank3;
+        tpevMap["P11"] = pump11;
+        tpevMap["P12"] = pump12;
+        tpevMap["P21"] = pump21;
+        tpevMap["P22"] = pump22;
+        tpevMap["P31"] = pump31;
+        tpevMap["P32"] = pump32;
+        tpevMap["Engine1"] = engine1;
+        tpevMap["Engine2"] = engine2;
+        tpevMap["Engine3"] = engine3;
+        tpevMap["VT12"] = vt12;
+        tpevMap["VT23"] = vt23;
+        tpevMap["V12"] = v12;
+        tpevMap["V13"] = v13;
+        tpevMap["V23"] = v23;
 
         // DashBoard buttons
         QPushButton *vtdb1 = new QPushButton("VT12");
@@ -336,21 +377,48 @@
         QObject::connect(tank2, SIGNAL(tankStateChanged(bool)), vt23, SLOT(setChangeable(bool)));
         QObject::connect(tank3, SIGNAL(tankStateChanged(bool)), vt23, SLOT(setChangeable(bool))); */
 
-        QObject::connect(vt12, SIGNAL(valveStateChanged(bool)), tank1, SLOT(setState(bool)));
-        QObject::connect(vt12, SIGNAL(valveStateChanged(bool)), tank2, SLOT(setState(bool)));
-        QObject::connect(vt23, SIGNAL(valveStateChanged(bool)), tank2, SLOT(setState(bool)));
-        QObject::connect(vt23, SIGNAL(valveStateChanged(bool)), tank3, SLOT(setState(bool)));
+        QObject::connect(vt12, SIGNAL(stateChanged(bool)), tank1, SLOT(setState(bool)));
+        QObject::connect(vt12, SIGNAL(stateChanged(bool)), tank2, SLOT(setState(bool)));
+        QObject::connect(vt23, SIGNAL(stateChanged(bool)), tank2, SLOT(setState(bool)));
+        QObject::connect(vt23, SIGNAL(stateChanged(bool)), tank3, SLOT(setState(bool)));
+
+        // Log signals
+        QObject::connect(tank1, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(tank2, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(tank3, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(pump11, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(pump12, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(pump21, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(pump22, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(pump31, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(pump32, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(v12, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(v13, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(v23, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(vt12, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+        QObject::connect(vt23, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
+
 
         //Dashboard signals
-        QObject::connect(vtdb1, SIGNAL(clicked()), vt12, SLOT(stateChanged()));
-        QObject::connect(vtdb2, SIGNAL(clicked()), vt23, SLOT(stateChanged()));
+        QObject::connect(vtdb1, SIGNAL(clicked()), vt12, SLOT(stateChangedSlot()));
+        QObject::connect(vtdb2, SIGNAL(clicked()), vt23, SLOT(stateChangedSlot()));
         QObject::connect(pdb1, SIGNAL(clicked()), pump12, SLOT(stateChangedSlot()));
         QObject::connect(pdb2, SIGNAL(clicked()), pump22, SLOT(stateChangedSlot()));
         QObject::connect(pdb3, SIGNAL(clicked()), pump32, SLOT(stateChangedSlot()));
-        QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(stateChanged()));
-        QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(stateChanged()));
-        QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(stateChanged()));
+        QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(stateChangedSlot()));
+        QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(stateChangedSlot()));
+        QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(stateChangedSlot()));
 
+    }
+
+    QMap<QString, GenericTpev*>& SystemeCarburant::getMap() {
+        return tpevMap;
+    }
+
+    void SystemeCarburant::setMap(const QMap <QString, qint32> &logMap) {
+        for(auto it = logMap.cbegin(); it!=logMap.cend(); it++){
+            tpevMap[it.key()]->setState(it.value());
+        }
     }
 
 // PAINT EVENT WINDOW

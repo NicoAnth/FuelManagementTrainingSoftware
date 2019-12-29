@@ -5,37 +5,45 @@
 #ifndef PROJETCARBURANTAVION_LOG_H
 #define PROJETCARBURANTAVION_LOG_H
 
+#include <QWidget>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QVector>
 #include <QMap>
 #include <QMainWindow>
+#include <QDockWidget>
 #include "affichage.h"
 
-class LogItem : public QListWidgetItem{
-    Q_OBJECT
+class SystemeCarburant;
+class GenericTpev;
 
+class LogItem : public QListWidgetItem{
     private:
-        QVector<qint32> stateVector;
+        QMap<QString, qint32> logMap;
 
     public:
         LogItem(){}
         ~LogItem(){}
+
+        void setMap(const QMap<QString, GenericTpev*>& systemeCmap);
+        QMap<QString, qint32>& getMap();
 };
 
 class Log : public QWidget{
-//    Q_OBJECT
-//
-//    private:
-//        SystemeCarburant* systemeC;
-//        QListWidget* actionList;
-//
-//    public:
-//        Log(QMainWindow* mainWindow);
-//        ~Log(){}
-//
-//    public slots:
-//        void addItem(QString name);
+    Q_OBJECT
+
+    private:
+        SystemeCarburant* systemeC;
+        QListWidget* actionList;
+        QDockWidget* dock;
+
+    public:
+        Log(QMainWindow* mainWindow);
+        ~Log(){}
+
+    public slots:
+        void addLine(QString name);
+//        void itemClicked();
 };
 
 
