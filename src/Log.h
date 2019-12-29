@@ -38,12 +38,12 @@ class Log : public QWidget{
         QDockWidget* dock;
 
     public:
-        Log(QMainWindow* mainWindow);
+        Log(QMainWindow* mainWindow, SystemeCarburant* systemeC);
         ~Log(){}
 
     public slots:
         void addLine(QString name);
-//        void itemClicked();
+        void itemClicked(QListWidgetItem*);
 };
 
 

@@ -258,11 +258,15 @@
 
 // MAIN WINDOW
     MainWindow::MainWindow() {
-        Log* log = new Log(this);
+        SystemeCarburant* systemeC = new SystemeCarburant(700,700);
+//        Log* log = new Log(this, systemeC);
+
+        systemeC->setParent(this);
+        this->setCentralWidget(systemeC);
     }
 
 // SYSTEME CARBURANT WINDOW
-    SystemeCarburant::SystemeCarburant(int width, int height, Log* log) {
+    SystemeCarburant::SystemeCarburant(int width, int height) {
         // Params mains window
         this->setMinimumWidth(width);
         this->setMinimumHeight(height);
@@ -380,23 +384,6 @@
         QObject::connect(vt12, SIGNAL(stateChanged(bool)), tank2, SLOT(setState(bool)));
         QObject::connect(vt23, SIGNAL(stateChanged(bool)), tank2, SLOT(setState(bool)));
         QObject::connect(vt23, SIGNAL(stateChanged(bool)), tank3, SLOT(setState(bool)));
-
-        // Log signals
-        QObject::connect(tank1, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(tank2, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(tank3, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(pump11, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(pump12, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(pump21, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(pump22, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(pump31, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(pump32, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(v12, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(v13, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(v23, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(vt12, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-        QObject::connect(vt23, SIGNAL(stateChanged(QString)), log, SLOT(addLine(QString)));
-
 
         //Dashboard signals
         QObject::connect(vtdb1, SIGNAL(clicked()), vt12, SLOT(stateChangedSlot()));
