@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char* argv[]){
     QApplication app(argc, argv);
 //    app.setStyleSheet("QPushButton{border: 1px solid black; border-radius: 5px}");
-    SystemeCarburantWindow* window = new SystemeCarburantWindow(600,700);
+    MainWindow* window = new MainWindow();
     window->show();
 
     return app.exec();

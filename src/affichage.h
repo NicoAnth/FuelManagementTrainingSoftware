@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QMainWindow>
 #include <map>
 
 // CONSTANTES
@@ -26,23 +27,22 @@
         BROKEN
     } pumpState;
 
-// CLASSES WIDGET
-
-    class Valve;
-
-    class SystemeCarburantWindow : public QWidget{
-        private:
-            Valve* v12;
-            Valve* v13;
-            Valve* v23;
+// MAIN WINDOW
+    class MainWindow : public QMainWindow{
+        Q_OBJECT
 
         public:
-            SystemeCarburantWindow(int width, int height);
-            ~SystemeCarburantWindow(){}
+            MainWindow();
+            ~MainWindow(){}
 
-            void paintEvent(QPaintEvent*);
+           void createDockWindow();
+
+//        public slots:
+//            void test();
     };
 
+// TANK PUMP VALVE ENGINE
+    // TANK
     class Tank : public QWidget{
         Q_OBJECT
 
@@ -55,6 +55,7 @@
         public:
             Tank(QString name);
             ~Tank(){}
+            bool getState();
 
         public slots:
             void setState(bool state);
@@ -63,6 +64,7 @@
             void tankStateChanged(bool state);
     };
 
+    // PUMP
     class Pump : public QWidget{
         Q_OBJECT
 
@@ -80,23 +82,28 @@
             void setEngine(bool engine);
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
+
         public slots:
-            void stateChangedSlot(); 
+            void stateChangedSlot();
+
         signals:
             void stateChanged(short state);
-        
     };
 
+    // ENGINE
     class Engine : public QWidget{
         private:
             QString name;
+            bool state;
 
         public:
             Engine(QString name);
             ~Engine(){}
+            void getState();
             void paintEvent(QPaintEvent*);
-    };
+        };
 
+    // VALVE
     class Valve : public QWidget{
         Q_OBJECT
 
@@ -109,16 +116,44 @@
         public:
             Valve(const QString name);
             ~Valve(){}
+            void getState();
             void paintEvent(QPaintEvent*);
             void mousePressEvent(QMouseEvent*);
+
         public slots:
             void stateChanged();
+
         signals:
             void valveStateChanged(bool state);
-        
-        
     };
 
+// SYSTEME CARBURANT
+    class SystemeCarburant: public QWidget{
+        private:
+            Tank* tank1;
+            Tank* tank2;
+            Tank* tank3;
+            Pump* pump11;
+            Pump* pump12;
+            Pump* pump21;
+            Pump* pump22;
+            Pump* pump31;
+            Pump* pump32;
+            Engine* engine1;
+            Engine* engine2;
+            Engine* engine3;
+            Valve* vt12;
+            Valve* vt23;
+            Valve* v12;
+            Valve* v13;
+            Valve* v23;
+
+        public:
+            SystemeCarburant(int width, int height);
+            ~SystemeCarburant(){}
+
+            void paintEvent(QPaintEvent*);
+    };
 
 
 #endif //PROJET_CARBURANT_AVION_AFFICHAGE_H

@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = src1.0.0
-DISTDIR = /home/user/CLionProjects/projetCarburantAvion/src/.tmp/src1.0.0
+DISTDIR = /home/user/projetCarburantAvion/src/.tmp/src1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
@@ -51,8 +51,10 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = affichage.cpp \
+		Log.cpp \
 		main.cpp moc_affichage.cpp
 OBJECTS       = affichage.o \
+		Log.o \
 		main.o \
 		moc_affichage.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -130,7 +132,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		src.pro affichage.h affichage.cpp \
+		src.pro affichage.h \
+		Log.h affichage.cpp \
+		Log.cpp \
 		main.cpp
 QMAKE_TARGET  = src
 DESTDIR       = 
@@ -319,8 +323,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.h $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.cpp main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.h Log.h $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.cpp Log.cpp main.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -358,7 +362,7 @@ compiler_moc_header_clean:
 moc_affichage.cpp: affichage.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/CLionProjects/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/CLionProjects/projetCarburantAvion/src -I/home/user/CLionProjects/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichage.h -o moc_affichage.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichage.h -o moc_affichage.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -376,8 +380,12 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-affichage.o: affichage.cpp affichage.h
+affichage.o: affichage.cpp affichage.h \
+		Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affichage.o affichage.cpp
+
+Log.o: Log.cpp Log.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Log.o Log.cpp
 
 main.o: main.cpp affichage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
