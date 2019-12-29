@@ -219,7 +219,7 @@
 
 // MAIN WINDOW
     MainWindow::MainWindow() {
-        SystemeCarburant* systemeC = new SystemeCarburant(700,600);
+        SystemeCarburant* systemeC = new SystemeCarburant(700,700);
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
 //        Log* log = new Log(this);
