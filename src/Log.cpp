@@ -18,7 +18,7 @@ QMap<QString, qint32>& LogItem::getMap() {
 }
 
 Log::Log(QMainWindow* mainWindow){
-    systemeC = new SystemeCarburant(700,600,this);
+    systemeC = new SystemeCarburant(700,700,this);
     systemeC->setParent(mainWindow);
     mainWindow->setCentralWidget(systemeC);
 
