@@ -6,6 +6,7 @@
 #include <QSizePolicy>
 #include "affichage.h"
 #include <iostream>
+#include "Log.h"
 
 // WIDGETS TO DRAW
 // TANKS
