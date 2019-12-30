@@ -2,6 +2,7 @@
 #define PROJET_CARBURANT_AVION_AFFICHAGE_H
 
 #include <QWidget>
+#include <QAbstractButton>
 #include <QPainter>
 #include <QMainWindow>
 #include "Log.h"
@@ -27,7 +28,7 @@
 
     class Log;
 
-    class GenericTpev : public QWidget{
+    class GenericTpev : public QAbstractButton{
         private:
             QString name;
         public:

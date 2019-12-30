@@ -172,7 +172,7 @@
     Engine::Engine(QString name,Pump* supplyingP){
         this->name = name;
         this->supplyingPump = supplyingP;
-        state = true;
+        state = false;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
     }
@@ -242,7 +242,9 @@
         }
     }
 
-    void Valve::mousePressEvent(QMouseEvent *) {
+    void Valve::mousePressEvent(QMouseEvent*){
+        emit clicked();
+        update();
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
@@ -251,6 +253,8 @@
         }
     }
     void Valve::stateChangedSlot(){
+        emit clicked();
+        update();
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
@@ -261,7 +265,7 @@
 // MAIN WINDOW
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
-        Evaluation ev(systemeC);
+        Evaluation* ev = new Evaluation(systemeC);
 //        Log* log = new Log(this, systemeC);
 
         systemeC->setParent(this);
@@ -340,7 +344,7 @@
         this->setLayout(mainLayout);
         mainLayout->addLayout(tankLayout);
         mainLayout->addLayout(engineLayout);
-        mainLayout-> addLayout(mainDashBoardLayout);
+        mainLayout->addLayout(mainDashBoardLayout);
         mainDashBoardLayout -> addLayout(vtDashBoardLayout);
         mainDashBoardLayout -> addLayout(pumpDashBoardLayout);
         mainDashBoardLayout -> addLayout(valveDashBoardLayout);

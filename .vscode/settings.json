@@ -11,6 +11,8 @@
         "ostream": "cpp",
         "sstream": "cpp",
         "streambuf": "cpp",
-        "qdebug": "cpp"
+        "qdebug": "cpp",
+        "iostream": "cpp",
+        "qmainwindow": "cpp"
     }
 }

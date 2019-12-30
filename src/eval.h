@@ -16,6 +16,8 @@ class Evaluation: QTimer {
         ~Evaluation(){};
  
     public slots:
-        bool vt12(QString a);
+        bool vt12o();
+        bool vt23o();
+        bool vt12f();
 
 };
