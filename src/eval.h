@@ -1,4 +1,5 @@
 #include "affichage.h"
+#include<QDebug>
 #include <QTimer>
 
 class Evaluation: QTimer {
@@ -7,11 +8,14 @@ class Evaluation: QTimer {
     private:
         int mark;
         int mistake_nb;
-        SystemeCarburant *sc;
+        SystemeCarburant* sc;
+        QMap<QString, GenericTpev*>& scMap;
         QTimer *time;
     public:
         Evaluation(SystemeCarburant *systemeC);
         ~Evaluation(){};
-        void vt12();
+ 
+    public slots:
+        bool vt12(QString a);
 
 };

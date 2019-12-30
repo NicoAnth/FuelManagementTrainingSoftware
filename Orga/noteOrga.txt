@@ -14,3 +14,5 @@ Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
 - Compte rendu -> Chacun ses parties
 - menu -> Le premier a finir
 (- uml propre -> Nico)
+
+Fusionner map et attributs de systemeCarburant

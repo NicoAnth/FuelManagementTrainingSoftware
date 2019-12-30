@@ -399,7 +399,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 ####### Compile
 
 affichage.o: affichage.cpp affichage.h \
-		Log.h
+		Log.h \
+		eval.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affichage.o affichage.cpp
 
 eval.o: eval.cpp eval.h \

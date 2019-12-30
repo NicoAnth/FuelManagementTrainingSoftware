@@ -7,6 +7,7 @@
 #include "Log.h"
 #include <map>
 
+
 // CONSTANTES
     #define TANK_WIDTH 150
     #define TANK_HEIGHT 100
@@ -24,7 +25,7 @@
         BROKEN
     } pumpState;
 
-class Log;
+    class Log;
 
     class GenericTpev : public QWidget{
         private:

@@ -7,6 +7,7 @@
 #include "affichage.h"
 #include <iostream>
 #include "Log.h"
+#include "eval.h"
 
 // WIDGETS TO DRAW
 // TANKS
@@ -260,6 +261,7 @@
 // MAIN WINDOW
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
+        Evaluation ev(systemeC);
 //        Log* log = new Log(this, systemeC);
 
         systemeC->setParent(this);
