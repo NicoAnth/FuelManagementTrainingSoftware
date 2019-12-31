@@ -30,6 +30,10 @@ Log::Log(QMainWindow* mainWindow, SystemeCarburant* sc){
 
     // SIGNALS
     QMap<QString, GenericTpev*>& systemeCmap = systemeC->getMap();
+    for(auto it=systemeCmap.cbegin(); it!=systemeCmap.cend(); it++){
+//        QObject::connect(it.value(), SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
+        QObject::connect(it.value(), SIGNAL(clicked()), this, SLOT(tpevClicked()));
+    }
     QObject::connect(systemeCmap["Tank 1"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
     QObject::connect(systemeCmap["Tank 2"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
     QObject::connect(systemeCmap["Tank 3"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
@@ -46,6 +50,10 @@ Log::Log(QMainWindow* mainWindow, SystemeCarburant* sc){
     QObject::connect(systemeCmap["VT23"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
 }
 
+void Log::tpevClicked() {
+    systemeC->setMap(systemeC->getLastEntry());
+}
+
 void Log::itemClicked(QListWidgetItem *item) {
     LogItem* logItem = dynamic_cast<LogItem*> (item);
 
@@ -56,6 +64,7 @@ void Log::itemClicked(QListWidgetItem *item) {
 void Log::addLine(QString name){
     LogItem* tmp = new LogItem;
     tmp->setMap(systemeC->getMap());
+    systemeC->setLastEntry(tmp->getMap());
 
     QListWidgetItem* item = tmp;
     item->setText(name);
@@ -63,4 +72,13 @@ void Log::addLine(QString name){
     actionList->addItem(item);
 
     update();
+}
+
+void Log::save(QString name) {
+//    QFile file(SAVE_DIR);
+//    if(!file.open(QIODevice::ReadOnly | QIODevice::))
+}
+
+void Log::load(QString name){
+
 }

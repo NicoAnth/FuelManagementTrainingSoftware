@@ -44,6 +44,12 @@ class Log : public QWidget{
     public slots:
         void addLine(QString name);
         void itemClicked(QListWidgetItem*);
+        void tpevClicked();
+        void save(QString name);
+        void load(QString name);
+
+    signals:
+        void lastEntry(QMap<QString, qint32>*);
 };
 
 

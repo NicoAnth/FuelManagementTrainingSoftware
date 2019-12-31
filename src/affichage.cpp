@@ -4,10 +4,14 @@
 #include <QMouseEvent>
 #include <QListWidget>
 #include <QSizePolicy>
+#include <QMenuBar>
 #include "affichage.h"
 #include <iostream>
 
 // WIDGETS TO DRAW
+
+// GENERIC CLASS
+
 // TANKS
     Tank::Tank(QString name,Pump* primaryP,Pump* secondaryP)     {
         this->name = name;
@@ -39,6 +43,8 @@
     }
 
     void Tank::mousePressEvent(QMouseEvent*){
+        emit clicked();
+
         if(state) state = false;
         else state = true;
 
@@ -117,6 +123,8 @@
     }
 
     void Pump::mousePressEvent(QMouseEvent*){
+        emit clicked();
+
         short emitState = 0;
 
         switch(state){
@@ -241,6 +249,8 @@
     }
 
     void Valve::mousePressEvent(QMouseEvent *) {
+        emit clicked();
+
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
@@ -263,7 +273,28 @@
 
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
+
+        createActions();
+        createMenus();
     }
+
+    void MainWindow::createActions() {
+        saveAct = new QAction(tr("&Save"), this);
+        saveAct->setStatusTip(tr("Save action log into a file"));
+
+        loadAct = new QAction(tr("&Load"), this);
+        loadAct->setStatusTip(tr("Load an existing action log"));
+
+    //        QObject::connect(saveAct, SIGNAL(&QAction::triggered), this, SLOT());
+    }
+
+    void MainWindow::createMenus() {
+        fileMenu = menuBar()->addMenu(tr("&File"));
+        fileMenu->addAction(saveAct);
+        fileMenu->addAction(loadAct);
+    }
+
+
 
 // SYSTEME CARBURANT WINDOW
     SystemeCarburant::SystemeCarburant(int width, int height) {
@@ -394,7 +425,6 @@
         QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(stateChangedSlot()));
         QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(stateChangedSlot()));
         QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(stateChangedSlot()));
-
     }
 
 //    SystemeCarburant::SystemeCarburant(const SystemeCarburant& sc){
@@ -409,6 +439,14 @@
         for(auto it = logMap.cbegin(); it!=logMap.cend(); it++){
             tpevMap[it.key()]->setState(it.value());
         }
+    }
+
+    QMap<QString, qint32>& SystemeCarburant::getLastEntry() {
+        return lastLogEntry;
+    }
+
+    void SystemeCarburant::setLastEntry(const QMap<QString, qint32>& entry){
+        lastLogEntry = entry;
     }
 
 //    SystemeCarburant& SystemeCarburant::operator=(const SystemeCarburant& sc){
