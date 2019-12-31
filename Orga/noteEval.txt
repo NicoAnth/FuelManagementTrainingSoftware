@@ -9,12 +9,51 @@ methode:  8 méthodes, 1 pour chaque option (bouton)
 
 bool testvt12(){
     si (t1 = vide et t2 = plein) 
-        si p11 et pt12 != BREAK
+        si p11 ou p12 != BREAK
             si e1 e2 ou e3 non alimenté
                 true
     sinon si (t1=plein et t2=vide)
+        si p21 ou p22 != BREAK
+            si e1 e2 ou e3 non alimenté
+                true
+        sinon si t3 != PLEIN
+            si p31 ou p32 != BREAK
+                si e1 e2 ou e3 non alimenté
+                    true
+
+         
 
     sinon false
 }
 
-si cela permet d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
+bool testv13{
+        si (t1 plein et e3 non alimenté)
+            si (p12 != broken && alimente rien)
+                true
+    false
+}
+
+fermeture de vanne t/t :si cela permet d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
+ouverture de vanne t/t :si cela ne permet pas d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
+ouverture de vanne t/e : si le tank est plein et détient au moins une pompe disponible non active et que l'engin est non alimenté.
+ouverture de pompe : Si le tank la contenant est plein et qu'elle peut alimenter un engin non alimenté. -> Signifie que 
+
+si vt1 && eval == 1
+    eval.vt12();
+si vt2
+    eval.vt12();
+
+emit clicked();
+
+Problème rencontré : Besoin de connaitre l'état AVANT le changement et pas après.
+
+Soit eval dans chaque MousePressEvent qui test avant de changer l'etat.
+Avantages : 
+-pas besoin d'abstractbutton
+-pas d'emit dans le MousePushEvent
+
+Soit emission d'un signal a chaque entrée de MousePressEvent, recu par la classe Eval et lancant ainsi l'évaluation. 
+Avantages : 
+-tests dans eval.c et pas affichage.c
+-Pas besoin de multiples if dans chaque mousePushEvent pour connaitre l'envoyeur
+-Beaucoup plus propre

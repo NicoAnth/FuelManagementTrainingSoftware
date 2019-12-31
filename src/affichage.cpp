@@ -8,6 +8,7 @@
 #include "affichage.h"
 #include <iostream>
 #include "Log.h"
+#include "eval.h"
 
 // WIDGETS TO DRAW
 
@@ -45,6 +46,7 @@
 
     void Tank::mousePressEvent(QMouseEvent*){
         emit clicked();
+        emit clickedLog();
 
         if(state) state = false;
         else state = true;
@@ -124,10 +126,12 @@
     }
 
     void Pump::mousePressEvent(QMouseEvent*){
+        
         emit clicked();
-
+        emit clickedLog();
+        update();
+        
         short emitState = 0;
-
         switch(state){
             case ON :
                 emitState--;
@@ -152,6 +156,9 @@
     }
 
     void Pump::stateChangedSlot(){
+        emit clicked();
+        
+        update();
         short emitState = 0;
 
         switch(state){
@@ -179,7 +186,7 @@
     Engine::Engine(QString name,Pump* supplyingP){
         this->name = name;
         this->supplyingPump = supplyingP;
-        state = true;
+        state = false;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
     }
@@ -249,9 +256,13 @@
         }
     }
 
-    void Valve::mousePressEvent(QMouseEvent *) {
-        emit clicked();
-
+    void Valve::mousePressEvent(QMouseEvent*){
+        emit clickedLog();
+        if(state == false){
+            emit clicked();
+            update();
+        }
+        
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
@@ -260,6 +271,10 @@
         }
     }
     void Valve::stateChangedSlot(){
+        if(state == false){
+            emit clicked();
+            update();
+        }
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
@@ -271,6 +286,7 @@
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
         Log* log = new Log(this, systemeC);
+        Evaluation* ev = new Evaluation(systemeC);
 
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
@@ -367,7 +383,7 @@
         this->setLayout(mainLayout);
         mainLayout->addLayout(tankLayout);
         mainLayout->addLayout(engineLayout);
-        mainLayout-> addLayout(mainDashBoardLayout);
+        mainLayout->addLayout(mainDashBoardLayout);
         mainDashBoardLayout -> addLayout(vtDashBoardLayout);
         mainDashBoardLayout -> addLayout(pumpDashBoardLayout);
         mainDashBoardLayout -> addLayout(valveDashBoardLayout);

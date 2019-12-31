@@ -2,12 +2,14 @@
 #define PROJET_CARBURANT_AVION_AFFICHAGE_H
 
 #include <QWidget>
+#include <QAbstractButton>
 #include <QPainter>
 #include <QMainWindow>
 #include <QMenu>
 #include <QAction>
 #include "Log.h"
 #include <map>
+
 
 // CONSTANTES
     #define TANK_WIDTH 150
@@ -28,9 +30,9 @@
         BROKEN
     } pumpState;
 
-class Log;
+    class Log;
 
-    class GenericTpev : public QWidget{
+    class GenericTpev : public QAbstractButton{
         Q_OBJECT
 
         private:
@@ -41,9 +43,10 @@ class Log;
 
             virtual short getState()=0;
             virtual void setState(short state)=0;
-
+            virtual bool getEngine(){return true;};
         signals:
-            void clicked();
+            void clickedLog();
+            
     };
 
 // TANK PUMP VALVE ENGINE
