@@ -16,3 +16,5 @@ Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
 (- uml propre -> Nico)
 
 Fusionner map et attributs de systemeCarburant
+Séparer le mode libre du mode creation d'exercice
+Si provocation d'une vidange d'un reservoir alors que vanne ouverte entre ce reservoir et un autre plein, remplissage automatique du reservoir vide.

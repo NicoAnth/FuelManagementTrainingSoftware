@@ -37,6 +37,7 @@
 
             virtual short getState()=0;
             virtual void setState(short state)=0;
+            virtual bool getEngine(){};
     };
 
 // TANK PUMP VALVE ENGINE

@@ -243,8 +243,12 @@
     }
 
     void Valve::mousePressEvent(QMouseEvent*){
-        emit clicked();
-        update();
+        
+        if(state == false){
+            emit clicked();
+            update();
+        }
+        
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
@@ -253,8 +257,10 @@
         }
     }
     void Valve::stateChangedSlot(){
-        emit clicked();
-        update();
+        if(state == false){
+            emit clicked();
+            update();
+        }
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);

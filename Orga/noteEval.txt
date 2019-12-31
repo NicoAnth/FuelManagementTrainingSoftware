@@ -26,8 +26,16 @@ bool testvt12(){
     sinon false
 }
 
-fermeture de pompe :si cela permet d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
-ouverture de pompe :si cela ne permet pas d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
+bool testv13{
+        si (t1 plein et e3 non alimenté)
+            si (p12 != broken && alimente rien)
+                true
+    false
+}
+
+fermeture de vanne t/t :si cela permet d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
+ouverture de vanne t/t :si cela ne permet pas d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
+ouverture de vanne t/e : si le tank est plein et détient au moins une pompe disponible non active et que l'engin est non alimenté 
 
 
 si vt1 && eval == 1
