@@ -18,7 +18,7 @@
     #define ENGINE_HEIGHT 100
     #define SPACING 110
 
-    #define SAVE_DIR "../Data/Log"
+    #define LOG_DIR "../Data/Log"
 
 // TYPES ETATS DU SYSTEME CARBURANT
 

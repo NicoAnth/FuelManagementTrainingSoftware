@@ -294,8 +294,6 @@
         fileMenu->addAction(loadAct);
     }
 
-
-
 // SYSTEME CARBURANT WINDOW
     SystemeCarburant::SystemeCarburant(int width, int height) {
         // Params mains window
