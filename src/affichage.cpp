@@ -119,8 +119,11 @@
     }
 
     void Pump::mousePressEvent(QMouseEvent*){
+        
+        emit clicked();
+        update();
+        
         short emitState = 0;
-
         switch(state){
             case ON :
                 emitState--;
@@ -145,6 +148,8 @@
     }
 
     void Pump::stateChangedSlot(){
+        emit clicked();
+        update();
         short emitState = 0;
 
         switch(state){
