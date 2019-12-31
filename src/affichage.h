@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPainter>
 #include <QMainWindow>
+#include <QMenu>
+#include <QAction>
 #include "Log.h"
 #include <map>
 
@@ -16,6 +18,8 @@
     #define ENGINE_HEIGHT 100
     #define SPACING 110
 
+    #define LOG_DIR "../Data/Log"
+
 // TYPES ETATS DU SYSTEME CARBURANT
 
     typedef enum{
@@ -27,6 +31,8 @@
 class Log;
 
     class GenericTpev : public QWidget{
+        Q_OBJECT
+
         private:
             QString name;
         public:
@@ -35,6 +41,9 @@ class Log;
 
             virtual short getState()=0;
             virtual void setState(short state)=0;
+
+        signals:
+            void clicked();
     };
 
 // TANK PUMP VALVE ENGINE
@@ -140,6 +149,7 @@ class Log;
     class SystemeCarburant: public QWidget{
         private:
             QMap<QString, GenericTpev*> tpevMap;
+            QMap<QString, qint32> lastLogEntry;
             Tank* tank1;
             Tank* tank2;
             Tank* tank3;
@@ -160,27 +170,38 @@ class Log;
 
         public:
             SystemeCarburant(){}
+            SystemeCarburant(const SystemeCarburant& sc);
             SystemeCarburant(int width, int height);
             ~SystemeCarburant(){}
 
             void paintEvent(QPaintEvent*);
             void setMap(const QMap<QString, qint32>& logMap);
             QMap<QString, GenericTpev*>& getMap();
+            void setLastEntry(const QMap<QString, qint32>& entry);
+            QMap<QString, qint32>& getLastEntry();
+//            SystemeCarburant& operator=(const SystemeCarburant&);
     };
 
 // MAIN WINDOW
     class MainWindow : public QMainWindow{
         Q_OBJECT
 
+        private:
+            QMenu* fileMenu;
+            QAction *saveAct;
+            QAction *loadAct;
+
         public:
             MainWindow();
             ~MainWindow(){}
 
             void createDockWindow(Log* log);
+            void createMenus();
+            void createActions();
 
     //        public slots:
     //            void test();
-};
+    };
 
 
 #endif //PROJET_CARBURANT_AVION_AFFICHAGE_H

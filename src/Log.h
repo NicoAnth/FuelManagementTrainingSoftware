@@ -12,6 +12,8 @@
 #include <QMap>
 #include <QMainWindow>
 #include <QDockWidget>
+#include <QFile>
+#include <QDebug>
 #include "affichage.h"
 
 class SystemeCarburant;
@@ -29,21 +31,44 @@ class LogItem : public QListWidgetItem{
         QMap<QString, qint32>& getMap();
 };
 
+//class LogActionList : public QListWidget{
+//    private:
+//        QList<LogItem*> list;
+//
+//    public:
+//        LogActionList(){}
+//        ~LogActionList(){}
+//
+//        void addLogItem(LogItem* item);
+//        void clear();
+//};
+
 class Log : public QWidget{
     Q_OBJECT
 
     private:
         SystemeCarburant* systemeC;
         QListWidget* actionList;
+        QList<LogItem*> itemList;
         QDockWidget* dock;
 
     public:
         Log(QMainWindow* mainWindow, SystemeCarburant* systemeC);
         ~Log(){}
+        void clear();
+//        friend QDataStream& operator >> (QDataStream&, Log& log);
+//        friend QDataStream& operator << (QDataStream&, const Log& log);
+
 
     public slots:
         void addLine(QString name);
         void itemClicked(QListWidgetItem*);
+        void tpevClicked();
+        void save(QString name);
+        void load(QString name);
+
+    signals:
+        void lastEntry(QMap<QString, qint32>*);
 };
 
 

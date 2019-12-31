@@ -4,11 +4,15 @@
 #include <QMouseEvent>
 #include <QListWidget>
 #include <QSizePolicy>
+#include <QMenuBar>
 #include "affichage.h"
 #include <iostream>
 #include "Log.h"
 
 // WIDGETS TO DRAW
+
+// GENERIC CLASS
+
 // TANKS
     Tank::Tank(QString name,Pump* primaryP,Pump* secondaryP)     {
         this->name = name;
@@ -40,6 +44,8 @@
     }
 
     void Tank::mousePressEvent(QMouseEvent*){
+        emit clicked();
+
         if(state) state = false;
         else state = true;
 
@@ -118,6 +124,8 @@
     }
 
     void Pump::mousePressEvent(QMouseEvent*){
+        emit clicked();
+
         short emitState = 0;
 
         switch(state){
@@ -242,6 +250,8 @@
     }
 
     void Valve::mousePressEvent(QMouseEvent *) {
+        emit clicked();
+
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
@@ -260,10 +270,29 @@
 // MAIN WINDOW
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
-//        Log* log = new Log(this, systemeC);
+        Log* log = new Log(this, systemeC);
 
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
+
+        createActions();
+        createMenus();
+    }
+
+    void MainWindow::createActions() {
+        saveAct = new QAction(tr("&Save"), this);
+        saveAct->setStatusTip(tr("Save action log into a file"));
+
+        loadAct = new QAction(tr("&Load"), this);
+        loadAct->setStatusTip(tr("Load an existing action log"));
+
+    //        QObject::connect(saveAct, SIGNAL(&QAction::triggered), this, SLOT());
+    }
+
+    void MainWindow::createMenus() {
+        fileMenu = menuBar()->addMenu(tr("&File"));
+        fileMenu->addAction(saveAct);
+        fileMenu->addAction(loadAct);
     }
 
 // SYSTEME CARBURANT WINDOW
@@ -395,8 +424,11 @@
         QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(stateChangedSlot()));
         QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(stateChangedSlot()));
         QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(stateChangedSlot()));
-
     }
+
+//    SystemeCarburant::SystemeCarburant(const SystemeCarburant& sc){
+//        *this = sc;
+//    }
 
     QMap<QString, GenericTpev*>& SystemeCarburant::getMap() {
         return tpevMap;
@@ -407,6 +439,38 @@
             tpevMap[it.key()]->setState(it.value());
         }
     }
+
+    QMap<QString, qint32>& SystemeCarburant::getLastEntry() {
+        return lastLogEntry;
+    }
+
+    void SystemeCarburant::setLastEntry(const QMap<QString, qint32>& entry){
+        lastLogEntry = entry;
+    }
+
+//    SystemeCarburant& SystemeCarburant::operator=(const SystemeCarburant& sc){
+//        tpevMap = sc.tpevMap;
+//        tank1 = sc.tank1;
+//        tank2 = sc.tank2;
+//        tank3 = sc.tank3;
+//        pump11 = sc.pump11;
+//        pump12 = sc.pump12;
+//        pump21 = sc.pump21;
+//        pump22 = sc.pump22;
+//        pump31 = sc.pump31;
+//        pump32 = sc.pump32;
+//        engine1 = sc.engine1;
+//        engine2 = sc.engine2;
+//        engine3 = sc.engine3;
+//        vt12 = sc.vt12;
+//        vt23 = sc.vt23;
+//        v12 = sc.v12;
+//        v13 = sc.v13;
+//        v23 = sc.v23;
+//
+//        return *this;
+//    }
+
 
 // PAINT EVENT WINDOW
     void SystemeCarburant::paintEvent(QPaintEvent *) {
