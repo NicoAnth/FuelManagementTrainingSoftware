@@ -18,3 +18,4 @@ Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
 Fusionner map et attributs de systemeCarburant
 Séparer le mode libre du mode creation d'exercice
 Si provocation d'une vidange d'un reservoir alors que vanne ouverte entre ce reservoir et un autre plein, remplissage automatique du reservoir vide.
+Pompe11,21,31 ne peuvent pas être éteinte -> allumées ou en panne car le pilote n'a aucun accès à ces pompes.

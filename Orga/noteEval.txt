@@ -35,8 +35,8 @@ bool testv13{
 
 fermeture de vanne t/t :si cela permet d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
 ouverture de vanne t/t :si cela ne permet pas d'alimenter un tank qui a au moins une pompe de fonctionnel et qu'au moins 1 des 3 moteurs n'est pas alimenté.
-ouverture de vanne t/e : si le tank est plein et détient au moins une pompe disponible non active et que l'engin est non alimenté 
-
+ouverture de vanne t/e : si le tank est plein et détient au moins une pompe disponible non active et que l'engin est non alimenté.
+ouverture de pompe : Si le tank la contenant est plein et qu'elle peut alimenter un engin non alimenté. -> Signifie que 
 
 si vt1 && eval == 1
     eval.vt12();
