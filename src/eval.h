@@ -17,6 +17,9 @@ class Evaluation: QTimer {
         int getMark();
         int getMistakeNumber();
  
+    /* signals:
+        bool resolved(); */
+
     public slots:
         bool vt12();
         bool vt23();
@@ -26,4 +29,7 @@ class Evaluation: QTimer {
         bool p12();
         bool p22();
         bool p32();
+        bool resolved();
+    
+
 };

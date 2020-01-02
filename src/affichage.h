@@ -47,6 +47,7 @@
             virtual bool getEngine(){return true;};
         signals:
             void clickedLog();
+            void clickedEval();
             
     };
 
@@ -203,7 +204,9 @@
             QMenu* fileMenu;
             QAction *saveAct;
             QAction *loadAct;
-
+            QAction *simulAct;
+            QAction *exerciceAct;
+            QAction *exMakerAct;
         public:
             MainWindow();
             ~MainWindow(){}
