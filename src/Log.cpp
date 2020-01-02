@@ -7,8 +7,6 @@
 
 // LOG ITEM
 void LogItem::setMap(const QMap<QString, GenericTpev *> &systemeCmap) {
-    int i = 0;
-
     for(auto it = systemeCmap.cbegin(); it != systemeCmap.cend(); it++){
         logMap[it.key()] = it.value()->getState();
     }
@@ -84,7 +82,7 @@ void Log::itemClicked(QListWidgetItem *item) {
     LogItem* logItem = dynamic_cast<LogItem*> (item);
 
     systemeC->setMap(logItem->getMap());
-    load("test");
+//    load("test");
 
     systemeC->update();
 }
@@ -100,6 +98,7 @@ void Log::addLine(QString name){
     actionList->setCurrentItem(item);
 
     update();
+    systemeC->update();
 }
 
 void Log::save(QString name) {
