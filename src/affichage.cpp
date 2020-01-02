@@ -45,7 +45,7 @@
     }
 
     void Tank::mousePressEvent(QMouseEvent*){
-        emit clicked();
+        emit clickedEval();
         emit clickedLog();
 
         if(state) state = false;
@@ -127,7 +127,7 @@
 
     void Pump::mousePressEvent(QMouseEvent*){
         
-        emit clicked();
+        emit clickedEval();
         emit clickedLog();
         update();
         
@@ -156,8 +156,7 @@
     }
 
     void Pump::stateChangedSlot(){
-        emit clicked();
-        
+        emit clickedEval();
         update();
         short emitState = 0;
 
@@ -170,7 +169,7 @@
                 emitState += 1;
                 state = ON;
                 break;
-            case BROKEN :
+            case BROKEN : 
                 break;
             default:
                 std::cerr << "unrecognized pump state" << std::endl;
@@ -259,7 +258,7 @@
     void Valve::mousePressEvent(QMouseEvent*){
         emit clickedLog();
         if(state == false){
-            emit clicked();
+            emit clickedEval();
             update();
         }
         
@@ -272,7 +271,7 @@
     }
     void Valve::stateChangedSlot(){
         if(state == false){
-            emit clicked();
+            emit clickedEval();
             update();
         }
         if(stateChangeable){
@@ -301,7 +300,15 @@
 
         loadAct = new QAction(tr("&Load"), this);
         loadAct->setStatusTip(tr("Load an existing action log"));
+        
+        simulAct = new QAction(tr("&Exercise"), this);
+        simulAct->setStatusTip(tr("Load an existing action log"));
+        
+        exerciceAct = new QAction(tr("&Simulation"), this);
+        exerciceAct->setStatusTip(tr("Load an existing action log"));
 
+        exMakerAct = new QAction(tr("&Exercise Maker"), this);
+        exMakerAct->setStatusTip(tr("Load an existing action log"));
     //        QObject::connect(saveAct, SIGNAL(&QAction::triggered), this, SLOT());
     }
 
@@ -309,6 +316,12 @@
         fileMenu = menuBar()->addMenu(tr("&File"));
         fileMenu->addAction(saveAct);
         fileMenu->addAction(loadAct);
+        fileMenu = menuBar()->addMenu(tr("&Mode"));
+        fileMenu->addAction(exerciceAct);
+        fileMenu->addAction(simulAct);
+        fileMenu->addAction(exMakerAct);
+
+        
     }
 
 // SYSTEME CARBURANT WINDOW

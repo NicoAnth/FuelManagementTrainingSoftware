@@ -26,4 +26,9 @@ class Evaluation: QTimer {
         bool p12();
         bool p22();
         bool p32();
+        bool resolved();
+    
+    public signals:
+        bool resolved();
+
 };
