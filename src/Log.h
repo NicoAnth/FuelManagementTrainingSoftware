@@ -25,10 +25,15 @@ class LogItem : public QListWidgetItem{
 
     public:
         LogItem(){}
+        LogItem(const LogItem&);
         ~LogItem(){}
 
         void setMap(const QMap<QString, GenericTpev*>& systemeCmap);
+        void setMap(const QMap<QString, qint32>& itemMap);
         QMap<QString, qint32>& getMap();
+        friend QDataStream& operator<<(QDataStream&, LogItem&);
+        friend QDataStream& operator>>(QDataStream&, LogItem&);
+
 };
 
 //class LogActionList : public QListWidget{
@@ -49,7 +54,7 @@ class Log : public QWidget{
     private:
         SystemeCarburant* systemeC;
         QListWidget* actionList;
-        QList<LogItem*> itemList;
+        QList<LogItem> itemList;
         QDockWidget* dock;
 
     public:
@@ -64,8 +69,10 @@ class Log : public QWidget{
         void addLine(QString name);
         void itemClicked(QListWidgetItem*);
         void tpevClicked();
-        void save(QString name);
-        void load(QString name);
+        void save();
+        void load();
+//        void save(QString name);
+//        void load(QString name);
 
     signals:
         void lastEntry(QMap<QString, qint32>*);

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Log.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.4)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.3)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'Log.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.12.4. It"
+#error "This file was generated using the moc from 5.11.3. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -53,7 +53,7 @@ QT_MOC_LITERAL(10, 96, 4) // "load"
 static const uint qt_meta_data_Log[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        6,   14, // methods
@@ -70,8 +70,8 @@ static const uint qt_meta_data_Log[] = {
        4,    1,   47,    2, 0x0a /* Public */,
        6,    1,   50,    2, 0x0a /* Public */,
        8,    0,   53,    2, 0x0a /* Public */,
-       9,    1,   54,    2, 0x0a /* Public */,
-      10,    1,   57,    2, 0x0a /* Public */,
+       9,    0,   54,    2, 0x0a /* Public */,
+      10,    0,   55,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -80,8 +80,8 @@ static const uint qt_meta_data_Log[] = {
     QMetaType::Void, QMetaType::QString,    5,
     QMetaType::Void, 0x80000000 | 7,    2,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    5,
-    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -89,15 +89,15 @@ static const uint qt_meta_data_Log[] = {
 void Log::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<Log *>(_o);
+        Log *_t = static_cast<Log *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->lastEntry((*reinterpret_cast< QMap<QString,qint32>*(*)>(_a[1]))); break;
         case 1: _t->addLine((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->itemClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 3: _t->tpevClicked(); break;
-        case 4: _t->save((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 5: _t->load((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->save(); break;
+        case 5: _t->load(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -112,14 +112,10 @@ void Log::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject Log::staticMetaObject = { {
-    &QWidget::staticMetaObject,
-    qt_meta_stringdata_Log.data,
-    qt_meta_data_Log,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+QT_INIT_METAOBJECT const QMetaObject Log::staticMetaObject = {
+    { &QWidget::staticMetaObject, qt_meta_stringdata_Log.data,
+      qt_meta_data_Log,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *Log::metaObject() const

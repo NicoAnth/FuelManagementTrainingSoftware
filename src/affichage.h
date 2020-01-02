@@ -20,7 +20,7 @@
     #define ENGINE_HEIGHT 100
     #define SPACING 110
 
-    #define LOG_DIR "../Data/Log"
+    #define LOG_DIR "../Data/Log/"
 
 // TYPES ETATS DU SYSTEME CARBURANT
 
@@ -200,7 +200,7 @@
 
             void createDockWindow(Log* log);
             void createMenus();
-            void createActions();
+            void createActions(const Log& log);
 
     //        public slots:
     //            void test();

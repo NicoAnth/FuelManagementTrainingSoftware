@@ -291,18 +291,19 @@
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
 
-        createActions();
+        createActions(*log);
         createMenus();
     }
 
-    void MainWindow::createActions() {
+    void MainWindow::createActions(const Log& log) {
         saveAct = new QAction(tr("&Save"), this);
         saveAct->setStatusTip(tr("Save action log into a file"));
+        QObject::connect(saveAct, SIGNAL(triggered()), &log, SLOT(save()));
 
         loadAct = new QAction(tr("&Load"), this);
         loadAct->setStatusTip(tr("Load an existing action log"));
+        QObject::connect(loadAct, SIGNAL(triggered()), &log, SLOT(load()));
 
-    //        QObject::connect(saveAct, SIGNAL(&QAction::triggered), this, SLOT());
     }
 
     void MainWindow::createMenus() {

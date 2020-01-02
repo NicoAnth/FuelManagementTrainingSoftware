@@ -6,10 +6,37 @@
 #include <iostream>
 
 // LOG ITEM
-void LogItem::setMap(const QMap<QString, GenericTpev *> &systemeCmap) {
+LogItem::LogItem(const LogItem& item) : QListWidgetItem() {
+    *this = item;
+}
+
+void LogItem::setMap(const QMap<QString, GenericTpev *>& systemeCmap) {
     for(auto it = systemeCmap.cbegin(); it != systemeCmap.cend(); it++){
         logMap[it.key()] = it.value()->getState();
     }
+}
+
+void LogItem::setMap(const QMap<QString, qint32>& itemMap) {
+    logMap = itemMap;
+}
+
+QDataStream& operator<<(QDataStream& out, LogItem& item){
+    out << item.text();
+    out << item.getMap();
+    return out;
+}
+
+QDataStream& operator>>(QDataStream& in, LogItem& item) {
+    QString name;
+    QMap<QString, qint32> map;
+
+    in >> name;
+    in >> map;
+
+    item.setText(name);
+    item.setMap(map);
+
+    return in;
 }
 
 QMap<QString, qint32>& LogItem::getMap() {
@@ -41,8 +68,6 @@ Log::Log(QMainWindow* mainWindow, SystemeCarburant* sc){
         QObject::connect(it.value(), SIGNAL(clicked()), this, SLOT(tpevClicked()));
     }
 
-    save("test");
-
     QObject::connect(systemeCmap["Tank 1"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
     QObject::connect(systemeCmap["Tank 2"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
     QObject::connect(systemeCmap["Tank 3"], SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
@@ -62,6 +87,8 @@ Log::Log(QMainWindow* mainWindow, SystemeCarburant* sc){
 void Log::clear() {
     delete(actionList);
     actionList = new QListWidget();
+    QObject::connect(actionList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemClicked(QListWidgetItem*)));
+    dock->setWidget(actionList);
 }
 //
 //QDataStream & Log::operator<<(QDataStream &flux, const Log &log) {
@@ -82,8 +109,6 @@ void Log::itemClicked(QListWidgetItem *item) {
     LogItem* logItem = dynamic_cast<LogItem*> (item);
 
     systemeC->setMap(logItem->getMap());
-//    load("test");
-
     systemeC->update();
 }
 
@@ -94,25 +119,78 @@ void Log::addLine(QString name){
     item->setText(name);
 
     actionList->addItem(item);
-    itemList.push_back(item);
+    itemList.push_back(*item);
     actionList->setCurrentItem(item);
 
     update();
     systemeC->update();
 }
 
-void Log::save(QString name) {
-    QFile file(LOG_DIR + name + ".txt");
+void Log::save() {
+    QString name = LOG_DIR;
+    name += "Logtest";
+    QFile file(name);
 
     if(!file.open(QIODevice::WriteOnly)){
-        qInfo() << "cannot open file " << name;
+        qInfo() << "cannot open file write " << name;
     }
 
     QDataStream out(&file);
-    out << itemList;
+    out << itemList.size();
+
+    for(auto it = itemList.begin(); it != itemList.end(); it++){
+        out << (*it);
+    }
 }
 
-void Log::load(QString name){
+void Log::load(){
+    QString name = LOG_DIR;
+    name += "Logtest";
+    QFile file(name);
+
+    if(!file.open(QIODevice::ReadOnly)){
+        qInfo() << "cannot open file open " << name;
+    }
+
+    // reset ItemList
+    QDataStream in(&file);
+
+    // reset log
+    itemList.clear();
+    clear();
+
+    int size;
+    in >> size;
+
+    while(size){
+        LogItem* item = new LogItem();
+        in >> *item;
+        itemList.push_back(*item);
+        actionList->addItem(item);
+        size--;
+    }
+
+    if(!itemList.isEmpty()){
+        systemeC->setMap(itemList.back().getMap());
+        systemeC->setLastEntry(itemList.back().getMap());
+    }
+
+    update();
+    systemeC->update();
+}
+
+//void Log::save(QString name) {
+//    QFile file(LOG_DIR + name + ".txt");
+//
+//    if(!file.open(QIODevice::WriteOnly)){
+//        qInfo() << "cannot open file " << name;
+//    }
+//
+//    QDataStream out(&file);
+//    out << itemList;
+//}
+//
+//void Log::load(QString name){
 //    QFile file(LOG_DIR + name + ".txt");
 //
 //    if(!file.open(QIODevice::ReadOnly)){
@@ -121,16 +199,22 @@ void Log::load(QString name){
 //
 //    // reset ItemList
 //    QDataStream in(&file);
-//    itemList.clear();
 //
 //    // reset log
+//    itemList.clear();
 //    clear();
 //
+//    in >> itemList;
 //
 //    for(auto it = itemList.cbegin(); it != itemList.cend(); it++){
-//        actionList->addItem(dynamic_cast<QListWidgetItem>(*it));
+//        actionList->addItem(new LogItem(*it));
 //    }
 //
-//    if(!itemList.isEmpty())
-//    systemeC->setMap(itemList.back());
-}
+//    if(!itemList.isEmpty()){
+//        systemeC->setMap(itemList.back().getMap());
+//        systemeC->setLastEntry(itemList.back().getMap());
+//    }
+//
+//    update();
+//    systemeC->update();
+//}
