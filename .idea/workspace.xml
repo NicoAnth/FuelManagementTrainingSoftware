@@ -11,15 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/affichage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/affichage.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/affichage.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_affichage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_affichage.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_affichage.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_affichage.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src" beforeDir="false" afterPath="$PROJECT_DIR$/src/src" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/affichage.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eval.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/noteOrga.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/noteOrga.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +78,7 @@
       <workItem from="1577714499311" duration="11927000" />
       <workItem from="1577736288187" duration="29500000" />
       <workItem from="1577810152930" duration="1908000" />
-      <workItem from="1577975822628" duration="26986000" />
+      <workItem from="1577975822628" duration="29013000" />
     </task>
     <servers />
   </component>

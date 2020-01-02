@@ -1,6 +1,5 @@
 #include <QLayout>
 #include <QPainter>
-#include <QPushButton>
 #include <QMouseEvent>
 #include <QListWidget>
 #include <QSizePolicy>
@@ -373,14 +372,14 @@
         tpevMap["V23"] = v23;
 
         // DashBoard buttons
-        QPushButton *vtdb1 = new QPushButton("VT12");
-        QPushButton *vtdb2 = new QPushButton("VT23");
-        QPushButton *pdb1 = new QPushButton("P12");
-        QPushButton *pdb2 = new QPushButton("P22");
-        QPushButton *pdb3 = new QPushButton("P32");
-        QPushButton *vdb1 = new QPushButton("V12");
-        QPushButton *vdb2 = new QPushButton("V13");
-        QPushButton *vdb3 = new QPushButton("V23");
+        vtdb1 = new QPushButton("VT12");
+        vtdb2 = new QPushButton("VT23");
+        pdb1 = new QPushButton("P12");
+        pdb2 = new QPushButton("P22");
+        pdb3 = new QPushButton("P32");
+        vdb1 = new QPushButton("V12");
+        vdb2 = new QPushButton("V13");
+        vdb3 = new QPushButton("V23");
 
         // Layouts
         QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -424,6 +423,7 @@
         engineLayout->addWidget(engine1);
         engineLayout->addWidget(engine2);
         engineLayout->addWidget(engine3);
+
         vtDashBoardLayout->addWidget(vtdb1);
         vtDashBoardLayout->addWidget(vtdb2);
         pumpDashBoardLayout->addWidget(pdb1);

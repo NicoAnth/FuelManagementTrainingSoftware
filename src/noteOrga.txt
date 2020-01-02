@@ -4,6 +4,8 @@ Quand un utilisateur eteint une pompe, l'engin qu'elle alimenté n'est plus alim
 Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
 	Si les 2 vannes sont fermées, que 2 tanks sont vides et un tank pleins les 2 tanks deviennent pleins
 	Eval: Si les 2 tanks sont vides et fermeture vanne entre les 2 -> erreur sauf si futur action est de fermer la 2ème vanne pour alimenter ces 2 tanks
+variable mode sim/exercice ? > test des 2 modes
+
 
 - mode libre -> Denden -> 28/29
 - mode evaluation -> Nico -> 28/29

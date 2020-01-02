@@ -7,6 +7,7 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QAction>
+#include <QPushButton>
 #include "Log.h"
 #include <map>
 
@@ -170,6 +171,14 @@
             Valve* v12;
             Valve* v13;
             Valve* v23;
+            QPushButton *vtdb1;
+            QPushButton *vtdb2;
+            QPushButton *pdb1;
+            QPushButton *pdb2;
+            QPushButton *pdb3;
+            QPushButton *vdb1;
+            QPushButton *vdb2;
+            QPushButton *vdb3;
 
         public:
             SystemeCarburant(){}
