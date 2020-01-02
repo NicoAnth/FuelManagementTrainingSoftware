@@ -70,8 +70,8 @@ static const uint qt_meta_data_Log[] = {
        4,    1,   47,    2, 0x0a /* Public */,
        6,    1,   50,    2, 0x0a /* Public */,
        8,    0,   53,    2, 0x0a /* Public */,
-       9,    0,   54,    2, 0x0a /* Public */,
-      10,    0,   55,    2, 0x0a /* Public */,
+       9,    1,   54,    2, 0x0a /* Public */,
+      10,    1,   57,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -80,8 +80,8 @@ static const uint qt_meta_data_Log[] = {
     QMetaType::Void, QMetaType::QString,    5,
     QMetaType::Void, 0x80000000 | 7,    2,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void, QMetaType::QString,    5,
 
        0        // eod
 };
@@ -96,8 +96,8 @@ void Log::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
         case 1: _t->addLine((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->itemClicked((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 3: _t->tpevClicked(); break;
-        case 4: _t->save(); break;
-        case 5: _t->load(); break;
+        case 4: _t->save((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 5: _t->load((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

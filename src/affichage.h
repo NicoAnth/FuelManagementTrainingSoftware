@@ -190,6 +190,7 @@
         Q_OBJECT
 
         private:
+            Log* log;
             QMenu* fileMenu;
             QAction *saveAct;
             QAction *loadAct;
@@ -200,10 +201,15 @@
 
             void createDockWindow(Log* log);
             void createMenus();
-            void createActions(const Log& log);
+            void createActions();
 
-    //        public slots:
-    //            void test();
+        public slots:
+            void saveLog();
+            void loadLog();
+
+        signals:
+            void saveSignal(QString);
+            void loadSignal(QString);
     };
 
 

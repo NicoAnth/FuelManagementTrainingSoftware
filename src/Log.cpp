@@ -126,9 +126,7 @@ void Log::addLine(QString name){
     systemeC->update();
 }
 
-void Log::save() {
-    QString name = LOG_DIR;
-    name += "Logtest";
+void Log::save(QString name) {
     QFile file(name);
 
     if(!file.open(QIODevice::WriteOnly)){
@@ -143,9 +141,7 @@ void Log::save() {
     }
 }
 
-void Log::load(){
-    QString name = LOG_DIR;
-    name += "Logtest";
+void Log::load(QString name){;
     QFile file(name);
 
     if(!file.open(QIODevice::ReadOnly)){

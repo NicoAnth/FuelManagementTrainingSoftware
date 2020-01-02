@@ -69,8 +69,8 @@ class Log : public QWidget{
         void addLine(QString name);
         void itemClicked(QListWidgetItem*);
         void tpevClicked();
-        void save();
-        void load();
+        void save(QString name);
+        void load(QString name);
 //        void save(QString name);
 //        void load(QString name);
 

@@ -5,6 +5,10 @@
 #include <QListWidget>
 #include <QSizePolicy>
 #include <QMenuBar>
+#include <QDir>
+#include <QFileSystemModel>
+#include <QTreeView>
+#include <QFileDialog>
 #include "affichage.h"
 #include <iostream>
 #include "Log.h"
@@ -285,31 +289,44 @@
 // MAIN WINDOW
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
-        Log* log = new Log(this, systemeC);
+        log = new Log(this, systemeC);
         Evaluation* ev = new Evaluation(systemeC);
 
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
 
-        createActions(*log);
+        createActions();
         createMenus();
     }
 
-    void MainWindow::createActions(const Log& log) {
+    void MainWindow::createActions() {
         saveAct = new QAction(tr("&Save"), this);
         saveAct->setStatusTip(tr("Save action log into a file"));
-        QObject::connect(saveAct, SIGNAL(triggered()), &log, SLOT(save()));
+        QObject::connect(saveAct, SIGNAL(triggered()), this, SLOT(saveLog()));
 
         loadAct = new QAction(tr("&Load"), this);
         loadAct->setStatusTip(tr("Load an existing action log"));
-        QObject::connect(loadAct, SIGNAL(triggered()), &log, SLOT(load()));
-
+        QObject::connect(loadAct, SIGNAL(triggered()), this, SLOT(loadLog()));
     }
 
     void MainWindow::createMenus() {
         fileMenu = menuBar()->addMenu(tr("&File"));
         fileMenu->addAction(saveAct);
         fileMenu->addAction(loadAct);
+    }
+
+    void MainWindow::saveLog() {
+        QString fileName = QFileDialog::getOpenFileName
+                (this, tr("Choose File"), "home/user/projetCarburantAvion");
+
+        log->save(fileName);
+    }
+
+    void MainWindow::loadLog(){
+        QString fileName = QFileDialog::getOpenFileName
+                (this, tr("Choose File"), "home/user/projetCarburantAvion");
+
+        log->load(fileName);
     }
 
 // SYSTEME CARBURANT WINDOW
