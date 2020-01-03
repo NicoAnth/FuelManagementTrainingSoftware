@@ -13,6 +13,16 @@
         "streambuf": "cpp",
         "qdebug": "cpp",
         "iostream": "cpp",
-        "qmainwindow": "cpp"
+        "qmainwindow": "cpp",
+        "qlineedit": "cpp",
+        "limits": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "cmath": "cpp",
+        "algorithm": "cpp",
+        "ratio": "cpp",
+        "utility": "cpp",
+        "memory": "cpp",
+        "numeric": "cpp"
     }
 }

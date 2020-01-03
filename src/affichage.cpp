@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Log.h"
 #include "eval.h"
+#include "connexion.h"
 
 // WIDGETS TO DRAW
 
@@ -304,6 +305,7 @@
 
         connexionAct = new QAction(tr("&Connexion"), this);
         connexionAct->setStatusTip(tr("Connexion to an account"));
+        QObject::connect(connexionAct, SIGNAL(triggered()), this, SLOT(accountConnection()));
 
         saveAct = new QAction(tr("&Save"), this);
         saveAct->setStatusTip(tr("Save action log into a file"));
@@ -352,6 +354,10 @@
 
         log->load(fileName);
     }
+    void MainWindow::accountConnection(){
+        Connexion *c = new Connexion();
+    }
+
 
 // SYSTEME CARBURANT WINDOW
     SystemeCarburant::SystemeCarburant(int width, int height) {

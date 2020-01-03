@@ -56,17 +56,21 @@ SOURCES       = affichage.cpp \
 		eval.cpp \
 		FileHandler.cpp \
 		Log.cpp \
-		main.cpp moc_affichage.cpp \
+		main.cpp \
+		connexion.cpp moc_affichage.cpp \
 		moc_eval.cpp \
-		moc_Log.cpp
+		moc_Log.cpp \
+		moc_connexion.cpp
 OBJECTS       = affichage.o \
 		eval.o \
 		FileHandler.o \
 		Log.o \
 		main.o \
+		connexion.o \
 		moc_affichage.o \
 		moc_eval.o \
-		moc_Log.o
+		moc_Log.o \
+		moc_connexion.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -145,11 +149,13 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src.pro affichage.h \
 		eval.h \
 		FileHandler.h \
-		Log.h affichage.cpp \
+		Log.h \
+		connexion.h affichage.cpp \
 		eval.cpp \
 		FileHandler.cpp \
 		Log.cpp \
-		main.cpp
+		main.cpp \
+		connexion.cpp
 QMAKE_TARGET  = src
 DESTDIR       = 
 TARGET        = src
@@ -329,8 +335,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.h eval.h FileHandler.h Log.h $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.h eval.h FileHandler.h Log.h connexion.h $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp connexion.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -362,9 +368,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_affichage.cpp moc_eval.cpp moc_Log.cpp
+compiler_moc_header_make_all: moc_affichage.cpp moc_eval.cpp moc_Log.cpp moc_connexion.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_affichage.cpp moc_eval.cpp moc_Log.cpp
+	-$(DEL_FILE) moc_affichage.cpp moc_eval.cpp moc_Log.cpp moc_connexion.cpp
 moc_affichage.cpp: affichage.h \
 		Log.h \
 		affichage.h \
@@ -386,6 +392,13 @@ moc_Log.cpp: Log.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src -I/home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Log.h -o moc_Log.cpp
 
+moc_connexion.cpp: connexion.h \
+		affichage.h \
+		Log.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src -I/home/nicolas/Projet/L3/projetCpp/projet_carburant_avion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include connexion.h -o moc_connexion.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -404,7 +417,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 affichage.o: affichage.cpp affichage.h \
 		Log.h \
-		eval.h
+		eval.h \
+		connexion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affichage.o affichage.cpp
 
 eval.o: eval.cpp eval.h \
@@ -423,6 +437,11 @@ main.o: main.cpp affichage.h \
 		Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
+connexion.o: connexion.cpp connexion.h \
+		affichage.h \
+		Log.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connexion.o connexion.cpp
+
 moc_affichage.o: moc_affichage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_affichage.o moc_affichage.cpp
 
@@ -431,6 +450,9 @@ moc_eval.o: moc_eval.cpp
 
 moc_Log.o: moc_Log.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Log.o moc_Log.cpp
+
+moc_connexion.o: moc_connexion.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_connexion.o moc_connexion.cpp
 
 ####### Install
 

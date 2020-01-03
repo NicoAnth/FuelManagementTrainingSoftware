@@ -220,10 +220,11 @@
         public slots:
             void saveLog();
             void loadLog();
-
+            void accountConnection();
         signals:
             void saveSignal(QString);
             void loadSignal(QString);
+            
     };
 
 
