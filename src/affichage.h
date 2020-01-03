@@ -54,6 +54,7 @@
             void clickedLog();
             void clickedEval();
             void stateChanged(QString name);
+            void stateChanged(short state);
     };
 
 // TANK PUMP VALVE ENGINE
@@ -74,14 +75,10 @@
             Tank(QString name,Pump* primaryP,Pump* secondaryP);
             ~Tank(){}
             virtual short getState();
-            virtual void setState(short state);
 
         public slots:
             virtual void clickedSlot();
-            void setState(bool state);
-
-        signals:
-            void stateChanged(bool state);
+            virtual void setState(short state);
     };
 
     // PUMP
@@ -99,20 +96,19 @@
             Pump(QString name,Engine* supplyingE);
             ~Pump(){}
             virtual short getState();
-            virtual void setState(short state);
             bool getEngine();
-            void setEngine(bool engine);
+            void setEngine(bool);
             void paintEvent(QPaintEvent*);
 
         public slots:
             virtual void clickedSlot();
-
-        signals:
-            void stateChanged(short state);
+            virtual void setState(short state);
     };
 
     // ENGINE
     class Engine : public GenericTpev{
+        Q_OBJECT
+
         private:
             QString name;
             bool state;
@@ -122,9 +118,11 @@
             ~Engine(){}
             virtual short getState();
             virtual void setState(short state);
+            Pump* getPump();
+            void setPump(Pump* supplyingP);
             virtual void clickedSlot(){}
             void paintEvent(QPaintEvent*);
-        };
+    };
 
     // VALVE
     class Valve : public GenericTpev{
@@ -133,8 +131,6 @@
         private:
             QString name;
             bool state;
-            bool stateChangeable;
-            unsigned short tankStateCount;
 
         public:
             Valve(const QString name);
@@ -145,9 +141,6 @@
 
         public slots:
             virtual void clickedSlot();
-
-        signals:
-            void stateChanged(bool state);
     };
 
 // SYSTEME CARBURANT

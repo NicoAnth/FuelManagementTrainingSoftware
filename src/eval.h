@@ -30,6 +30,4 @@ class Evaluation: QTimer {
         bool p22();
         bool p32();
         bool resolved();
-    
-
 };

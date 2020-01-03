@@ -64,18 +64,14 @@
     }
 
     void Tank::setState(short state) {
-        this->state = state;
-    }
-
-    void Tank::setState(bool state) {
         if(state && !this->state){
             this->state = true;
             emit stateChanged(this->state);
             update();
         }
     }
-// PUMPS
 
+// PUMPS
     Pump::Pump(QString name,Engine* supplyingE) {
         this->name = name;
         this->supplyingEngine = supplyingE;
@@ -102,6 +98,8 @@
                 this->state = BROKEN;
                 break;
         }
+
+        emit stateChanged(state);
     }
 
     bool Pump::getEngine(){
@@ -172,13 +170,27 @@
 
     void Engine::setState(short state) {
         this->state = state;
+        emit stateChanged(state);
+        update();
+    }
+
+    Pump* Engine::getPump() {
+        return supplyingPump;
+    }
+
+    void Engine::setPump(Pump *supplyingP) {
+        supplyingPump = supplyingP;
     }
 
     void Engine::paintEvent(QPaintEvent *) {
         QPainter p(this);
 
         // rect
-        p.setBrush(QBrush(Qt::gray));
+        if(state)
+            p.setBrush(QBrush(Qt::green));
+        else
+            p.setBrush(QBrush(Qt::red));
+
         p.drawRect(0, 0, TANK_WIDTH-10, TANK_HEIGHT-10);
 
         // texte
@@ -192,9 +204,7 @@
 // VALVES
     Valve::Valve(const QString name) {
         this->name = name;
-        tankStateCount = 2;
         state = false;
-        stateChangeable = true;
         setFixedWidth(VALVE_RAY*2);
         setFixedHeight(VALVE_RAY*2);
     }
@@ -205,6 +215,7 @@
 
     void Valve::setState(short state) {
         this->state = state;
+        emit stateChanged(state);
     }
 
     void Valve::paintEvent(QPaintEvent *) {
@@ -233,17 +244,16 @@
 
     void Valve::clickedSlot(){
         emit clickedLog();
-        if(state == false){
-            emit clickedEval();
-            update();
-        }
-        
-        if(stateChangeable){
-            (!state) ? state = true : state = false;
-            emit stateChanged(state);
-            emit GenericTpev::stateChanged(name);
-            update();
-        }
+
+        if(!state)
+            state = true;
+        else
+            state = false;
+
+        emit clickedEval();
+        emit stateChanged(state);
+        emit GenericTpev::stateChanged(name);
+        update();
     }
 
 // MAIN WINDOW
@@ -276,7 +286,6 @@
 
         exMakerAct = new QAction(tr("&Exercise Maker"), this);
         exMakerAct->setStatusTip(tr("Load an existing action log"));
-    //        QObject::connect(saveAct, SIGNAL(&QAction::triggered), this, SLOT());
     }
 
     void MainWindow::createMenus() {
@@ -446,30 +455,6 @@
     void SystemeCarburant::setLastEntry(const QMap<QString, qint32>& entry){
         lastLogEntry = entry;
     }
-
-//    SystemeCarburant& SystemeCarburant::operator=(const SystemeCarburant& sc){
-//        tpevMap = sc.tpevMap;
-//        tank1 = sc.tank1;
-//        tank2 = sc.tank2;
-//        tank3 = sc.tank3;
-//        pump11 = sc.pump11;
-//        pump12 = sc.pump12;
-//        pump21 = sc.pump21;
-//        pump22 = sc.pump22;
-//        pump31 = sc.pump31;
-//        pump32 = sc.pump32;
-//        engine1 = sc.engine1;
-//        engine2 = sc.engine2;
-//        engine3 = sc.engine3;
-//        vt12 = sc.vt12;
-//        vt23 = sc.vt23;
-//        v12 = sc.v12;
-//        v13 = sc.v13;
-//        v23 = sc.v23;
-//
-//        return *this;
-//    }
-
 
 // PAINT EVENT WINDOW
     void SystemeCarburant::paintEvent(QPaintEvent *) {
