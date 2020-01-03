@@ -47,7 +47,7 @@
         p.drawText(rect(), Qt::AlignHCenter, name);
     }
 
-    void Tank::mousePressEvent(QMouseEvent*){
+    void Tank::clickedSlot(){
         emit clickedEval();
         emit clickedLog();
 
@@ -55,7 +55,7 @@
         else state = true;
 
         emit stateChanged(state);
-        emit stateChanged(name);
+        emit GenericTpev::stateChanged(name);
         update();
     }
 
@@ -128,8 +128,7 @@
         p.drawText(rect(), Qt::AlignCenter, name);
     }
 
-    void Pump::mousePressEvent(QMouseEvent*){
-        
+    void Pump::clickedSlot(){
         emit clickedEval();
         emit clickedLog();
         update();
@@ -154,35 +153,9 @@
         }
 
         emit stateChanged(emitState);
-        emit stateChanged(name);
+        emit GenericTpev::stateChanged(name);
         update();
     }
-
-    void Pump::stateChangedSlot(){
-        emit clickedEval();
-        update();
-        short emitState = 0;
-
-        switch(state){
-            case ON :
-                emitState--;
-                state = OFF;
-                break;
-            case OFF :
-                emitState += 1;
-                state = ON;
-                break;
-            case BROKEN : 
-                break;
-            default:
-                std::cerr << "unrecognized pump state" << std::endl;
-                break;
-        }
-
-        emit stateChanged(emitState);
-        update();
-    }
-    
 
 // ENGINES
     Engine::Engine(QString name,Pump* supplyingP){
@@ -258,7 +231,7 @@
         }
     }
 
-    void Valve::mousePressEvent(QMouseEvent*){
+    void Valve::clickedSlot(){
         emit clickedLog();
         if(state == false){
             emit clickedEval();
@@ -268,18 +241,7 @@
         if(stateChangeable){
             (!state) ? state = true : state = false;
             emit stateChanged(state);
-            emit stateChanged(name);
-            update();
-        }
-    }
-    void Valve::stateChangedSlot(){
-        if(state == false){
-            emit clickedEval();
-            update();
-        }
-        if(stateChangeable){
-            (!state) ? state = true : state = false;
-            emit stateChanged(state);
+            emit GenericTpev::stateChanged(name);
             update();
         }
     }
@@ -325,8 +287,6 @@
         fileMenu->addAction(exerciceAct);
         fileMenu->addAction(simulAct);
         fileMenu->addAction(exMakerAct);
-
-        
     }
 
     void MainWindow::saveLog() {
@@ -453,31 +413,21 @@
         mainLayout->setAlignment(engineLayout, Qt::AlignBottom | Qt::AlignHCenter);
         engineLayout->setSpacing(SPACING);
 
-        // WidgetClicked signals
-       /*  QObject::connect(tank1, SIGNAL(tankStateChanged(bool)), vt12, SLOT(setChangeable(bool)));
-        QObject::connect(tank2, SIGNAL(tankStateChanged(bool)), vt12, SLOT(setChangeable(bool)));
-        QObject::connect(tank2, SIGNAL(tankStateChanged(bool)), vt23, SLOT(setChangeable(bool)));
-        QObject::connect(tank3, SIGNAL(tankStateChanged(bool)), vt23, SLOT(setChangeable(bool))); */
+       // Signals clics on widgets
+       for(auto it = tpevMap.cbegin(); it != tpevMap.cend(); it++){
+           QObject::connect(it.value(), SIGNAL(clicked()), it.value(), SLOT(clickedSlot()));
+       }
 
-        QObject::connect(vt12, SIGNAL(stateChanged(bool)), tank1, SLOT(setState(bool)));
-        QObject::connect(vt12, SIGNAL(stateChanged(bool)), tank2, SLOT(setState(bool)));
-        QObject::connect(vt23, SIGNAL(stateChanged(bool)), tank2, SLOT(setState(bool)));
-        QObject::connect(vt23, SIGNAL(stateChanged(bool)), tank3, SLOT(setState(bool)));
-
-        //Dashboard signals
-        QObject::connect(vtdb1, SIGNAL(clicked()), vt12, SLOT(stateChangedSlot()));
-        QObject::connect(vtdb2, SIGNAL(clicked()), vt23, SLOT(stateChangedSlot()));
-        QObject::connect(pdb1, SIGNAL(clicked()), pump12, SLOT(stateChangedSlot()));
-        QObject::connect(pdb2, SIGNAL(clicked()), pump22, SLOT(stateChangedSlot()));
-        QObject::connect(pdb3, SIGNAL(clicked()), pump32, SLOT(stateChangedSlot()));
-        QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(stateChangedSlot()));
-        QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(stateChangedSlot()));
-        QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(stateChangedSlot()));
+        //Dashboard clics on signals
+        QObject::connect(vtdb1, SIGNAL(clicked()), vt12, SLOT(clickedSlot()));
+        QObject::connect(vtdb2, SIGNAL(clicked()), vt23, SLOT(clickedSlot()));
+        QObject::connect(pdb1, SIGNAL(clicked()), pump12, SLOT(clickedSlot()));
+        QObject::connect(pdb2, SIGNAL(clicked()), pump22, SLOT(clickedSlot()));
+        QObject::connect(pdb3, SIGNAL(clicked()), pump32, SLOT(clickedSlot()));
+        QObject::connect(vdb1, SIGNAL(clicked()), v12, SLOT(clickedSlot()));
+        QObject::connect(vdb2, SIGNAL(clicked()), v13, SLOT(clickedSlot()));
+        QObject::connect(vdb3, SIGNAL(clicked()), v23, SLOT(clickedSlot()));
     }
-
-//    SystemeCarburant::SystemeCarburant(const SystemeCarburant& sc){
-//        *this = sc;
-//    }
 
     QMap<QString, GenericTpev*>& SystemeCarburant::getMap() {
         return tpevMap;

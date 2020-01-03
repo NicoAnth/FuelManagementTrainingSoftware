@@ -36,18 +36,6 @@ class LogItem : public QListWidgetItem{
 
 };
 
-//class LogActionList : public QListWidget{
-//    private:
-//        QList<LogItem*> list;
-//
-//    public:
-//        LogActionList(){}
-//        ~LogActionList(){}
-//
-//        void addLogItem(LogItem* item);
-//        void clear();
-//};
-
 class Log : public QWidget{
     Q_OBJECT
 
@@ -61,9 +49,6 @@ class Log : public QWidget{
         Log(QMainWindow* mainWindow, SystemeCarburant* systemeC);
         ~Log(){}
         void clear();
-//        friend QDataStream& operator >> (QDataStream&, Log& log);
-//        friend QDataStream& operator << (QDataStream&, const Log& log);
-
 
     public slots:
         void addLine(QString name);
@@ -71,8 +56,6 @@ class Log : public QWidget{
         void tpevClicked();
         void save(QString name);
         void load(QString name);
-//        void save(QString name);
-//        void load(QString name);
 
     signals:
         void lastEntry(QMap<QString, qint32>*);

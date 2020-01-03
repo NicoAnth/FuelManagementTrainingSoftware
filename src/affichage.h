@@ -38,6 +38,7 @@
 
         private:
             QString name;
+
         public:
             GenericTpev(){}
             ~GenericTpev(){}
@@ -45,10 +46,14 @@
             virtual short getState()=0;
             virtual void setState(short state)=0;
             virtual bool getEngine(){return true;};
+
+        public slots:
+            virtual void clickedSlot()=0;
+
         signals:
             void clickedLog();
             void clickedEval();
-            
+            void stateChanged(QString name);
     };
 
 // TANK PUMP VALVE ENGINE
@@ -64,7 +69,6 @@
             const Pump* primaryPump;
             const Pump* secondaryPump;
             void paintEvent(QPaintEvent*);
-            void mousePressEvent(QMouseEvent*);
 
         public:
             Tank(QString name,Pump* primaryP,Pump* secondaryP);
@@ -73,11 +77,11 @@
             virtual void setState(short state);
 
         public slots:
+            virtual void clickedSlot();
             void setState(bool state);
 
         signals:
             void stateChanged(bool state);
-            void stateChanged(QString name);
     };
 
     // PUMP
@@ -99,14 +103,12 @@
             bool getEngine();
             void setEngine(bool engine);
             void paintEvent(QPaintEvent*);
-            void mousePressEvent(QMouseEvent*);
 
         public slots:
-            void stateChangedSlot();
+            virtual void clickedSlot();
 
         signals:
             void stateChanged(short state);
-            void stateChanged(QString name);
     };
 
     // ENGINE
@@ -120,6 +122,7 @@
             ~Engine(){}
             virtual short getState();
             virtual void setState(short state);
+            virtual void clickedSlot(){}
             void paintEvent(QPaintEvent*);
         };
 
@@ -139,15 +142,12 @@
             virtual short getState();
             virtual void setState(short state);
             void paintEvent(QPaintEvent*);
-            void mousePressEvent(QMouseEvent*);
 
         public slots:
-            void stateChangedSlot();
+            virtual void clickedSlot();
 
         signals:
             void stateChanged(bool state);
-            void stateChanged(QString name);
-
     };
 
 // SYSTEME CARBURANT
@@ -192,7 +192,6 @@
             QMap<QString, GenericTpev*>& getMap();
             void setLastEntry(const QMap<QString, qint32>& entry);
             QMap<QString, qint32>& getLastEntry();
-//            SystemeCarburant& operator=(const SystemeCarburant&);
     };
 
 // MAIN WINDOW
