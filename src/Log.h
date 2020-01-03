@@ -54,6 +54,7 @@ class Log : public QWidget{
     private:
         SystemeCarburant* systemeC;
         QListWidget* actionList;
+        QListWidget *evaluationList;
         QList<LogItem> itemList;
         QDockWidget* dock;
 
@@ -71,6 +72,8 @@ class Log : public QWidget{
         void tpevClicked();
         void save(QString name);
         void load(QString name);
+        void addEvalLog(QString mistakeMessage);
+        
 //        void save(QString name);
 //        void load(QString name);
 

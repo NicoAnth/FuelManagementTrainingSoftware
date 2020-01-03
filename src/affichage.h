@@ -202,6 +202,8 @@
         private:
             Log* log;
             QMenu* fileMenu;
+            QAction *newAccountAct;
+            QAction *connexionAct;
             QAction *saveAct;
             QAction *loadAct;
             QAction *simulAct;

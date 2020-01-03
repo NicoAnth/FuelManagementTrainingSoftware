@@ -53,12 +53,17 @@ QMap<QString, qint32>& LogItem::getMap() {
 Log::Log(QMainWindow* mainWindow, SystemeCarburant* sc){
     systemeC = sc;
     actionList = new QListWidget();
+    evaluationList = new QListWidget();
     addLine("INITIAL STATE");
     QObject::connect(actionList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemClicked(QListWidgetItem*)));
 
     dock = new QDockWidget(tr("Log"), mainWindow);
     dock->setAllowedAreas(Qt::RightDockWidgetArea);
     dock->setWidget(actionList);
+    mainWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
+
+    dock = new QDockWidget(tr("Evaluation Log"), mainWindow);
+    dock->setWidget(evaluationList);
     mainWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
 
     // SIGNALS
@@ -141,7 +146,7 @@ void Log::save(QString name) {
     }
 }
 
-void Log::load(QString name){;
+void Log::load(QString name){
     QFile file(name);
 
     if(!file.open(QIODevice::ReadOnly)){
@@ -175,6 +180,16 @@ void Log::load(QString name){;
     systemeC->update();
 }
 
+void Log:: addEvalLog(QString mistakeMessage){
+    LogItem *sentence = new LogItem();
+    sentence->setText(mistakeMessage);
+    evaluationList->addItem(sentence);
+    evaluationList->addItem(sentence);
+    evaluationList->setCurrentItem(sentence);
+    update();
+    systemeC->update();
+
+}
 //void Log::save(QString name) {
 //    QFile file(LOG_DIR + name + ".txt");
 //
