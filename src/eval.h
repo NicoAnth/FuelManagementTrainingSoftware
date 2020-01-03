@@ -1,4 +1,5 @@
 #include "affichage.h"
+#include "Log.h"
 #include<QDebug>
 #include <QTimer>
 
@@ -10,9 +11,10 @@ class Evaluation: QTimer {
         int mistake_nb;
         SystemeCarburant* sc;
         QMap<QString, GenericTpev*>& scMap;
+        Log *log;
         QTimer *time;
     public:
-        Evaluation(SystemeCarburant *systemeC);
+        Evaluation(SystemeCarburant *systemeC, Log *log_);
         ~Evaluation(){};
         int getMark();
         int getMistakeNumber();

@@ -194,6 +194,8 @@
         private:
             Log* log;
             QMenu* fileMenu;
+            QAction *newAccountAct;
+            QAction *connexionAct;
             QAction *saveAct;
             QAction *loadAct;
             QAction *simulAct;
@@ -210,10 +212,11 @@
         public slots:
             void saveLog();
             void loadLog();
-
+            void accountConnection();
         signals:
             void saveSignal(QString);
             void loadSignal(QString);
+            
     };
 
 

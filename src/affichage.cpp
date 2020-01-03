@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Log.h"
 #include "eval.h"
+#include "connexion.h"
 
 // WIDGETS TO DRAW
 
@@ -159,7 +160,7 @@
     Engine::Engine(QString name,Pump* supplyingP){
         this->name = name;
         this->supplyingPump = supplyingP;
-        state = false;
+        state = true;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
     }
@@ -260,7 +261,7 @@
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
         log = new Log(this, systemeC);
-        Evaluation* ev = new Evaluation(systemeC);
+        Evaluation* ev = new Evaluation(systemeC,log);
 
         systemeC->setParent(this);
         this->setCentralWidget(systemeC);
@@ -270,6 +271,14 @@
     }
 
     void MainWindow::createActions() {
+
+        newAccountAct = new QAction(tr("&New Account"), this);
+        newAccountAct->setStatusTip(tr("Create a new account"));
+
+        connexionAct = new QAction(tr("&Connexion"), this);
+        connexionAct->setStatusTip(tr("Connexion to an account"));
+        QObject::connect(connexionAct, SIGNAL(triggered()), this, SLOT(accountConnection()));
+
         saveAct = new QAction(tr("&Save"), this);
         saveAct->setStatusTip(tr("Save action log into a file"));
         QObject::connect(saveAct, SIGNAL(triggered()), this, SLOT(saveLog()));
@@ -289,6 +298,9 @@
     }
 
     void MainWindow::createMenus() {
+        fileMenu = menuBar()->addMenu(tr("&Connexion"));
+        fileMenu->addAction(newAccountAct);
+        fileMenu->addAction(connexionAct);
         fileMenu = menuBar()->addMenu(tr("&File"));
         fileMenu->addAction(saveAct);
         fileMenu->addAction(loadAct);
@@ -311,6 +323,10 @@
 
         log->load(fileName);
     }
+    void MainWindow::accountConnection(){
+        Connexion *c = new Connexion();
+    }
+
 
 // SYSTEME CARBURANT WINDOW
     SystemeCarburant::SystemeCarburant(int width, int height) {
