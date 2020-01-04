@@ -1,9 +1,9 @@
-Une pompe primaire ne peut alimenter que l'engin qui lui fait face.
-Si il est deja alimenté, c'est au pilote d'éteindre la pompe secondaire qui l'alimente.
-Quand un utilisateur eteint une pompe, l'engin qu'elle alimenté n'est plus alimentée. 
-Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
-	Si les 2 vannes sont fermées, que 2 tanks sont vides et un tank pleins les 2 tanks deviennent pleins
-	Eval: Si les 2 tanks sont vides et fermeture vanne entre les 2 -> erreur sauf si futur action est de fermer la 2ème vanne pour alimenter ces 2 tanks
+checked. Une pompe primaire ne peut alimenter que l'engin qui lui fait face.
+checked. Si il est deja alimenté, c'est au pilote d'éteindre la pompe secondaire qui l'alimente.
+checked. Quand un utilisateur eteint une pompe, l'engin qu'elle alimenté n'est plus alimentée. 
+checked. Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
+todo.	Si les 2 vannes sont fermées, que 2 tanks sont vides et un tank pleins les 2 tanks deviennent pleins
+?	Eval: Si les 2 tanks sont vides et fermeture vanne entre les 2 -> erreur sauf si futur action est de fermer la 2ème vanne pour alimenter ces 2 tanks
 
 - mode libre -> Denden -> 28/29
 - mode evaluation -> Nico -> 28/29
@@ -24,3 +24,7 @@ Pompe11,21,31 ne peuvent pas être éteinte -> allumées ou en panne car le pilo
 
 Actuellement les widgets s'envoient des signaux à eux-mêmes, ce qui pue le caca.
 => Déplacer les slots clickedSlot des widgets dans l'objet simulation.
+
+bug sim :
+- pompe restent en off meme si tank se vide
+- dashboard pas possible de mettre en panne

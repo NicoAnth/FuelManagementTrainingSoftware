@@ -53,7 +53,6 @@ OBJECTS_DIR   = ./
 SOURCES       = affichage.cpp \
 		connexion.cpp \
 		eval.cpp \
-		FileHandler.cpp \
 		Log.cpp \
 		main.cpp \
 		MainWindow.cpp \
@@ -66,7 +65,6 @@ SOURCES       = affichage.cpp \
 OBJECTS       = affichage.o \
 		connexion.o \
 		eval.o \
-		FileHandler.o \
 		Log.o \
 		main.o \
 		MainWindow.o \
@@ -155,13 +153,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src.pro affichage.h \
 		connexion.h \
 		eval.h \
-		FileHandler.h \
 		Log.h \
 		MainWindow.h \
 		SystemeCarburant.h affichage.cpp \
 		connexion.cpp \
 		eval.cpp \
-		FileHandler.cpp \
 		Log.cpp \
 		main.cpp \
 		MainWindow.cpp \
@@ -351,8 +347,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.h connexion.h eval.h FileHandler.h Log.h MainWindow.h SystemeCarburant.h $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.cpp connexion.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp MainWindow.cpp SystemeCarburant.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.h connexion.h eval.h Log.h MainWindow.h SystemeCarburant.h $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.cpp connexion.cpp eval.cpp Log.cpp main.cpp MainWindow.cpp SystemeCarburant.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -457,9 +453,6 @@ eval.o: eval.cpp eval.h \
 		Log.h \
 		SystemeCarburant.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o eval.o eval.cpp
-
-FileHandler.o: FileHandler.cpp FileHandler.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FileHandler.o FileHandler.cpp
 
 Log.o: Log.cpp Log.h \
 		affichage.h \
