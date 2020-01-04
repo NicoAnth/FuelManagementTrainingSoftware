@@ -50,14 +50,14 @@
         addLine("INITIAL STATE");
         QObject::connect(actionList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemClicked(QListWidgetItem*)));
 
-        dock = new QDockWidget(tr("Log"), mainWindow);
-        dock->setAllowedAreas(Qt::RightDockWidgetArea);
-        dock->setWidget(actionList);
-        mainWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
+        dockAction = new QDockWidget(tr("Log"), mainWindow);
+        dockAction->setAllowedAreas(Qt::RightDockWidgetArea);
+        dockAction->setWidget(actionList);
+        mainWindow->addDockWidget(Qt::RightDockWidgetArea, dockAction);
 
-        dock = new QDockWidget(tr("Evaluation Log"), mainWindow);
-        dock->setWidget(evaluationList);
-        mainWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
+        dockEval = new QDockWidget(tr("Evaluation Log"), mainWindow);
+        dockEval->setWidget(evaluationList);
+        mainWindow->addDockWidget(Qt::RightDockWidgetArea, dockEval);
 
 
         // SIGNALS
@@ -68,9 +68,12 @@
     }
     void Log::clear() {
         delete(actionList);
+        delete(evaluationList);
+        evaluationList = new QListWidget();
         actionList = new QListWidget();
         QObject::connect(actionList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemClicked(QListWidgetItem*)));
-        dock->setWidget(actionList);
+        dockAction->setWidget(actionList);
+        dockEval->setWidget(evaluationList);
     }
 
     void Log::itemClicked(QListWidgetItem *item) {

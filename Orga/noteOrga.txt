@@ -1,10 +1,3 @@
-checked. Une pompe primaire ne peut alimenter que l'engin qui lui fait face.
-checked. Si il est deja alimenté, c'est au pilote d'éteindre la pompe secondaire qui l'alimente.
-checked. Quand un utilisateur eteint une pompe, l'engin qu'elle alimenté n'est plus alimentée. 
-checked. Vanne : Si tank1 est vide et tank2 plein, tank1 devient plein
-todo.	Si les 2 vannes sont fermées, que 2 tanks sont vides et un tank pleins les 2 tanks deviennent pleins
-?	Eval: Si les 2 tanks sont vides et fermeture vanne entre les 2 -> erreur sauf si futur action est de fermer la 2ème vanne pour alimenter ces 2 tanks
-
 - mode libre -> Denden -> 28/29
 - mode evaluation -> Nico -> 28/29
 - base de données -> Nico
@@ -15,16 +8,15 @@ todo.	Si les 2 vannes sont fermées, que 2 tanks sont vides et un tank pleins le
 - menu -> Le premier a finir
 (- uml propre -> Nico)
 
-Fusionner map et attributs de systemeCarburant
-Séparer le mode libre du mode creation d'exercice
-Distinguer le mode exercice du mode simulation
+? Eval: Si les 2 tanks sont vides et fermeture vanne entre les 2 -> erreur sauf si futur action est de fermer la 2ème vanne pour alimenter ces 2 tanks
+? Si provocation d'une vidange d'un reservoir alors que vanne ouverte entre ce reservoir et un autre plein, remplissage automatique du reservoir vide.
+( Actuellement les widgets s'envoient des signaux à eux-mêmes, ce qui pue le caca.
+ Déplacer les slots clickedSlot des widgets dans mousePressEvent )
+( Fusionner map et attributs de systemeCarburant )
+
+
+todo. Séparer le mode libre du mode creation d'exercice
+todo. Distinguer le mode exercice du mode simulation
 -> verifier a ce moment la que les pompes primaires ne peuvent etre que dans 2 états : BROKEN | ON
-Si provocation d'une vidange d'un reservoir alors que vanne ouverte entre ce reservoir et un autre plein, remplissage automatique du reservoir vide.
-Pompe11,21,31 ne peuvent pas être éteinte -> allumées ou en panne car le pilote n'a aucun accès à ces pompes.
+checked. Pompe11,21,31 ne peuvent pas être éteinte -> allumées ou en panne car le pilote n'a aucun accès à ces pompes.
 
-Actuellement les widgets s'envoient des signaux à eux-mêmes, ce qui pue le caca.
-=> Déplacer les slots clickedSlot des widgets dans l'objet simulation.
-
-bug sim :
-- pompe restent en off meme si tank se vide
-- dashboard pas possible de mettre en panne

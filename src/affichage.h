@@ -37,6 +37,7 @@
 
             virtual short getState()=0;
             virtual void setState(short state)=0;
+            QString getName(){ return name; }
 
         public slots:
             virtual void clickedSlot()=0;
@@ -50,6 +51,7 @@
 // TANK PUMP VALVE ENGINE
     class Pump;
     class Engine;
+    class ValveEngine;
     // TANK
     class Tank : public GenericTpev{
         Q_OBJECT
@@ -58,6 +60,8 @@
             bool state;
             Pump* const primaryPump;
             Pump* const secondaryPump;
+            ValveEngine* ve1;
+            ValveEngine* ve2;
             void paintEvent(QPaintEvent*);
 
         public:
@@ -66,6 +70,10 @@
             virtual short getState();
             Pump* getPrimaryPump();
             Pump* getSecondaryPump();
+            ValveEngine* getVe1();
+            ValveEngine* getVe2();
+            void setVe1(ValveEngine* ve1);
+            void setVe2(ValveEngine* ve2);
             void switchState(bool state);
 
         public slots:
@@ -100,30 +108,6 @@
             virtual void setState(short state);
             void setBroken();
     };
-
-//    class PrimaryPump : public Pump{
-//        Q_OBJECT
-//
-//        private:
-//            bool state;
-//            Engine* const supplyingEngine;
-//
-//        public:
-//            PrimaryPump(QString name,Engine* supplyingE) : Pump(){}
-//            ~PrimaryPump(){}
-//    };
-//
-//    class SecondaryPump : public Pump{
-//        Q_OBJECT
-//
-//        private:
-//            pumpState state;
-//            Engine* supplyingEngine;
-
-//        public:
-//          SecondaryPump(QString name, Engine* supplyingE) : Pump(name, supplyingE){}
-//          ~SecondaryPump(){}
-//    };
 
     // ENGINE
     class Engine : public GenericTpev{
@@ -168,10 +152,13 @@
         private:
             Tank* const t1;
             Tank* const t2;
+            Tank* const t3;
+            ValveTank* vt2;
 
         public:
-            ValveTank(QString name, Tank* t1, Tank* t2);
+            ValveTank(QString name, Tank* t1, Tank* t2, Tank* t3, ValveTank* vt2);
             ~ValveTank(){}
+            void setVt2(ValveTank* vt2);
 
         public slots:
             virtual void clickedSlot();
@@ -189,6 +176,8 @@
             ~ValveEngine(){}
 
             void switchEngineState(QPair<Tank*, Engine*>& pair, bool state);
+            Engine* findAssociatedEngine(Tank* tank);
+            Tank* findAssociatedTank(Engine* engine);
 
         public slots:
             virtual void clickedSlot();

@@ -41,7 +41,8 @@ class Log : public QWidget{
         QListWidget* actionList;
         QListWidget *evaluationList;
         QList<LogItem> itemList;
-        QDockWidget* dock;
+        QDockWidget* dockAction;
+        QDockWidget* dockEval;
 
     public:
         Log(QMainWindow* mainWindow, SystemeCarburant* systemeC);

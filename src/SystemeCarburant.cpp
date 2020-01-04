@@ -33,11 +33,20 @@ SystemeCarburant::SystemeCarburant(int width, int height) {
     pump31->setTank(tank3);
     pump32->setTank(tank3);
 
-    vt12 = new ValveTank("VT12", tank1, tank2);
-    vt23 = new ValveTank("VT23", tank2, tank3);
+    vt12 = new ValveTank("VT12", tank1, tank2, tank3, nullptr);
+    vt23 = new ValveTank("VT23", tank2, tank3, tank1, vt12);
+    vt12->setVt2(vt23);
+    vt23->setVt2(vt12);
     v12 = new ValveEngine("V12", tank1, engine2, tank2, engine1);
     v13 = new ValveEngine("V13", tank1, engine3, tank3, engine1);
     v23 = new ValveEngine("V23", tank2, engine3, tank3, engine2);
+    tank1->setVe1(v12);
+    tank1->setVe2(v13);
+    tank2->setVe1(v12);
+    tank2->setVe2(v23);
+    tank3->setVe1(v13);
+    tank3->setVe2(v23);
+
 
     tpevMap["Tank 1"] = tank1;
     tpevMap["Tank 2"] = tank2;

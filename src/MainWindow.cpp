@@ -18,7 +18,6 @@ MainWindow::MainWindow() {
 }
 
 void MainWindow::createActions() {
-    
     // acc
     newAccountAct = new QAction(tr("&Register"), this);
     newAccountAct->setStatusTip(tr("Create a new account"));
@@ -27,7 +26,6 @@ void MainWindow::createActions() {
     connexionAct = new QAction(tr("&Log in"), this);
     connexionAct->setStatusTip(tr("Connection to an account"));
     QObject::connect(connexionAct, SIGNAL(triggered()), this, SLOT(accountConnection()));
-
 
     // save/load
     saveAct = new QAction(tr("&Save"), this);
@@ -82,12 +80,12 @@ void MainWindow::createMenus() {
     fileMenu->addAction(simulAct);
     fileMenu->addAction(exMakerAct);
 
-    fileMenu = menuBar()->addMenu(tr("&Inject System Failure"));
-    subMenu = fileMenu->addMenu("Empty Tank");
+    fileMenu = menuBar()->addMenu(tr("&Manage System Failure"));
+    subMenu = fileMenu->addMenu("Empty/Refill Tank");
     subMenu->addAction(tank1Act);
     subMenu->addAction(tank2Act);
     subMenu->addAction(tank3Act);
-    subMenu = fileMenu->addMenu("Break Pump");
+    subMenu = fileMenu->addMenu("Break/Repair Pump");
     subMenu->addAction(p11Act);
     subMenu->addAction(p12Act);
     subMenu->addAction(p21Act);
@@ -98,14 +96,14 @@ void MainWindow::createMenus() {
 
 void MainWindow::saveLog() {
     QString fileName = QFileDialog::getSaveFileName
-            (this, tr("Choose File"), "home/user/projetCarburantAvion");
+            (this, tr("Choose File"), "home/user/projetCarburantAvion/Data/Log");
 
     log->save(fileName);
 }
 
 void MainWindow::loadLog(){
     QString fileName = QFileDialog::getOpenFileName
-            (this, tr("Choose File"), "home/user/projetCarburantAvion");
+            (this, tr("Choose File"), "home/user/projetCarburantAvion/Data/Log");
 
     log->load(fileName);
 }
