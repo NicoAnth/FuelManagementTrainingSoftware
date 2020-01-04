@@ -397,6 +397,9 @@ moc_connexion.cpp: affichage.h \
 moc_eval.cpp: affichage.h \
 		Log.h \
 		SystemeCarburant.h \
+		MainWindow.h \
+		connexion.h \
+		eval.h \
 		eval.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -414,6 +417,7 @@ moc_MainWindow.cpp: connexion.h \
 		Log.h \
 		SystemeCarburant.h \
 		eval.h \
+		MainWindow.h \
 		MainWindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -451,7 +455,9 @@ connexion.o: connexion.cpp connexion.h \
 eval.o: eval.cpp eval.h \
 		affichage.h \
 		Log.h \
-		SystemeCarburant.h
+		SystemeCarburant.h \
+		MainWindow.h \
+		connexion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o eval.o eval.cpp
 
 Log.o: Log.cpp Log.h \

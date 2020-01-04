@@ -47,7 +47,6 @@ SystemeCarburant::SystemeCarburant(int width, int height) {
     tank3->setVe1(v13);
     tank3->setVe2(v23);
 
-
     tpevMap["Tank 1"] = tank1;
     tpevMap["Tank 2"] = tank2;
     tpevMap["Tank 3"] = tank3;

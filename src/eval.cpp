@@ -18,220 +18,249 @@ Evaluation::Evaluation(SystemeCarburant *systemeC, Log *log_): sc(systemeC), scM
 }
 
 bool Evaluation::vt12(){
-    if (scMap["Tank 1"]->getState() == false && scMap["Tank 2"]->getState() == true){
-        if (scMap["P11"]->getState() != BROKEN || scMap["P12"]->getState() != BROKEN){
-            if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false || scMap["Engine3"]->getState() == false){
-                log->addEvalLog("Correct.");
-                return true;
-            }
-        }
-    }
-
-    if (scMap["Tank 1"]->getState() == true && scMap["Tank 2"]->getState() == false){
-        if (scMap["P21"]->getState() != BROKEN || scMap["P22"]->getState() != BROKEN){
-            if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState()== false || scMap["Engine3"]->getState() == false){ 
-                log->addEvalLog("Correct.");
-                return true;
-            }
-        }
-        if (scMap["Tank 3"]->getState() == false){
-            if (scMap["P31"]->getState() != BROKEN || scMap["P32"]->getState() != BROKEN){
-                if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false || scMap["Engine3"]->getState() == false ){                   
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["Tank 1"]->getState() == false && scMap["Tank 2"]->getState() == true) {
+            if (scMap["P11"]->getState() != BROKEN || scMap["P12"]->getState() != BROKEN) {
+                if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false ||
+                    scMap["Engine3"]->getState() == false) {
                     log->addEvalLog("Correct.");
                     return true;
                 }
             }
         }
+
+        if (scMap["Tank 1"]->getState() == true && scMap["Tank 2"]->getState() == false) {
+            if (scMap["P21"]->getState() != BROKEN || scMap["P22"]->getState() != BROKEN) {
+                if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false ||
+                    scMap["Engine3"]->getState() == false) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                }
+            }
+            if (scMap["Tank 3"]->getState() == false) {
+                if (scMap["P31"]->getState() != BROKEN || scMap["P32"]->getState() != BROKEN) {
+                    if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false ||
+                        scMap["Engine3"]->getState() == false) {
+                        log->addEvalLog("Correct.");
+                        return true;
+                    }
+                }
+            }
+        }
+
+        log->addEvalLog("Tank valve 12 shouldn't be opened.\n -1");
+        mark--;
+        mistake_nb++;
+        return false;
     }
 
-    log->addEvalLog("Tank valve 12 shouldn't be opened.\n -1");
-    mark --;
-    mistake_nb++;
     return false;
 }   
 
 bool Evaluation::vt23(){
-    if (scMap["Tank 3"]->getState() == false && scMap["Tank 2"]->getState() == true){
-        if (scMap["P31"]->getState() != BROKEN || scMap["P32"]->getState() != BROKEN){
-            if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false || scMap["Engine3"]->getState() == false){
-                log->addEvalLog("Correct.");
-                return true;
-            }
-        }
-    }
-
-    if (scMap["Tank 3"]->getState() == true && scMap["Tank 2"]->getState() == false){
-        if (scMap["P21"]->getState() != BROKEN || scMap["P22"]->getState() != BROKEN){
-            if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() || scMap["Engine3"]->getState() == false){ 
-                log->addEvalLog("Correct.");
-                return true;
-            }
-        }
-        if (scMap["Tank 1"]->getState() == false){
-            if (scMap["P11"]->getState() != BROKEN || scMap["P12"]->getState() != BROKEN){
-                if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false || scMap["Engine3"]->getState() == false ){                   
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["Tank 3"]->getState() == false && scMap["Tank 2"]->getState() == true) {
+            if (scMap["P31"]->getState() != BROKEN || scMap["P32"]->getState() != BROKEN) {
+                if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false ||
+                    scMap["Engine3"]->getState() == false) {
                     log->addEvalLog("Correct.");
                     return true;
                 }
             }
-        }    
+        }
+
+        if (scMap["Tank 3"]->getState() == true && scMap["Tank 2"]->getState() == false) {
+            if (scMap["P21"]->getState() != BROKEN || scMap["P22"]->getState() != BROKEN) {
+                if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() ||
+                    scMap["Engine3"]->getState() == false) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                }
+            }
+            if (scMap["Tank 1"]->getState() == false) {
+                if (scMap["P11"]->getState() != BROKEN || scMap["P12"]->getState() != BROKEN) {
+                    if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false ||
+                        scMap["Engine3"]->getState() == false) {
+                        log->addEvalLog("Correct.");
+                        return true;
+                    }
+                }
+            }
+        }
+        log->addEvalLog("Tank valve 23 shouldn't be opened.\n -1");
+        mark--;
+        mistake_nb++;
+        return false;
     }
-    log->addEvalLog("Tank valve 23 shouldn't be opened.\n -1");
-    mark --;
-    mistake_nb++;
+
     return false;
 } 
 bool Evaluation::v13(){
-    if (scMap["Tank 1"]->getState() == true && scMap["Engine3"]->getState() == false){
-        if (scMap["P12"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P12"]))-> getEngine() == nullptr){
-            log->addEvalLog("Correct.");
-            return true;
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["Tank 1"]->getState() == true && scMap["Engine3"]->getState() == false) {
+            if (scMap["P12"]->getState() != BROKEN && (dynamic_cast<Pump *> (scMap["P12"]))->getEngine() == nullptr) {
+                log->addEvalLog("Correct.");
+                return true;
+            }
         }
-    }
-    if (scMap["Tank 3"]->getState() == true && scMap["Engine1"]->getState() == false){
-        if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P32"]))-> getEngine() == nullptr){
-            log->addEvalLog("Correct.");
-            return true;
+        if (scMap["Tank 3"]->getState() == true && scMap["Engine1"]->getState() == false) {
+            if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump *> (scMap["P32"]))->getEngine() == nullptr) {
+                log->addEvalLog("Correct.");
+                return true;
+            }
         }
+        log->addEvalLog("Valve 13 shouldn't be opened.\n -1");
+        mark--;
+        mistake_nb++;
+        return false;
     }
-    log->addEvalLog("Valve 13 shouldn't be opened.\n -1");
-    mark --;
-    mistake_nb++;
+
     return false;
 } 
 
 bool Evaluation::v12(){
-    if (scMap["Tank 1"]->getState() == true && scMap["Engine2"]->getState() == false){
-        if (scMap["P12"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P12"]))-> getEngine() == nullptr){
-            log->addEvalLog("Correct.");
-            return true;
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["Tank 1"]->getState() == true && scMap["Engine2"]->getState() == false) {
+            if (scMap["P12"]->getState() != BROKEN && (dynamic_cast<Pump *> (scMap["P12"]))->getEngine() == nullptr) {
+                log->addEvalLog("Correct.");
+                return true;
+            }
         }
-    }
-    if (scMap["Tank 2"]->getState() == true && scMap["Engine1"]->getState() == false){
-        if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P22"]))-> getEngine() == nullptr){
-            log->addEvalLog("Correct.");
-            return true;
+        if (scMap["Tank 2"]->getState() == true && scMap["Engine1"]->getState() == false) {
+            if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump *> (scMap["P22"]))->getEngine() == nullptr) {
+                log->addEvalLog("Correct.");
+                return true;
+            }
         }
+
+        log->addEvalLog("Valve 12 shouldn't be opened.\n -1");
+        mark--;
+        mistake_nb++;
+        return false;
     }
 
-    log->addEvalLog("Valve 12 shouldn't be opened.\n -1");
-    mark --;
-    mistake_nb++;
     return false;
 } 
 
 bool Evaluation::v23(){
-
-    if (scMap["Tank 2"]->getState() == true && scMap["Engine3"]->getState() == false){
-        if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P22"]))-> getEngine() == nullptr){
-            log->addEvalLog("Correct.");
-            return true;
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["Tank 2"]->getState() == true && scMap["Engine3"]->getState() == false) {
+            if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump *> (scMap["P22"]))->getEngine() == nullptr) {
+                log->addEvalLog("Correct.");
+                return true;
+            }
         }
+
+        if (scMap["Tank 3"]->getState() == true && scMap["Engine2"]->getState() == false) {
+            if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump *> (scMap["P32"]))->getEngine() == nullptr) {
+                log->addEvalLog("Correct.");
+                return true;
+
+            }
+        }
+        log->addEvalLog("Valve 23 shouldn't be opened.\n -1");
+        mark--;
+        mistake_nb++;
+        return false;
     }
 
-    if (scMap["Tank 3"]->getState() == true && scMap["Engine2"]->getState() == false){
-        if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P32"]))-> getEngine() == nullptr){
-            log->addEvalLog("Correct.");
-            return true;
-
-        }
-    }
-    log->addEvalLog("Valve 23 shouldn't be opened.\n -1");
-    mark --;
-    mistake_nb++;
     return false;
 } 
 
 bool Evaluation::p12(){
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["P12"]->getState() == OFF) {
+            if (scMap["Tank 1"]->getState() == true) {
 
-    if(scMap["P12"] -> getState() == OFF){
-        if (scMap["Tank 1"]->getState() == true){
-            
-            if(scMap["Engine1"]->getState() == false){
-                log->addEvalLog("Correct.");
-                return true;
+                if (scMap["Engine1"]->getState() == false) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                } else if (scMap["Engine2"]->getState() == false && scMap["V12"]->getState() == true) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                } else if (scMap["Engine3"]->getState() == false && scMap["V13"]->getState() == true) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                }
             }
-            else if (scMap["Engine2"]-> getState() == false && scMap["V12"]->getState() == true){
-                log->addEvalLog("Correct.");
-                return true;
-            }
-            else if (scMap["Engine3"]-> getState() == false && scMap["V13"]->getState() == true){
-                log->addEvalLog("Correct.");
-                return true;
-            }
-        }
 
-        log->addEvalLog("Pump 12 shouldn't be activated.\n -1");
-        mark --;
-        mistake_nb++;
-        return false;
+            log->addEvalLog("Pump 12 shouldn't be activated.\n -1");
+            mark--;
+            mistake_nb++;
+            return false;
+        } else return true;
     }
-    else return true;
+
+    return false;
 } 
 
 bool Evaluation::p22(){
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["P12"]->getState() == OFF) {
+            if (scMap["Tank 2"]->getState() == true) {
 
-    if(scMap["P12"] -> getState() == OFF){
-        if (scMap["Tank 2"]->getState() == true){
-            
-            if(scMap["Engine2"]->getState() == false){
-                qInfo("True");
-                log->addEvalLog("Correct.");
-                return true;
+                if (scMap["Engine2"]->getState() == false) {
+                    qInfo("True");
+                    log->addEvalLog("Correct.");
+                    return true;
+                } else if (scMap["Engine1"]->getState() == false && scMap["V12"]->getState() == true) {
+                    qInfo("True");
+                    log->addEvalLog("Correct.");
+                    return true;
+                } else if (scMap["Engine3"]->getState() == false && scMap["V23"]->getState() == true) {
+                    qInfo("True");
+                    log->addEvalLog("Correct.");
+                    return true;
+                }
             }
-            else if (scMap["Engine1"]-> getState() == false && scMap["V12"]->getState() == true){
-                qInfo("True");
-                log->addEvalLog("Correct.");
-                return true;
-            }
-            else if (scMap["Engine3"]-> getState() == false && scMap["V23"]->getState() == true){
-                qInfo("True");
-                log->addEvalLog("Correct.");
-                return true;
-            }
-        }
-    
-        log->addEvalLog("Pump 22 shouldn't be activated.\n -1");
-        mark --;
-        mistake_nb++;
-        return false;
+
+            log->addEvalLog("Pump 22 shouldn't be activated.\n -1");
+            mark--;
+            mistake_nb++;
+            return false;
+        } else return true;
     }
-    else return true;
+
+    return false;
 } 
 
 bool Evaluation::p32(){
-    
-    if(scMap["P12"] -> getState() == OFF){
-        if (scMap["Tank 3"]->getState() == true){
-            
-            if(scMap["Engine3"]->getState() == false){
-                log->addEvalLog("Correct.");
-                return true;
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["P12"]->getState() == OFF) {
+            if (scMap["Tank 3"]->getState() == true) {
+
+                if (scMap["Engine3"]->getState() == false) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                } else if (scMap["Engine2"]->getState() == false && scMap["V23"]->getState() == true) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                } else if (scMap["Engine1"]->getState() == false && scMap["V13"]->getState() == true) {
+                    log->addEvalLog("Correct.");
+                    return true;
+                }
             }
-            else if (scMap["Engine2"]-> getState() == false && scMap["V23"]->getState() == true){
-                log->addEvalLog("Correct.");
-                return true;
-            }
-            else if (scMap["Engine1"]-> getState() == false && scMap["V13"]->getState() == true){
-                log->addEvalLog("Correct.");
-                return true;
-            }
-        }
-    
-        log->addEvalLog("Pump 32 shouldn't be activated.\n -1");
-        mark --;
-        mistake_nb++;
-        return false;
+
+            log->addEvalLog("Pump 32 shouldn't be activated.\n -1");
+            mark--;
+            mistake_nb++;
+            return false;
+        } else return true;
     }
-    else return true;
+
+    return false;
 } 
 
 bool Evaluation::resolved(){
+    if(MainWindow::mode == EVALUATION) {
+        if (scMap["Engine1"]->getState() == true && scMap["Engine2"]->getState() == true &&
+            scMap["Engine3"]->getState() == true) {
 
-    if (scMap["Engine1"]->getState() == true && scMap["Engine2"]->getState() == true && scMap["Engine3"]->getState() == true){
-         
-        return true;
+            return true;
+        }
+        return false;
     }
+
     return false;
 } 
 

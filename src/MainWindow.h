@@ -14,11 +14,17 @@
 #include "Log.h"
 #include "eval.h"
 
+#define SIMULATION 0
+#define EVALUATION 1
+
+class Evaluation;
+
 class MainWindow : public QMainWindow{
     Q_OBJECT
 
     private:
         SystemeCarburant* systemeC;
+        Evaluation * eval;
         Log* log;
         Connection * connection;
         QMenu* fileMenu;
@@ -29,7 +35,6 @@ class MainWindow : public QMainWindow{
         QAction *loadAct;
         QAction *simulAct;
         QAction *exerciceAct;
-        QAction *exMakerAct;
         QAction* tank1Act;
         QAction* tank2Act;
         QAction* tank3Act;
@@ -41,6 +46,7 @@ class MainWindow : public QMainWindow{
         QAction* p32Act;
 
     public:
+        static bool mode;
         MainWindow();
         ~MainWindow(){}
 
@@ -53,6 +59,9 @@ class MainWindow : public QMainWindow{
         void loadLog();
         void accountConnection();
         void accountCreation();
+        void setModeSimulation();
+        void setModeEvaluation();
+
     signals:
         void saveSignal(QString);
         void loadSignal(QString);

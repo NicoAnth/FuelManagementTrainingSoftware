@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Log_t {
-    QByteArrayData data[12];
-    char stringdata0[115];
+    QByteArrayData data[13];
+    char stringdata0[121];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,12 +42,14 @@ QT_MOC_LITERAL(7, 62, 16), // "QListWidgetItem*"
 QT_MOC_LITERAL(8, 79, 4), // "save"
 QT_MOC_LITERAL(9, 84, 4), // "load"
 QT_MOC_LITERAL(10, 89, 10), // "addEvalLog"
-QT_MOC_LITERAL(11, 100, 14) // "mistakeMessage"
+QT_MOC_LITERAL(11, 100, 14), // "mistakeMessage"
+QT_MOC_LITERAL(12, 115, 5) // "clear"
 
     },
     "Log\0lastEntry\0\0QMap<QString,qint32>*\0"
     "addLine\0name\0itemClicked\0QListWidgetItem*\0"
-    "save\0load\0addEvalLog\0mistakeMessage"
+    "save\0load\0addEvalLog\0mistakeMessage\0"
+    "clear"
 };
 #undef QT_MOC_LITERAL
 
@@ -57,7 +59,7 @@ static const uint qt_meta_data_Log[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,14 +67,15 @@ static const uint qt_meta_data_Log[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   44,    2, 0x06 /* Public */,
+       1,    1,   49,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    1,   47,    2, 0x0a /* Public */,
-       6,    1,   50,    2, 0x0a /* Public */,
-       8,    1,   53,    2, 0x0a /* Public */,
-       9,    1,   56,    2, 0x0a /* Public */,
-      10,    1,   59,    2, 0x0a /* Public */,
+       4,    1,   52,    2, 0x0a /* Public */,
+       6,    1,   55,    2, 0x0a /* Public */,
+       8,    1,   58,    2, 0x0a /* Public */,
+       9,    1,   61,    2, 0x0a /* Public */,
+      10,    1,   64,    2, 0x0a /* Public */,
+      12,    0,   67,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -83,6 +86,7 @@ static const uint qt_meta_data_Log[] = {
     QMetaType::Void, QMetaType::QString,    5,
     QMetaType::Void, QMetaType::QString,    5,
     QMetaType::Void, QMetaType::QString,   11,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -99,6 +103,7 @@ void Log::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
         case 3: _t->save((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 4: _t->load((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 5: _t->addEvalLog((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: _t->clear(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -138,13 +143,13 @@ int Log::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

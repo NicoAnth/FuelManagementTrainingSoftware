@@ -1,5 +1,9 @@
+#ifndef PROJETCARBURANTAVION_EVAL_H
+#define PROJETCARBURANTAVION_EVAL_H
+
 #include "affichage.h"
 #include "Log.h"
+#include "MainWindow.h"
 #include<QDebug>
 #include <QTimer>
 
@@ -33,3 +37,5 @@ class Evaluation: QTimer {
         bool p32();
         bool resolved();
 };
+
+#endif

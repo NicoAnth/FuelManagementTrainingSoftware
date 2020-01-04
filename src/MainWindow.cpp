@@ -4,12 +4,14 @@
 
 #include "MainWindow.h"
 
+bool MainWindow::mode = SIMULATION;
+
 // MAIN WINDOW
 MainWindow::MainWindow() {
     systemeC = new SystemeCarburant(700,700);
-    log = new Log(this, systemeC);
     connection = new Connection();
-    Evaluation* ev = new Evaluation(systemeC,log);
+    log = new Log(this, systemeC);
+    Evaluation* eval = new Evaluation(systemeC, log);
 
     systemeC->setParent(this);
     this->setCentralWidget(systemeC);
@@ -37,12 +39,15 @@ void MainWindow::createActions() {
     QObject::connect(loadAct, SIGNAL(triggered()), this, SLOT(loadLog()));
 
     // sim/exercice
-    simulAct = new QAction(tr("&Exercise"), this);
-    simulAct->setStatusTip(tr("Load an existing action log"));
-    exerciceAct = new QAction(tr("&Simulation"), this);
-    exerciceAct->setStatusTip(tr("Load an existing action log"));
-    exMakerAct = new QAction(tr("&Exercise Maker"), this);
-    exMakerAct->setStatusTip(tr("Load an existing action log"));
+    simulAct = new QAction(tr("&Simulation"), this);
+    simulAct->setStatusTip(tr("Switch to simulation mode"));
+    QObject::connect(simulAct, SIGNAL(triggered()), this, SLOT(setModeSimulation()));
+    QObject::connect(simulAct, SIGNAL(triggered()), log, SLOT(clear()));
+
+    exerciceAct = new QAction(tr("&Exercice"), this);
+    exerciceAct->setStatusTip(tr("Switch to exercice mode"));
+    QObject::connect(exerciceAct, SIGNAL(triggered()), this, SLOT(setModeEvaluation()));
+    QObject::connect(exerciceAct, SIGNAL(triggered()), log, SLOT(clear()));
 
     // systemFailures
     tank1Act = new QAction(tr("&Tank1"), this);
@@ -79,7 +84,6 @@ void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&Mode"));
     fileMenu->addAction(exerciceAct);
     fileMenu->addAction(simulAct);
-    fileMenu->addAction(exMakerAct);
 
     fileMenu = menuBar()->addMenu(tr("&Manage System Failure"));
     subMenu = fileMenu->addMenu("Empty/Refill Tank");
@@ -115,4 +119,12 @@ void MainWindow::accountConnection(){
 
 void MainWindow::accountCreation(){
     connection->newAccountInterface();
+}
+
+void MainWindow::setModeEvaluation() {
+    mode = EVALUATION;
+}
+
+void MainWindow::setModeSimulation() {
+    mode = SIMULATION;
 }

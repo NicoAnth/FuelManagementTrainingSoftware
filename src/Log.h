@@ -47,7 +47,6 @@ class Log : public QWidget{
     public:
         Log(QMainWindow* mainWindow, SystemeCarburant* systemeC);
         ~Log(){}
-        void clear();
 
     public slots:
         void addLine(QString name);
@@ -55,6 +54,7 @@ class Log : public QWidget{
         void save(QString name);
         void load(QString name);
         void addEvalLog(QString mistakeMessage);
+        void clear();
 
     signals:
         void lastEntry(QMap<QString, qint32>*);
