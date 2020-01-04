@@ -135,6 +135,7 @@
         public:
             Valve(const QString name);
             ~Valve(){}
+
             virtual short getState();
             virtual void setState(short state);
             void paintEvent(QPaintEvent*);
@@ -143,8 +144,33 @@
             virtual void clickedSlot();
     };
 
+    class ValveTank : public Valve{
+        Q_OBJECT
+
+        private:
+            const Tank* t1;
+            const Tank* t2;
+
+        public:
+            ValveTank(QString name, Tank* t1, Tank* t2);
+            ~ValveTank(){}
+    };
+
+    class ValveEngine : public Valve{
+        Q_OBJECT
+
+        private:
+            QPair<const Tank*, const Engine*> pair1;
+            QPair<const Tank*, const Engine*> pair2;
+
+        public:
+            ValveEngine(QString name, Tank* t1, Engine* e1, Tank* t2, Engine* e2);
+            ~ValveEngine(){}
+    };
+
 // SYSTEME CARBURANT
     class SystemeCarburant: public QWidget{
+
         private:
             QMap<QString, GenericTpev*> tpevMap;
             QMap<QString, qint32> lastLogEntry;
@@ -160,11 +186,11 @@
             Engine* engine1;
             Engine* engine2;
             Engine* engine3;
-            Valve* vt12;
-            Valve* vt23;
-            Valve* v12;
-            Valve* v13;
-            Valve* v23;
+            ValveTank* vt12;
+            ValveTank* vt23;
+            ValveEngine* v12;
+            ValveEngine* v13;
+            ValveEngine* v23;
             QPushButton *vtdb1;
             QPushButton *vtdb2;
             QPushButton *pdb1;

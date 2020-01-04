@@ -257,6 +257,21 @@
         update();
     }
 
+    // VALVE TANK
+    ValveTank::ValveTank(QString name, Tank* t1, Tank* t2) : Valve(name) {
+        this->t1 = t1;
+        this->t2 = t2;
+    }
+
+    // VALVE ENGINE
+    ValveEngine::ValveEngine(QString name, Tank* t1, Engine* e1,
+            Tank* t2, Engine* e2) : Valve(name){
+        pair1.first = t1;
+        pair1.second = e1;
+        pair2.first = t2;
+        pair2.second = e2;
+    }
+
 // MAIN WINDOW
     MainWindow::MainWindow() {
         SystemeCarburant* systemeC = new SystemeCarburant(700,700);
@@ -347,11 +362,11 @@
         engine1 = new Engine("Engine 1",pump11);
         engine2 = new Engine("Engine 2",pump21);
         engine3 = new Engine("Engine 3",pump31);
-        vt12 = new Valve("VT12");
-        vt23 = new Valve("VT23");
-        v12 = new Valve("V12");
-        v13 = new Valve("V13");
-        v23 = new Valve("V23");
+        vt12 = new ValveTank("VT12", tank1, tank2);
+        vt23 = new ValveTank("VT23", tank2, tank3);
+        v12 = new ValveEngine("V12", tank1, engine2, tank2, engine1);
+        v13 = new ValveEngine("V13", tank1, engine3, tank3, engine1);
+        v23 = new ValveEngine("V23", tank2, engine3, tank3, engine2);
 
         tpevMap["Tank 1"] = tank1;
         tpevMap["Tank 2"] = tank2;

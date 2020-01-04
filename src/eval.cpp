@@ -2,7 +2,6 @@
 #include <iostream>
 
 Evaluation::Evaluation(SystemeCarburant *systemeC, Log *log_): sc(systemeC), scMap(sc->getMap()),log(log_){
-    
     time = new QTimer(this);
     mark = 10;
     mistake_nb = 0;
@@ -21,7 +20,7 @@ bool Evaluation::vt12(){
     if (scMap["Tank 1"]->getState() == false && scMap["Tank 2"]->getState() == true){
         if (scMap["P11"]->getState() != BROKEN || scMap["P12"]->getState() != BROKEN){
             if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() == false || scMap["Engine3"]->getState() == false){
-                //scMap["Tank 1"]->setState(true);
+                scMap["Tank 1"]->setState(true);
                 log->addEvalLog("Correct.");
                 return true;
             }
@@ -44,8 +43,6 @@ bool Evaluation::vt12(){
                 }
             }
         }
-
-         
     }
 
     log->addEvalLog("Tank valve 12 shouldn't be opened.\n -1");
