@@ -93,7 +93,7 @@ void MainWindow::createMenus() {
 }
 
 void MainWindow::saveLog() {
-    QString fileName = QFileDialog::getOpenFileName
+    QString fileName = QFileDialog::getSaveFileName
             (this, tr("Choose File"), "home/user/projetCarburantAvion");
 
     log->save(fileName);
