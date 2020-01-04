@@ -22,3 +22,4 @@ HEADERS += affichage.h eval.h FileHandler.h Log.h connexion.h
 SOURCES += affichage.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp connexion.cpp
 
 QT += widgets
+QT += core

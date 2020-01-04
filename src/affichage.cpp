@@ -272,11 +272,12 @@
 
     void MainWindow::createActions() {
 
-        newAccountAct = new QAction(tr("&New Account"), this);
+        newAccountAct = new QAction(tr("&Register"), this);
         newAccountAct->setStatusTip(tr("Create a new account"));
+        QObject::connect(newAccountAct, SIGNAL(triggered()), this, SLOT(accountCreation()));
 
-        connexionAct = new QAction(tr("&Connexion"), this);
-        connexionAct->setStatusTip(tr("Connexion to an account"));
+        connexionAct = new QAction(tr("&Log in"), this);
+        connexionAct->setStatusTip(tr("Connection to an account"));
         QObject::connect(connexionAct, SIGNAL(triggered()), this, SLOT(accountConnection()));
 
         saveAct = new QAction(tr("&Save"), this);
@@ -288,17 +289,17 @@
         QObject::connect(loadAct, SIGNAL(triggered()), this, SLOT(loadLog()));
         
         simulAct = new QAction(tr("&Exercise"), this);
-        simulAct->setStatusTip(tr("Load an existing action log"));
+        simulAct->setStatusTip(tr("Evaluate yourself"));
         
         exerciceAct = new QAction(tr("&Simulation"), this);
-        exerciceAct->setStatusTip(tr("Load an existing action log"));
+        exerciceAct->setStatusTip(tr("Train across a simulation"));
 
         exMakerAct = new QAction(tr("&Exercise Maker"), this);
-        exMakerAct->setStatusTip(tr("Load an existing action log"));
+        exMakerAct->setStatusTip(tr("Create your own exercise"));
     }
 
     void MainWindow::createMenus() {
-        fileMenu = menuBar()->addMenu(tr("&Connexion"));
+        fileMenu = menuBar()->addMenu(tr("&Connection"));
         fileMenu->addAction(newAccountAct);
         fileMenu->addAction(connexionAct);
         fileMenu = menuBar()->addMenu(tr("&File"));
@@ -324,7 +325,12 @@
         log->load(fileName);
     }
     void MainWindow::accountConnection(){
-        Connexion *c = new Connexion();
+        Connection *c = new Connection();
+        c->ConnectionInterface();
+    }
+    void MainWindow::accountCreation(){
+        Connection *c = new Connection();
+        c->newAccountInterface();
     }
 
 

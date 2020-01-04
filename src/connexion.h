@@ -2,20 +2,20 @@
 #include <QLayout>
 #include <QFormLayout>
 #include <QLineEdit>
+#include <QFile>
 
-class Connexion: QWidget{
+class Connection: QWidget{
     
     Q_OBJECT
 
     private:
-        QWidget *mainConnexionWindow;
-        QLineEdit *name;
-        QLineEdit *password;
-        QVBoxLayout *connexionBox;
-        QPushButton *validate;
-        QPushButton *quit;
-        QFormLayout *formLayout;
+        QFile *usersFile;
     public: 
-        Connexion();
-        ~Connexion(){};
+        Connection();
+        ~Connection(){};
+        void ConnectionInterface();
+        void newAccountInterface();
+
+    public slots:
+        void createUser(QString name, QString password);
 };

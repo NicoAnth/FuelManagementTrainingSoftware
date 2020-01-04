@@ -16,3 +16,9 @@ variable mode sim/exercice ? > test des 2 modes
 - Compte rendu -> Chacun ses parties
 - menu -> le 1er qui a fini
 (- uml propre -> Nico)
+
+Bug report : La selection puis l'annulation d'un load provoque la fermeture du dock. 
+Message d'erreur Qt :
+	QFSFileEngine::open: No file name specified
+	cannot open file open  ""
+	QIODevice::read (QFile, ""): device not open
