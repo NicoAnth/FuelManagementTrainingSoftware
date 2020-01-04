@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow{
     private:
         SystemeCarburant* systemeC;
         Log* log;
+        Connection * connection;
         QMenu* fileMenu;
         QMenu* subMenu;
         QAction *newAccountAct;

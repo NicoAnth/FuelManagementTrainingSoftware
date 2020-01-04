@@ -10,12 +10,19 @@ class Connection: QWidget{
 
     private:
         QFile *usersFile;
+        bool isconnected;
+        QString userName;
+
     public: 
         Connection();
         ~Connection(){};
         void ConnectionInterface();
         void newAccountInterface();
+        bool alreadyExists(QString name, QString password);
+        bool getConnected();
 
     public slots:
         void createUser(QString name, QString password);
+        bool connectUser(QString name, QString password);
+    
 };

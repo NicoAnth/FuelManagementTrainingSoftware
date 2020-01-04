@@ -29,7 +29,7 @@ bool Evaluation::vt12(){
 
     if (scMap["Tank 1"]->getState() == true && scMap["Tank 2"]->getState() == false){
         if (scMap["P21"]->getState() != BROKEN || scMap["P22"]->getState() != BROKEN){
-            if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState() || scMap["Engine3"]->getState() == false){ 
+            if (scMap["Engine1"]->getState() == false || scMap["Engine2"]->getState()== false || scMap["Engine3"]->getState() == false){ 
                 log->addEvalLog("Correct.");
                 return true;
             }
@@ -89,7 +89,7 @@ bool Evaluation::v13(){
         }
     }
     if (scMap["Tank 3"]->getState() == true && scMap["Engine1"]->getState() == false){
-        if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P12"]))-> getEngine() == nullptr){
+        if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P32"]))-> getEngine() == nullptr){
             log->addEvalLog("Correct.");
             return true;
         }
@@ -108,7 +108,7 @@ bool Evaluation::v12(){
         }
     }
     if (scMap["Tank 2"]->getState() == true && scMap["Engine1"]->getState() == false){
-        if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P12"]))-> getEngine() == nullptr){
+        if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P22"]))-> getEngine() == nullptr){
             log->addEvalLog("Correct.");
             return true;
         }
@@ -123,14 +123,14 @@ bool Evaluation::v12(){
 bool Evaluation::v23(){
 
     if (scMap["Tank 2"]->getState() == true && scMap["Engine3"]->getState() == false){
-        if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P12"]))-> getEngine() == nullptr){
+        if (scMap["P22"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P22"]))-> getEngine() == nullptr){
             log->addEvalLog("Correct.");
             return true;
         }
     }
 
     if (scMap["Tank 3"]->getState() == true && scMap["Engine2"]->getState() == false){
-        if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P12"]))-> getEngine() == nullptr){
+        if (scMap["P32"]->getState() != BROKEN && (dynamic_cast<Pump*> (scMap["P32"]))-> getEngine() == nullptr){
             log->addEvalLog("Correct.");
             return true;
 
