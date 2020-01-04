@@ -51,7 +51,7 @@ class MainWindow : public QMainWindow{
         void saveLog();
         void loadLog();
         void accountConnection();
-
+        void accountCreation();
     signals:
         void saveSignal(QString);
         void loadSignal(QString);

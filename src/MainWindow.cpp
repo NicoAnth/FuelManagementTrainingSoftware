@@ -18,12 +18,16 @@ MainWindow::MainWindow() {
 }
 
 void MainWindow::createActions() {
+    
     // acc
-    newAccountAct = new QAction(tr("&New Account"), this);
+    newAccountAct = new QAction(tr("&Register"), this);
     newAccountAct->setStatusTip(tr("Create a new account"));
-    connexionAct = new QAction(tr("&Connexion"), this);
-    connexionAct->setStatusTip(tr("Connexion to an account"));
+    QObject::connect(newAccountAct, SIGNAL(triggered()), this, SLOT(accountCreation()));
+
+    connexionAct = new QAction(tr("&Log in"), this);
+    connexionAct->setStatusTip(tr("Connection to an account"));
     QObject::connect(connexionAct, SIGNAL(triggered()), this, SLOT(accountConnection()));
+
 
     // save/load
     saveAct = new QAction(tr("&Save"), this);
@@ -107,5 +111,11 @@ void MainWindow::loadLog(){
 }
 
 void MainWindow::accountConnection(){
-    Connexion *c = new Connexion();
+        Connection *c = new Connection();
+        c->ConnectionInterface();
+    }
+    
+void MainWindow::accountCreation(){
+    Connection *c = new Connection();
+    c->newAccountInterface();
 }
