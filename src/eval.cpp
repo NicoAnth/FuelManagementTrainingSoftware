@@ -1,4 +1,5 @@
 #include "eval.h"
+#include "SystemeCarburant.h"
 #include <iostream>
 
 Evaluation::Evaluation(SystemeCarburant *systemeC, Log *log_): sc(systemeC), scMap(sc->getMap()),log(log_){

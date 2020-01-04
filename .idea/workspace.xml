@@ -10,11 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/SystemeCarburant.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SystemeCarburant.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Log.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Simulation.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Simulation.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/affichage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/affichage.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/affichage.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eval.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/eval.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_affichage.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_affichage.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src" beforeDir="false" afterPath="$PROJECT_DIR$/src/src" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/src.pro" beforeDir="false" afterPath="$PROJECT_DIR$/src/src.pro" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

@@ -15,6 +15,7 @@
 #include <QFile>
 #include <QDebug>
 #include "affichage.h"
+#include "SystemeCarburant.h"
 
 class SystemeCarburant;
 class GenericTpev;

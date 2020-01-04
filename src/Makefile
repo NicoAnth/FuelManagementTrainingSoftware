@@ -56,7 +56,8 @@ SOURCES       = affichage.cpp \
 		FileHandler.cpp \
 		Log.cpp \
 		main.cpp \
-		MainWindow.cpp moc_affichage.cpp \
+		MainWindow.cpp \
+		SystemeCarburant.cpp moc_affichage.cpp \
 		moc_connexion.cpp \
 		moc_eval.cpp \
 		moc_Log.cpp \
@@ -68,6 +69,7 @@ OBJECTS       = affichage.o \
 		Log.o \
 		main.o \
 		MainWindow.o \
+		SystemeCarburant.o \
 		moc_affichage.o \
 		moc_connexion.o \
 		moc_eval.o \
@@ -153,13 +155,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		eval.h \
 		FileHandler.h \
 		Log.h \
-		MainWindow.h affichage.cpp \
+		MainWindow.h \
+		SystemeCarburant.h affichage.cpp \
 		connexion.cpp \
 		eval.cpp \
 		FileHandler.cpp \
 		Log.cpp \
 		main.cpp \
-		MainWindow.cpp
+		MainWindow.cpp \
+		SystemeCarburant.cpp
 QMAKE_TARGET  = src
 DESTDIR       = 
 TARGET        = src
@@ -345,8 +349,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.h connexion.h eval.h FileHandler.h Log.h MainWindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.cpp connexion.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp MainWindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.h connexion.h eval.h FileHandler.h Log.h MainWindow.h SystemeCarburant.h $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.cpp connexion.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp MainWindow.cpp SystemeCarburant.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -470,6 +474,9 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		Log.h \
 		eval.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
+
+SystemeCarburant.o: SystemeCarburant.cpp SystemeCarburant.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SystemeCarburant.o SystemeCarburant.cpp
 
 moc_affichage.o: moc_affichage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_affichage.o moc_affichage.cpp
