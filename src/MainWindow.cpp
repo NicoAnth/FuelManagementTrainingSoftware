@@ -57,11 +57,11 @@ void MainWindow::createActions() {
     QObject::connect(tank2Act, SIGNAL(triggered()), map["Tank 2"], SLOT(empty()));
     QObject::connect(tank3Act, SIGNAL(triggered()), map["Tank 3"], SLOT(empty()));
     QObject::connect(p11Act, SIGNAL(triggered()), map["P11"], SLOT(setBroken()));
-    QObject::connect(p11Act, SIGNAL(triggered()), map["P12"], SLOT(setBroken()));
-    QObject::connect(p11Act, SIGNAL(triggered()), map["P21"], SLOT(setBroken()));
-    QObject::connect(p11Act, SIGNAL(triggered()), map["P22"], SLOT(setBroken()));
-    QObject::connect(p11Act, SIGNAL(triggered()), map["P31"], SLOT(setBroken()));
-    QObject::connect(p11Act, SIGNAL(triggered()), map["P32"], SLOT(setBroken()));
+    QObject::connect(p12Act, SIGNAL(triggered()), map["P12"], SLOT(setBroken()));
+    QObject::connect(p21Act, SIGNAL(triggered()), map["P21"], SLOT(setBroken()));
+    QObject::connect(p22Act, SIGNAL(triggered()), map["P22"], SLOT(setBroken()));
+    QObject::connect(p31Act, SIGNAL(triggered()), map["P31"], SLOT(setBroken()));
+    QObject::connect(p32Act, SIGNAL(triggered()), map["P32"], SLOT(setBroken()));
 }
 
 void MainWindow::createMenus() {

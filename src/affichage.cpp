@@ -49,7 +49,7 @@
             secondaryPump->switchState(OFF);
         }
 
-        emit GenericTpev::clickedLog(name);
+        emit updateLastEntry();
         update();
     }
 
@@ -61,6 +61,8 @@
             switchState(false);
         else
             switchState(true);
+
+        emit GenericTpev::clickedLog(name);
     }
 
     void Tank::empty() {
@@ -171,6 +173,9 @@
                 }
             }
         }
+
+        emit updateLastEntry();
+        update();
     }
 
     void Pump::setBroken(){
