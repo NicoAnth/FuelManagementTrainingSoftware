@@ -10,22 +10,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Orga/Simulation.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Orga/Simulation.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Simulation.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Simulation.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Orga/noteOrga.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Orga/noteOrga.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SystemeCarburant.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/SystemeCarburant.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SystemeCarburant.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/SystemeCarburant.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/affichage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/affichage.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/affichage.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_Log.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_Log.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_affichage.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_affichage.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Orga/Simulation.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Orga/Simulation.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_Log.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_Log.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_MainWindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_MainWindow.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_MainWindow.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_SystemeCarburant.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_SystemeCarburant.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_SystemeCarburant.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_SystemeCarburant.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_affichage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_affichage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_connexion.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_connexion.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_connexion.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_connexion.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_eval.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_eval.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/moc_eval.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_eval.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/src" beforeDir="false" afterPath="$PROJECT_DIR$/src/src" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,7 +54,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="denden" />
+        <entry key="$PROJECT_DIR$" value="aaaaa" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
