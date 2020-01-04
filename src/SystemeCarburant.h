@@ -11,6 +11,8 @@
 
 
  class SystemeCarburant: public QWidget{
+    Q_OBJECT
+
     private:
         QMap<QString, GenericTpev*> tpevMap;
         QMap<QString, qint32> lastLogEntry;
@@ -51,6 +53,9 @@
         QMap<QString, GenericTpev*>& getMap();
         void setLastEntry(const QMap<QString, qint32>& entry);
         QMap<QString, qint32>& getLastEntry();
+
+    public slots:
+        void updateLastEntry();
 };
 
 #endif //PROJETCARBURANTAVION_SYSTEMECARBURANT_H

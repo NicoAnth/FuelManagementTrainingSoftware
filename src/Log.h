@@ -5,15 +5,11 @@
 #ifndef PROJETCARBURANTAVION_LOG_H
 #define PROJETCARBURANTAVION_LOG_H
 
-#include <QWidget>
 #include <QListWidget>
-#include <QListWidgetItem>
-#include <QVector>
-#include <QMap>
-#include <QMainWindow>
 #include <QDockWidget>
 #include <QFile>
 #include <QDebug>
+#include <QMainWindow>
 #include "affichage.h"
 #include "SystemeCarburant.h"
 
@@ -55,11 +51,9 @@ class Log : public QWidget{
     public slots:
         void addLine(QString name);
         void itemClicked(QListWidgetItem*);
-        void tpevClicked();
         void save(QString name);
         void load(QString name);
         void addEvalLog(QString mistakeMessage);
-        
 
     signals:
         void lastEntry(QMap<QString, qint32>*);

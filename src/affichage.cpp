@@ -33,14 +33,12 @@
         p.drawText(rect(), Qt::AlignHCenter, name);
     }
 
-    void Tank::clickedSlot(){
-        emit clickedEval();
-        emit clickedLog();
+    void Tank::switchState(bool state) {
+        if(state)
+            this->state = true;
+        else{
+            this->state = false;
 
-        if(!state){
-            state = true;
-        } else{
-            state = false;
             if(primaryPump->getState() || secondaryPump->getState()){
                 // afficher message "Caution : tank " + name + " emptied,
                 // its pumps aren't doing nothing in this state.
@@ -51,8 +49,22 @@
             secondaryPump->switchState(OFF);
         }
 
-        emit GenericTpev::stateChanged(name);
+        emit GenericTpev::clickedLog(name);
         update();
+    }
+
+    void Tank::clickedSlot(){
+        emit clickedEval();
+        emit GenericTpev::updateLastEntry();
+
+        if(state)
+            switchState(false);
+        else
+            switchState(true);
+    }
+
+    void Tank::empty() {
+        switchState(false);
     }
 
     short Tank::getState() {
@@ -161,6 +173,10 @@
         }
     }
 
+    void Pump::setBroken(){
+        switchState(BROKEN);
+    }
+
     void Pump::paintEvent(QPaintEvent*){
         QPainter p(this);
         if(state == OFF)
@@ -179,7 +195,7 @@
 
     void Pump::clickedSlot(){
         emit clickedEval();
-        emit clickedLog();
+        emit updateLastEntry();
 
         switch(state){
             case ON :
@@ -195,7 +211,7 @@
                 break;
         }
 
-        emit GenericTpev::stateChanged(name);
+        emit GenericTpev::clickedLog(name);
         update();
     }
 
@@ -290,7 +306,7 @@
     }
 
     void ValveTank::clickedSlot(){
-        emit clickedLog();
+        emit updateLastEntry();
 
         if(state)
             state = false;
@@ -304,7 +320,7 @@
         }
 
         emit clickedEval();
-        emit GenericTpev::stateChanged(name);
+        emit GenericTpev::clickedLog(name);
         update();
     }
 
@@ -334,7 +350,7 @@
         } else{
             if(pair.second->getPump() == nullptr){
                 Pump* tmpP = pair.first->getSecondaryPump();
-                if(tmpP->getEngine() == nullptr && tmpP->getState()){
+                if(tmpP->getEngine() == nullptr && tmpP->getState() == ON){
                     pair.second->setState(true);
                     pair.second->setPump(tmpP);
                     tmpP->setEngine(pair.second);
@@ -344,7 +360,7 @@
     }
 
     void ValveEngine::clickedSlot() {
-        emit clickedLog();
+        emit updateLastEntry();
 
         if (state) {
             state = false;
@@ -357,6 +373,6 @@
         }
 
         emit clickedEval();
-        emit GenericTpev::stateChanged(name);
+        emit GenericTpev::clickedLog(name);
         update();
     }

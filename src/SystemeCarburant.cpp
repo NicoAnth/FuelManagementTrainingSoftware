@@ -127,6 +127,7 @@ SystemeCarburant::SystemeCarburant(int width, int height) {
     // Signals clics on widgets
     for(auto it = tpevMap.cbegin(); it != tpevMap.cend(); it++){
         QObject::connect(it.value(), SIGNAL(clicked()), it.value(), SLOT(clickedSlot()));
+        QObject::connect(it.value(), SIGNAL(updateLastEntry()), this, SLOT(updateLastEntry()));
     }
 
     //Dashboard clics on signals
@@ -185,4 +186,10 @@ void SystemeCarburant::paintEvent(QPaintEvent *) {
     p.drawLine(xright, TANK_HEIGHT/2 + 10, xright, 4.5*TANK_HEIGHT);   // v23 vertical
     p.drawLine(xleft, 2*TANK_HEIGHT, xright + 20, 2*TANK_HEIGHT);    // v13 horizontal
     p.drawLine(xright + 20, 2*TANK_HEIGHT, xright + 20, height() - 2*TANK_HEIGHT);   // v13 vertical
+}
+
+void SystemeCarburant::updateLastEntry() {
+    for(auto it = tpevMap.cbegin(); it != tpevMap.cend(); it++){
+        lastLogEntry[it.key()] = it.value()->getState();
+    }
 }

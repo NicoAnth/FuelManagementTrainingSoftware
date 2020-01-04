@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GenericTpev_t {
     QByteArrayData data[7];
-    char stringdata0[66];
+    char stringdata0[69];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,16 +32,16 @@ struct qt_meta_stringdata_GenericTpev_t {
 static const qt_meta_stringdata_GenericTpev_t qt_meta_stringdata_GenericTpev = {
     {
 QT_MOC_LITERAL(0, 0, 11), // "GenericTpev"
-QT_MOC_LITERAL(1, 12, 10), // "clickedLog"
-QT_MOC_LITERAL(2, 23, 0), // ""
-QT_MOC_LITERAL(3, 24, 11), // "clickedEval"
-QT_MOC_LITERAL(4, 36, 12), // "stateChanged"
-QT_MOC_LITERAL(5, 49, 4), // "name"
-QT_MOC_LITERAL(6, 54, 11) // "clickedSlot"
+QT_MOC_LITERAL(1, 12, 15), // "updateLastEntry"
+QT_MOC_LITERAL(2, 28, 0), // ""
+QT_MOC_LITERAL(3, 29, 11), // "clickedEval"
+QT_MOC_LITERAL(4, 41, 10), // "clickedLog"
+QT_MOC_LITERAL(5, 52, 4), // "name"
+QT_MOC_LITERAL(6, 57, 11) // "clickedSlot"
 
     },
-    "GenericTpev\0clickedLog\0\0clickedEval\0"
-    "stateChanged\0name\0clickedSlot"
+    "GenericTpev\0updateLastEntry\0\0clickedEval\0"
+    "clickedLog\0name\0clickedSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -83,9 +83,9 @@ void GenericTpev::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         GenericTpev *_t = static_cast<GenericTpev *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->clickedLog(); break;
+        case 0: _t->updateLastEntry(); break;
         case 1: _t->clickedEval(); break;
-        case 2: _t->stateChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 2: _t->clickedLog((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->clickedSlot(); break;
         default: ;
         }
@@ -93,7 +93,7 @@ void GenericTpev::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (GenericTpev::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&GenericTpev::clickedLog)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&GenericTpev::updateLastEntry)) {
                 *result = 0;
                 return;
             }
@@ -107,7 +107,7 @@ void GenericTpev::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         }
         {
             using _t = void (GenericTpev::*)(QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&GenericTpev::stateChanged)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&GenericTpev::clickedLog)) {
                 *result = 2;
                 return;
             }
@@ -152,7 +152,7 @@ int GenericTpev::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void GenericTpev::clickedLog()
+void GenericTpev::updateLastEntry()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
@@ -164,14 +164,14 @@ void GenericTpev::clickedEval()
 }
 
 // SIGNAL 2
-void GenericTpev::stateChanged(QString _t1)
+void GenericTpev::clickedLog(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 struct qt_meta_stringdata_Tank_t {
-    QByteArrayData data[5];
-    char stringdata0[33];
+    QByteArrayData data[6];
+    char stringdata0[39];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -184,10 +184,11 @@ QT_MOC_LITERAL(0, 0, 4), // "Tank"
 QT_MOC_LITERAL(1, 5, 11), // "clickedSlot"
 QT_MOC_LITERAL(2, 17, 0), // ""
 QT_MOC_LITERAL(3, 18, 8), // "setState"
-QT_MOC_LITERAL(4, 27, 5) // "state"
+QT_MOC_LITERAL(4, 27, 5), // "state"
+QT_MOC_LITERAL(5, 33, 5) // "empty"
 
     },
-    "Tank\0clickedSlot\0\0setState\0state"
+    "Tank\0clickedSlot\0\0setState\0state\0empty"
 };
 #undef QT_MOC_LITERAL
 
@@ -197,7 +198,7 @@ static const uint qt_meta_data_Tank[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -205,12 +206,14 @@ static const uint qt_meta_data_Tank[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    1,   25,    2, 0x0a /* Public */,
+       1,    0,   29,    2, 0x0a /* Public */,
+       3,    1,   30,    2, 0x0a /* Public */,
+       5,    0,   33,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::Short,    4,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -223,6 +226,7 @@ void Tank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         switch (_id) {
         case 0: _t->clickedSlot(); break;
         case 1: _t->setState((*reinterpret_cast< short(*)>(_a[1]))); break;
+        case 2: _t->empty(); break;
         default: ;
         }
     }
@@ -253,19 +257,19 @@ int Tank::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
 struct qt_meta_stringdata_Pump_t {
-    QByteArrayData data[5];
-    char stringdata0[33];
+    QByteArrayData data[6];
+    char stringdata0[43];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -278,10 +282,12 @@ QT_MOC_LITERAL(0, 0, 4), // "Pump"
 QT_MOC_LITERAL(1, 5, 11), // "clickedSlot"
 QT_MOC_LITERAL(2, 17, 0), // ""
 QT_MOC_LITERAL(3, 18, 8), // "setState"
-QT_MOC_LITERAL(4, 27, 5) // "state"
+QT_MOC_LITERAL(4, 27, 5), // "state"
+QT_MOC_LITERAL(5, 33, 9) // "setBroken"
 
     },
-    "Pump\0clickedSlot\0\0setState\0state"
+    "Pump\0clickedSlot\0\0setState\0state\0"
+    "setBroken"
 };
 #undef QT_MOC_LITERAL
 
@@ -291,7 +297,7 @@ static const uint qt_meta_data_Pump[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -299,12 +305,14 @@ static const uint qt_meta_data_Pump[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    1,   25,    2, 0x0a /* Public */,
+       1,    0,   29,    2, 0x0a /* Public */,
+       3,    1,   30,    2, 0x0a /* Public */,
+       5,    0,   33,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::Short,    4,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -317,6 +325,7 @@ void Pump::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         switch (_id) {
         case 0: _t->clickedSlot(); break;
         case 1: _t->setState((*reinterpret_cast< short(*)>(_a[1]))); break;
+        case 2: _t->setBroken(); break;
         default: ;
         }
     }
@@ -347,13 +356,13 @@ int Pump::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

@@ -18,8 +18,10 @@ class MainWindow : public QMainWindow{
     Q_OBJECT
 
     private:
+        SystemeCarburant* systemeC;
         Log* log;
         QMenu* fileMenu;
+        QMenu* subMenu;
         QAction *newAccountAct;
         QAction *connexionAct;
         QAction *saveAct;
@@ -27,6 +29,16 @@ class MainWindow : public QMainWindow{
         QAction *simulAct;
         QAction *exerciceAct;
         QAction *exMakerAct;
+        QAction* tank1Act;
+        QAction* tank2Act;
+        QAction* tank3Act;
+        QAction* p11Act;
+        QAction* p12Act;
+        QAction* p21Act;
+        QAction* p22Act;
+        QAction* p31Act;
+        QAction* p32Act;
+
     public:
         MainWindow();
         ~MainWindow(){}
@@ -39,7 +51,8 @@ class MainWindow : public QMainWindow{
         void saveLog();
         void loadLog();
         void accountConnection();
-        signals:
+
+    signals:
         void saveSignal(QString);
         void loadSignal(QString);
 };

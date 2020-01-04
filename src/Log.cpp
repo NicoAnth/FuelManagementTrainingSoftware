@@ -3,7 +3,6 @@
 //
 
 #include "Log.h"
-#include <iostream>
 
 // LOG ITEM
     LogItem::LogItem(const LogItem& item) : QListWidgetItem() {
@@ -64,8 +63,7 @@
         // SIGNALS
         QMap<QString, GenericTpev*>& systemeCmap = systemeC->getMap();
         for(auto it=systemeCmap.cbegin(); it!=systemeCmap.cend(); it++){
-            QObject::connect(it.value(), SIGNAL(stateChanged(QString)), this, SLOT(addLine(QString)));
-            QObject::connect(it.value(), SIGNAL(clickedLog()), this, SLOT(tpevClicked()));
+            QObject::connect(it.value(), SIGNAL(clickedLog(QString)), this, SLOT(addLine(QString)));
         }
     }
     void Log::clear() {
@@ -73,10 +71,6 @@
         actionList = new QListWidget();
         QObject::connect(actionList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(itemClicked(QListWidgetItem*)));
         dock->setWidget(actionList);
-    }
-
-    void Log::tpevClicked() {
-        systemeC->setMap(systemeC->getLastEntry());
     }
 
     void Log::itemClicked(QListWidgetItem *item) {

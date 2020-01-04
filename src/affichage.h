@@ -42,9 +42,9 @@
             virtual void clickedSlot()=0;
 
         signals:
-            void clickedLog();
+            void updateLastEntry();
             void clickedEval();
-            void stateChanged(QString name);
+            void clickedLog(QString name);
     };
 
 // TANK PUMP VALVE ENGINE
@@ -66,10 +66,12 @@
             virtual short getState();
             Pump* getPrimaryPump();
             Pump* getSecondaryPump();
+            void switchState(bool state);
 
         public slots:
             virtual void clickedSlot();
             virtual void setState(short state);
+            void empty();
     };
 
     // PUMP
@@ -96,6 +98,7 @@
         public slots:
             virtual void clickedSlot();
             virtual void setState(short state);
+            void setBroken();
     };
 
 //    class PrimaryPump : public Pump{
