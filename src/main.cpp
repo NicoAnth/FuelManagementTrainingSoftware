@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QWidget>
+#include "MainWindow.h"
 #include "affichage.h"
 
 using namespace std;

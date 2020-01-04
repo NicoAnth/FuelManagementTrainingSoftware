@@ -19,10 +19,9 @@
 // GENERIC CLASS
 
 // TANKS
-    Tank::Tank(QString name,Pump* primaryP,Pump* secondaryP)     {
+    Tank::Tank(QString name,Pump* primaryP,Pump* secondaryP)
+        : primaryPump(primaryP), secondaryPump(secondaryP){
         this->name = name;
-        this->primaryPump = primaryP;
-        this->secondaryPump = secondaryP;
         state = true;
         setFixedWidth(TANK_WIDTH);
         setFixedHeight(TANK_HEIGHT);
@@ -52,10 +51,20 @@
         emit clickedEval();
         emit clickedLog();
 
-        if(state) state = false;
-        else state = true;
+        if(!state){
+            state = true;
+        } else{
+            state = false;
+            if(primaryPump->getState() || secondaryPump->getState()){
+                // afficher message "Caution : tank " + name + " emptied,
+                // its pumps aren't doing nothing in this state.
+                // Try to refill the tank by opening the associated valve"
+            }
 
-        emit stateChanged(state);
+            primaryPump->switchState(OFF);
+            secondaryPump->switchState(OFF);
+        }
+
         emit GenericTpev::stateChanged(name);
         update();
     }
@@ -67,19 +76,27 @@
     void Tank::setState(short state) {
         if(state && !this->state){
             this->state = true;
-            emit stateChanged(this->state);
             update();
         }
     }
 
+    Pump* Tank::getPrimaryPump() {
+        return primaryPump;
+    }
+
+    Pump* Tank::getSecondaryPump() {
+        return secondaryPump;
+    }
+
 // PUMPS
-    Pump::Pump(QString name,Engine* supplyingE) {
+    Pump::Pump(QString name, Engine* supplyingE, bool primary) {
         this->name = name;
         this->supplyingEngine = supplyingE;
+        this->primary = primary;
         setFixedWidth(PUMP_RAY*2);
         setFixedHeight(PUMP_RAY*2);
 
-        if(engine) state = ON;
+        if(supplyingEngine != nullptr) state = ON;
         else state = OFF;
     }
 
@@ -99,16 +116,50 @@
                 this->state = BROKEN;
                 break;
         }
-
-        emit stateChanged(state);
     }
 
-    bool Pump::getEngine(){
-        return engine;
+    Engine* Pump::getEngine(){
+        return supplyingEngine;
     }
 
-    void Pump::setEngine(bool engine){
-        this->engine = engine;
+    void Pump::setEngine(Engine* engine){
+        supplyingEngine = engine;
+    }
+
+    void Pump::switchState(pumpState state) {
+        this->state = state;
+        Engine* tmpE = getEngine();
+
+        if(state == ON){
+            if(primary){
+                assert(tmpE);
+                Pump* tmpP = tmpE->getPump();
+
+                if(tmpP != nullptr){
+                    tmpP->setEngine(nullptr);
+                    // afficher message
+                    // "CAUTION : pump " + tmpp.name + " doesn't supply " + tmpe.name + " anymore !"
+                }
+
+                tmpE->setPump(this);
+                tmpE->setState(true);
+            }
+        } else{
+            if(tmpE != nullptr){
+                // engine no longer supplied
+                // afficher message
+                // "CAUTION : pump " + name + " doesn't supply " + tmpe.name + " anymore !"
+                // if pump secondary, set engineSupplied to null
+                if(!primary){
+                    tmpE->setPump(nullptr);
+                    tmpE->setState(false);
+                    setEngine(nullptr);
+                } else if (tmpE->getPump() == this){
+                    tmpE->setPump(nullptr);
+                    tmpE->setState(false);
+                }
+            }
+        }
     }
 
     void Pump::paintEvent(QPaintEvent*){
@@ -130,28 +181,22 @@
     void Pump::clickedSlot(){
         emit clickedEval();
         emit clickedLog();
-        update();
-        
-        short emitState = 0;
+
         switch(state){
             case ON :
-                emitState--;
-                state = OFF;
+                switchState(OFF);
                 break;
             case OFF :
-                emitState += 2;
-                state = BROKEN;
+                switchState(BROKEN);
                 break;
             case BROKEN :
-                emitState--;
-                state = ON;
+                switchState(ON);
                 break;
             default:
                 std::cerr << "unrecognized pump state" << std::endl;
                 break;
         }
 
-        emit stateChanged(emitState);
         emit GenericTpev::stateChanged(name);
         update();
     }
@@ -171,7 +216,6 @@
 
     void Engine::setState(short state) {
         this->state = state;
-        emit stateChanged(state);
         update();
     }
 
@@ -179,7 +223,7 @@
         return supplyingPump;
     }
 
-    void Engine::setPump(Pump *supplyingP) {
+    void Engine::setPump(Pump* supplyingP) {
         supplyingPump = supplyingP;
     }
 
@@ -216,7 +260,6 @@
 
     void Valve::setState(short state) {
         this->state = state;
-        emit stateChanged(state);
     }
 
     void Valve::paintEvent(QPaintEvent *) {
@@ -243,103 +286,81 @@
         }
     }
 
-    void Valve::clickedSlot(){
+    // VALVE TANK
+    ValveTank::ValveTank(QString name, Tank* const _t1, Tank* const _t2)
+        : Valve(name), t1(_t1), t2(_t2){
+    }
+
+    void ValveTank::clickedSlot(){
         emit clickedLog();
 
-        if(!state)
-            state = true;
-        else
+        if(state)
             state = false;
+        else{
+            state = true;
+            if(t1->getState() && !t2->getState()){
+                t2->setState(true);
+            } else if(t2->getState() && !t1->getState()){
+                t1->setState(true);
+            }
+        }
 
         emit clickedEval();
-        emit stateChanged(state);
         emit GenericTpev::stateChanged(name);
         update();
     }
 
-    // VALVE TANK
-    ValveTank::ValveTank(QString name, Tank* t1, Tank* t2) : Valve(name) {
-        this->t1 = t1;
-        this->t2 = t2;
-    }
-
     // VALVE ENGINE
-    ValveEngine::ValveEngine(QString name, Tank* t1, Engine* e1,
-            Tank* t2, Engine* e2) : Valve(name){
+    ValveEngine::ValveEngine(QString name, Tank* t1, Engine* e1,Tank* t2, Engine* e2)
+        : Valve(name){
         pair1.first = t1;
         pair1.second = e1;
         pair2.first = t2;
         pair2.second = e2;
     }
 
-// MAIN WINDOW
-    MainWindow::MainWindow() {
-        SystemeCarburant* systemeC = new SystemeCarburant(700,700);
-        log = new Log(this, systemeC);
-        Evaluation* ev = new Evaluation(systemeC,log);
+    void ValveEngine::switchEngineState(QPair<Tank*, Engine*>& pair, bool state){
+        if(!state){
+            Pump* const tmpP = pair.second->getPump();
 
-        systemeC->setParent(this);
-        this->setCentralWidget(systemeC);
-
-        createActions();
-        createMenus();
+            if(tmpP != nullptr) {
+                if (tmpP == pair.first->getSecondaryPump()) {
+                    pair.second->setPump(nullptr);
+                    pair.second->setState(false);
+                    tmpP->setEngine(nullptr);
+                    // afficher message
+                    // "CAUTION :
+                    // pump " + tmpP.name + " doesn't supply " + pair1.second.getName + " anymore !"                }
+                }
+            }
+        } else{
+            if(pair.second->getPump() == nullptr){
+                Pump* tmpP = pair.first->getSecondaryPump();
+                if(tmpP->getEngine() == nullptr && tmpP->getState()){
+                    pair.second->setState(true);
+                    pair.second->setPump(tmpP);
+                    tmpP->setEngine(pair.second);
+                }
+            }
+        }
     }
 
-    void MainWindow::createActions() {
+    void ValveEngine::clickedSlot() {
+        emit clickedLog();
 
-        newAccountAct = new QAction(tr("&New Account"), this);
-        newAccountAct->setStatusTip(tr("Create a new account"));
+        if (state) {
+            state = false;
+            switchEngineState(pair1, false);
+            switchEngineState(pair2, false);
+        } else{
+            state = true;
+            switchEngineState(pair1, true);
+            switchEngineState(pair2, true);
+        }
 
-        connexionAct = new QAction(tr("&Connexion"), this);
-        connexionAct->setStatusTip(tr("Connexion to an account"));
-        QObject::connect(connexionAct, SIGNAL(triggered()), this, SLOT(accountConnection()));
-
-        saveAct = new QAction(tr("&Save"), this);
-        saveAct->setStatusTip(tr("Save action log into a file"));
-        QObject::connect(saveAct, SIGNAL(triggered()), this, SLOT(saveLog()));
-
-        loadAct = new QAction(tr("&Load"), this);
-        loadAct->setStatusTip(tr("Load an existing action log"));
-        QObject::connect(loadAct, SIGNAL(triggered()), this, SLOT(loadLog()));
-        
-        simulAct = new QAction(tr("&Exercise"), this);
-        simulAct->setStatusTip(tr("Load an existing action log"));
-        
-        exerciceAct = new QAction(tr("&Simulation"), this);
-        exerciceAct->setStatusTip(tr("Load an existing action log"));
-
-        exMakerAct = new QAction(tr("&Exercise Maker"), this);
-        exMakerAct->setStatusTip(tr("Load an existing action log"));
-    }
-
-    void MainWindow::createMenus() {
-        fileMenu = menuBar()->addMenu(tr("&Connexion"));
-        fileMenu->addAction(newAccountAct);
-        fileMenu->addAction(connexionAct);
-        fileMenu = menuBar()->addMenu(tr("&File"));
-        fileMenu->addAction(saveAct);
-        fileMenu->addAction(loadAct);
-        fileMenu = menuBar()->addMenu(tr("&Mode"));
-        fileMenu->addAction(exerciceAct);
-        fileMenu->addAction(simulAct);
-        fileMenu->addAction(exMakerAct);
-    }
-
-    void MainWindow::saveLog() {
-        QString fileName = QFileDialog::getOpenFileName
-                (this, tr("Choose File"), "home/user/projetCarburantAvion");
-
-        log->save(fileName);
-    }
-
-    void MainWindow::loadLog(){
-        QString fileName = QFileDialog::getOpenFileName
-                (this, tr("Choose File"), "home/user/projetCarburantAvion");
-
-        log->load(fileName);
-    }
-    void MainWindow::accountConnection(){
-        Connexion *c = new Connexion();
+        emit clickedEval();
+        emit GenericTpev::stateChanged(name);
+        update();
     }
 
 
@@ -350,18 +371,22 @@
         this->setMinimumHeight(height);
 
         // Widgets to draw
-        tank1 = new Tank("Tank 1",pump11,pump12);
-        tank2 = new Tank("Tank 2",pump21,pump22);
-        tank3 = new Tank("Tank 3",pump31,pump32);
-        pump11 = new Pump("P11",engine1);
-        pump12 = new Pump("P12",nullptr);
-        pump21 = new Pump( "P21",engine2);
-        pump22 = new Pump("P22",nullptr);
-        pump31 = new Pump("P31",engine3);
-        pump32 = new Pump("P32",nullptr);
-        engine1 = new Engine("Engine 1",pump11);
-        engine2 = new Engine("Engine 2",pump21);
-        engine3 = new Engine("Engine 3",pump31);
+        engine1 = new Engine("Engine 1",nullptr);
+        engine2 = new Engine("Engine 2",nullptr);
+        engine3 = new Engine("Engine 3",nullptr);
+        pump11 = new Pump("P11",engine1, true);
+        pump12 = new Pump("P12",nullptr, false);
+        pump21 = new Pump( "P21",engine2, true);
+        pump22 = new Pump("P22",nullptr, false);
+        pump31 = new Pump("P31",engine3, true);
+        pump32 = new Pump("P32",nullptr, false);
+        engine1->setPump(pump11);
+        engine2->setPump(pump21);
+        engine3->setPump(pump31);
+        tank1 = new Tank("Tank 1", pump11, pump12);
+        tank2 = new Tank("Tank 2", pump21, pump22);
+        tank3 = new Tank("Tank 3", pump31, pump32);
+
         vt12 = new ValveTank("VT12", tank1, tank2);
         vt23 = new ValveTank("VT23", tank2, tank3);
         v12 = new ValveEngine("V12", tank1, engine2, tank2, engine1);

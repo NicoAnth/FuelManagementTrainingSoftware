@@ -4,9 +4,6 @@
 #include <QWidget>
 #include <QAbstractButton>
 #include <QPainter>
-#include <QMainWindow>
-#include <QMenu>
-#include <QAction>
 #include <QPushButton>
 #include "Log.h"
 #include <map>
@@ -36,7 +33,7 @@
     class GenericTpev : public QAbstractButton{
         Q_OBJECT
 
-        private:
+        protected:
             QString name;
 
         public:
@@ -45,7 +42,6 @@
 
             virtual short getState()=0;
             virtual void setState(short state)=0;
-            virtual bool getEngine(){return true;};
 
         public slots:
             virtual void clickedSlot()=0;
@@ -54,7 +50,6 @@
             void clickedLog();
             void clickedEval();
             void stateChanged(QString name);
-            void stateChanged(short state);
     };
 
 // TANK PUMP VALVE ENGINE
@@ -65,16 +60,17 @@
         Q_OBJECT
 
         private:
-            QString name;
             bool state;
-            const Pump* primaryPump;
-            const Pump* secondaryPump;
+            Pump* const primaryPump;
+            Pump* const secondaryPump;
             void paintEvent(QPaintEvent*);
 
         public:
             Tank(QString name,Pump* primaryP,Pump* secondaryP);
             ~Tank(){}
             virtual short getState();
+            Pump* getPrimaryPump();
+            Pump* getSecondaryPump();
 
         public slots:
             virtual void clickedSlot();
@@ -86,31 +82,53 @@
         Q_OBJECT
 
         private:
-            QString name;
             pumpState state;
-            bool engine;
-            bool stateChangeable;
+            bool primary;
             Engine* supplyingEngine;
 
         public:
-            Pump(QString name,Engine* supplyingE);
+            Pump(QString name,Engine* supplyingE, bool primary);
             ~Pump(){}
             virtual short getState();
-            bool getEngine();
-            void setEngine(bool);
+            Engine* getEngine();
+            void setEngine(Engine*);
             void paintEvent(QPaintEvent*);
+            void switchState(pumpState state);
 
         public slots:
             virtual void clickedSlot();
             virtual void setState(short state);
     };
 
+//    class PrimaryPump : public Pump{
+//        Q_OBJECT
+//
+//        private:
+//            bool state;
+//            Engine* const supplyingEngine;
+//
+//        public:
+//            PrimaryPump(QString name,Engine* supplyingE) : Pump(){}
+//            ~PrimaryPump(){}
+//    };
+//
+//    class SecondaryPump : public Pump{
+//        Q_OBJECT
+//
+//        private:
+//            pumpState state;
+//            Engine* supplyingEngine;
+
+//        public:
+//          SecondaryPump(QString name, Engine* supplyingE) : Pump(name, supplyingE){}
+//          ~SecondaryPump(){}
+//    };
+
     // ENGINE
     class Engine : public GenericTpev{
         Q_OBJECT
 
         private:
-            QString name;
             bool state;
             Pump* supplyingPump;
         public:
@@ -128,8 +146,7 @@
     class Valve : public GenericTpev{
         Q_OBJECT
 
-        private:
-            QString name;
+        protected:
             bool state;
 
         public:
@@ -141,31 +158,39 @@
             void paintEvent(QPaintEvent*);
 
         public slots:
-            virtual void clickedSlot();
+            virtual void clickedSlot()=0;
     };
 
     class ValveTank : public Valve{
         Q_OBJECT
 
         private:
-            const Tank* t1;
-            const Tank* t2;
+            Tank* const t1;
+            Tank* const t2;
 
         public:
             ValveTank(QString name, Tank* t1, Tank* t2);
             ~ValveTank(){}
+
+        public slots:
+            virtual void clickedSlot();
     };
 
     class ValveEngine : public Valve{
         Q_OBJECT
 
         private:
-            QPair<const Tank*, const Engine*> pair1;
-            QPair<const Tank*, const Engine*> pair2;
+            QPair<Tank*, Engine*> pair1;
+            QPair<Tank*, Engine*> pair2;
 
         public:
             ValveEngine(QString name, Tank* t1, Engine* e1, Tank* t2, Engine* e2);
             ~ValveEngine(){}
+
+            void switchEngineState(QPair<Tank*, Engine*>& pair, bool state);
+
+        public slots:
+            virtual void clickedSlot();
     };
 
 // SYSTEME CARBURANT
@@ -211,38 +236,6 @@
             QMap<QString, GenericTpev*>& getMap();
             void setLastEntry(const QMap<QString, qint32>& entry);
             QMap<QString, qint32>& getLastEntry();
-    };
-
-// MAIN WINDOW
-    class MainWindow : public QMainWindow{
-        Q_OBJECT
-
-        private:
-            Log* log;
-            QMenu* fileMenu;
-            QAction *newAccountAct;
-            QAction *connexionAct;
-            QAction *saveAct;
-            QAction *loadAct;
-            QAction *simulAct;
-            QAction *exerciceAct;
-            QAction *exMakerAct;
-        public:
-            MainWindow();
-            ~MainWindow(){}
-
-            void createDockWindow(Log* log);
-            void createMenus();
-            void createActions();
-
-        public slots:
-            void saveLog();
-            void loadLog();
-            void accountConnection();
-        signals:
-            void saveSignal(QString);
-            void loadSignal(QString);
-            
     };
 
 

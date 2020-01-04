@@ -437,7 +437,8 @@ Log.o: Log.cpp Log.h \
 		affichage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Log.o Log.cpp
 
-main.o: main.cpp affichage.h \
+main.o: main.cpp MainWindow.h \
+		affichage.h \
 		Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 

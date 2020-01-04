@@ -11,19 +11,17 @@ class Simulation : public QWidget{
     Q_OBJECT
 
     private:
-        QMap<QString name, GenericTpev*> systemMap;
+        QMap<QString name, GenericTpev*> simulationMap;
 
     public:
-        Simulation();
+        Simulation(QMap<QString name, GenericTpev*> systemeCmap);
         ~Simulation(){}
 
     public slots:
-        void tankClicked();
-        void pumpClicked();
-        void valveClicked();
-
-    signals:
-
+        void tankClicked(QString name);
+        void pumpClicked(QString name);
+        void valveTankClicked(QString name);
+        void valveEngineClicked(QString name);
 };
 
 
