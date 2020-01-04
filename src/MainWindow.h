@@ -6,8 +6,13 @@
 #define PROJETCARBURANTAVION_MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMenu>
 #include <QAction>
+#include <QMenu>
+#include <QMenuBar>
+#include <QFileDialog>
+#include "connexion.h"
+#include "Log.h"
+#include "eval.h"
 
 class MainWindow : public QMainWindow{
     Q_OBJECT

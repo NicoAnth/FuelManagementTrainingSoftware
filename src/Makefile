@@ -51,24 +51,28 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = affichage.cpp \
+		connexion.cpp \
 		eval.cpp \
 		FileHandler.cpp \
 		Log.cpp \
 		main.cpp \
-		connexion.cpp moc_affichage.cpp \
+		MainWindow.cpp moc_affichage.cpp \
+		moc_connexion.cpp \
 		moc_eval.cpp \
 		moc_Log.cpp \
-		moc_connexion.cpp
+		moc_MainWindow.cpp
 OBJECTS       = affichage.o \
+		connexion.o \
 		eval.o \
 		FileHandler.o \
 		Log.o \
 		main.o \
-		connexion.o \
+		MainWindow.o \
 		moc_affichage.o \
+		moc_connexion.o \
 		moc_eval.o \
 		moc_Log.o \
-		moc_connexion.o
+		moc_MainWindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -145,15 +149,17 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		src.pro affichage.h \
+		connexion.h \
 		eval.h \
 		FileHandler.h \
 		Log.h \
-		connexion.h affichage.cpp \
+		MainWindow.h affichage.cpp \
+		connexion.cpp \
 		eval.cpp \
 		FileHandler.cpp \
 		Log.cpp \
 		main.cpp \
-		connexion.cpp
+		MainWindow.cpp
 QMAKE_TARGET  = src
 DESTDIR       = 
 TARGET        = src
@@ -339,8 +345,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.h eval.h FileHandler.h Log.h connexion.h $(DISTDIR)/
-	$(COPY_FILE) --parents affichage.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp connexion.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.h connexion.h eval.h FileHandler.h Log.h MainWindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents affichage.cpp connexion.cpp eval.cpp FileHandler.cpp Log.cpp main.cpp MainWindow.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -372,15 +378,22 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_affichage.cpp moc_eval.cpp moc_Log.cpp moc_connexion.cpp
+compiler_moc_header_make_all: moc_affichage.cpp moc_connexion.cpp moc_eval.cpp moc_Log.cpp moc_MainWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_affichage.cpp moc_eval.cpp moc_Log.cpp moc_connexion.cpp
+	-$(DEL_FILE) moc_affichage.cpp moc_connexion.cpp moc_eval.cpp moc_Log.cpp moc_MainWindow.cpp
 moc_affichage.cpp: Log.h \
 		affichage.h \
 		affichage.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include affichage.h -o moc_affichage.cpp
+
+moc_connexion.cpp: affichage.h \
+		Log.h \
+		connexion.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include connexion.h -o moc_connexion.cpp
 
 moc_eval.cpp: affichage.h \
 		Log.h \
@@ -396,12 +409,14 @@ moc_Log.cpp: affichage.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Log.h -o moc_Log.cpp
 
-moc_connexion.cpp: affichage.h \
+moc_MainWindow.cpp: connexion.h \
+		affichage.h \
 		Log.h \
-		connexion.h \
+		eval.h \
+		MainWindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include connexion.h -o moc_connexion.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/user/projetCarburantAvion/src/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/user/projetCarburantAvion/src -I/home/user/projetCarburantAvion/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -425,6 +440,11 @@ affichage.o: affichage.cpp affichage.h \
 		connexion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o affichage.o affichage.cpp
 
+connexion.o: connexion.cpp connexion.h \
+		affichage.h \
+		Log.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connexion.o connexion.cpp
+
 eval.o: eval.cpp eval.h \
 		affichage.h \
 		Log.h
@@ -438,17 +458,24 @@ Log.o: Log.cpp Log.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Log.o Log.cpp
 
 main.o: main.cpp MainWindow.h \
+		connexion.h \
 		affichage.h \
-		Log.h
+		Log.h \
+		eval.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-connexion.o: connexion.cpp connexion.h \
+MainWindow.o: MainWindow.cpp MainWindow.h \
+		connexion.h \
 		affichage.h \
-		Log.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o connexion.o connexion.cpp
+		Log.h \
+		eval.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
 
 moc_affichage.o: moc_affichage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_affichage.o moc_affichage.cpp
+
+moc_connexion.o: moc_connexion.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_connexion.o moc_connexion.cpp
 
 moc_eval.o: moc_eval.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_eval.o moc_eval.cpp
@@ -456,8 +483,8 @@ moc_eval.o: moc_eval.cpp
 moc_Log.o: moc_Log.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Log.o moc_Log.cpp
 
-moc_connexion.o: moc_connexion.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_connexion.o moc_connexion.cpp
+moc_MainWindow.o: moc_MainWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
 
 ####### Install
 
