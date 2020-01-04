@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Connection_t {
-    QByteArrayData data[6];
-    char stringdata0[49];
+    QByteArrayData data[9];
+    char stringdata0[101];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,15 +32,19 @@ struct qt_meta_stringdata_Connection_t {
 static const qt_meta_stringdata_Connection_t qt_meta_stringdata_Connection = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "Connection"
-QT_MOC_LITERAL(1, 11, 10), // "createUser"
-QT_MOC_LITERAL(2, 22, 0), // ""
-QT_MOC_LITERAL(3, 23, 4), // "name"
-QT_MOC_LITERAL(4, 28, 8), // "password"
-QT_MOC_LITERAL(5, 37, 11) // "connectUser"
+QT_MOC_LITERAL(1, 11, 11), // "isConnected"
+QT_MOC_LITERAL(2, 23, 0), // ""
+QT_MOC_LITERAL(3, 24, 20), // "isDisconnectedSignal"
+QT_MOC_LITERAL(4, 45, 10), // "createUser"
+QT_MOC_LITERAL(5, 56, 4), // "name"
+QT_MOC_LITERAL(6, 61, 8), // "password"
+QT_MOC_LITERAL(7, 70, 11), // "connectUser"
+QT_MOC_LITERAL(8, 82, 18) // "isDisconnectedSlot"
 
     },
-    "Connection\0createUser\0\0name\0password\0"
-    "connectUser"
+    "Connection\0isConnected\0\0isDisconnectedSignal\0"
+    "createUser\0name\0password\0connectUser\0"
+    "isDisconnectedSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,20 +54,30 @@ static const uint qt_meta_data_Connection[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   39,    2, 0x06 /* Public */,
+       3,    0,   40,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   24,    2, 0x0a /* Public */,
-       5,    2,   29,    2, 0x0a /* Public */,
+       4,    2,   41,    2, 0x0a /* Public */,
+       7,    2,   46,    2, 0x0a /* Public */,
+       8,    0,   51,    2, 0x0a /* Public */,
+
+ // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
-    QMetaType::Bool, QMetaType::QString, QMetaType::QString,    3,    4,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,    5,    6,
+    QMetaType::Bool, QMetaType::QString, QMetaType::QString,    5,    6,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -71,23 +85,36 @@ static const uint qt_meta_data_Connection[] = {
 void Connection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Connection *_t = static_cast<Connection *>(_o);
+        auto *_t = static_cast<Connection *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->createUser((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 1: { bool _r = _t->connectUser((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])));
+        case 0: _t->isConnected(); break;
+        case 1: _t->isDisconnectedSignal(); break;
+        case 2: _t->createUser((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 3: { bool _r = _t->connectUser((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 4: _t->isDisconnectedSlot(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (Connection::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Connection::isConnected)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (Connection::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Connection::isDisconnectedSignal)) {
+                *result = 1;
+                return;
+            }
         }
     }
 }
 
-<<<<<<< HEAD
-QT_INIT_METAOBJECT const QMetaObject Connection::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_Connection.data,
-      qt_meta_data_Connection,  qt_static_metacall, nullptr, nullptr}
-};
-=======
 QT_INIT_METAOBJECT const QMetaObject Connection::staticMetaObject = { {
     &QWidget::staticMetaObject,
     qt_meta_stringdata_Connection.data,
@@ -96,7 +123,6 @@ QT_INIT_METAOBJECT const QMetaObject Connection::staticMetaObject = { {
     nullptr,
     nullptr
 } };
->>>>>>> mergeBranch
 
 
 const QMetaObject *Connection::metaObject() const
@@ -118,15 +144,27 @@ int Connection::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 5;
     }
     return _id;
+}
+
+// SIGNAL 0
+void Connection::isConnected()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void Connection::isDisconnectedSignal()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
