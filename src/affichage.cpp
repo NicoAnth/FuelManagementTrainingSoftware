@@ -389,11 +389,12 @@
     }
 
     void ValveTank::clickedSlot(){
-        emit updateLastEntry();
 
+        emit updateLastEntry();
         if(state)
             state = false;
         else{
+            emit clickedEval();
             state = true;
 //            qInfo() << "T1 : ";
 //            qInfo() << t1->getState();
@@ -417,7 +418,6 @@
             }
         }
 
-        emit clickedEval();
         emit GenericTpev::clickedLog(name);
         update();
     }
@@ -483,7 +483,7 @@
             switchEngineState(pair2, true);
         }
 
-        emit clickedEval();
+
         emit GenericTpev::clickedLog(name);
         update();
     }

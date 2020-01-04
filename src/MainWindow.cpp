@@ -8,6 +8,7 @@
 MainWindow::MainWindow() {
     systemeC = new SystemeCarburant(700,700);
     log = new Log(this, systemeC);
+    connection = new Connection();
     Evaluation* ev = new Evaluation(systemeC,log);
 
     systemeC->setParent(this);
@@ -70,11 +71,11 @@ void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&Connexion"));
     fileMenu->addAction(newAccountAct);
     fileMenu->addAction(connexionAct);
-
-    fileMenu = menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(saveAct);
-    fileMenu->addAction(loadAct);
-
+    if(connection->getConnected()){
+        fileMenu = menuBar()->addMenu(tr("&File"));
+        fileMenu->addAction(saveAct);
+        fileMenu->addAction(loadAct);
+    }
     fileMenu = menuBar()->addMenu(tr("&Mode"));
     fileMenu->addAction(exerciceAct);
     fileMenu->addAction(simulAct);
@@ -109,11 +110,9 @@ void MainWindow::loadLog(){
 }
 
 void MainWindow::accountConnection(){
-        Connection *c = new Connection();
-        c->ConnectionInterface();
+        connection->ConnectionInterface();
     }
-    
+
 void MainWindow::accountCreation(){
-    Connection *c = new Connection();
-    c->newAccountInterface();
+    connection->newAccountInterface();
 }

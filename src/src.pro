@@ -18,7 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += affichage.h connexion.h eval.h Log.h MainWindow.h SystemeCarburant.h
+HEADERS += affichage.h \
+           connexion.h \
+           eval.h \
+           Log.h \
+           MainWindow.h \
+           SystemeCarburant.h
+           
 SOURCES += affichage.cpp \
            connexion.cpp \
            eval.cpp \

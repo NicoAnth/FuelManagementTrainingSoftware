@@ -8,8 +8,7 @@
 - menu -> Le premier a finir
 (- uml propre -> Nico)
 
-? Eval: Si les 2 tanks sont vides et fermeture vanne entre les 2 -> erreur sauf si futur action est de fermer la 2ème vanne pour alimenter ces 2 tanks
-? Si provocation d'une vidange d'un reservoir alors que vanne ouverte entre ce reservoir et un autre plein, remplissage automatique du reservoir vide.
+? (Si provocation d'une vidange d'un reservoir alors que vanne ouverte entre ce reservoir et un autre plein, remplissage automatique du reservoir vide.)
 ( Actuellement les widgets s'envoient des signaux à eux-mêmes, ce qui pue le caca.
  Déplacer les slots clickedSlot des widgets dans mousePressEvent )
 ( Fusionner map et attributs de systemeCarburant )
@@ -18,5 +17,3 @@
 todo. Séparer le mode libre du mode creation d'exercice
 todo. Distinguer le mode exercice du mode simulation
 -> verifier a ce moment la que les pompes primaires ne peuvent etre que dans 2 états : BROKEN | ON
-checked. Pompe11,21,31 ne peuvent pas être éteinte -> allumées ou en panne car le pilote n'a aucun accès à ces pompes.
-

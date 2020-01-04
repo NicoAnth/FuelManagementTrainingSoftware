@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'affichage.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.3)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.4)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'affichage.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.11.3. It"
+#error "This file was generated using the moc from 5.12.4. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -48,7 +48,7 @@ QT_MOC_LITERAL(6, 57, 11) // "clickedSlot"
 static const uint qt_meta_data_GenericTpev[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        4,   14, // methods
@@ -80,7 +80,7 @@ static const uint qt_meta_data_GenericTpev[] = {
 void GenericTpev::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        GenericTpev *_t = static_cast<GenericTpev *>(_o);
+        auto *_t = static_cast<GenericTpev *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->updateLastEntry(); break;
@@ -115,10 +115,14 @@ void GenericTpev::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject GenericTpev::staticMetaObject = {
-    { &QAbstractButton::staticMetaObject, qt_meta_stringdata_GenericTpev.data,
-      qt_meta_data_GenericTpev,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject GenericTpev::staticMetaObject = { {
+    &QAbstractButton::staticMetaObject,
+    qt_meta_stringdata_GenericTpev.data,
+    qt_meta_data_GenericTpev,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *GenericTpev::metaObject() const
@@ -195,7 +199,7 @@ QT_MOC_LITERAL(5, 33, 5) // "empty"
 static const uint qt_meta_data_Tank[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        3,   14, // methods
@@ -221,7 +225,7 @@ static const uint qt_meta_data_Tank[] = {
 void Tank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Tank *_t = static_cast<Tank *>(_o);
+        auto *_t = static_cast<Tank *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->clickedSlot(); break;
@@ -232,10 +236,14 @@ void Tank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject Tank::staticMetaObject = {
-    { &GenericTpev::staticMetaObject, qt_meta_stringdata_Tank.data,
-      qt_meta_data_Tank,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject Tank::staticMetaObject = { {
+    &GenericTpev::staticMetaObject,
+    qt_meta_stringdata_Tank.data,
+    qt_meta_data_Tank,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *Tank::metaObject() const
@@ -294,7 +302,7 @@ QT_MOC_LITERAL(5, 33, 9) // "setBroken"
 static const uint qt_meta_data_Pump[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        3,   14, // methods
@@ -320,7 +328,7 @@ static const uint qt_meta_data_Pump[] = {
 void Pump::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Pump *_t = static_cast<Pump *>(_o);
+        auto *_t = static_cast<Pump *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->clickedSlot(); break;
@@ -331,10 +339,14 @@ void Pump::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject Pump::staticMetaObject = {
-    { &GenericTpev::staticMetaObject, qt_meta_stringdata_Pump.data,
-      qt_meta_data_Pump,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject Pump::staticMetaObject = { {
+    &GenericTpev::staticMetaObject,
+    qt_meta_stringdata_Pump.data,
+    qt_meta_data_Pump,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *Pump::metaObject() const
@@ -387,7 +399,7 @@ QT_MOC_LITERAL(0, 0, 6) // "Engine"
 static const uint qt_meta_data_Engine[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        0,    0, // methods
@@ -408,10 +420,14 @@ void Engine::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject Engine::staticMetaObject = {
-    { &GenericTpev::staticMetaObject, qt_meta_stringdata_Engine.data,
-      qt_meta_data_Engine,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject Engine::staticMetaObject = { {
+    &GenericTpev::staticMetaObject,
+    qt_meta_stringdata_Engine.data,
+    qt_meta_data_Engine,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *Engine::metaObject() const
@@ -455,7 +471,7 @@ QT_MOC_LITERAL(2, 18, 0) // ""
 static const uint qt_meta_data_Valve[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -477,7 +493,7 @@ static const uint qt_meta_data_Valve[] = {
 void Valve::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Valve *_t = static_cast<Valve *>(_o);
+        auto *_t = static_cast<Valve *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->clickedSlot(); break;
@@ -487,10 +503,14 @@ void Valve::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject Valve::staticMetaObject = {
-    { &GenericTpev::staticMetaObject, qt_meta_stringdata_Valve.data,
-      qt_meta_data_Valve,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject Valve::staticMetaObject = { {
+    &GenericTpev::staticMetaObject,
+    qt_meta_stringdata_Valve.data,
+    qt_meta_data_Valve,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *Valve::metaObject() const
@@ -545,7 +565,7 @@ QT_MOC_LITERAL(2, 22, 0) // ""
 static const uint qt_meta_data_ValveTank[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -567,7 +587,7 @@ static const uint qt_meta_data_ValveTank[] = {
 void ValveTank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        ValveTank *_t = static_cast<ValveTank *>(_o);
+        auto *_t = static_cast<ValveTank *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->clickedSlot(); break;
@@ -577,10 +597,14 @@ void ValveTank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject ValveTank::staticMetaObject = {
-    { &Valve::staticMetaObject, qt_meta_stringdata_ValveTank.data,
-      qt_meta_data_ValveTank,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject ValveTank::staticMetaObject = { {
+    &Valve::staticMetaObject,
+    qt_meta_stringdata_ValveTank.data,
+    qt_meta_data_ValveTank,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *ValveTank::metaObject() const
@@ -635,7 +659,7 @@ QT_MOC_LITERAL(2, 24, 0) // ""
 static const uint qt_meta_data_ValveEngine[] = {
 
  // content:
-       7,       // revision
+       8,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -657,7 +681,7 @@ static const uint qt_meta_data_ValveEngine[] = {
 void ValveEngine::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        ValveEngine *_t = static_cast<ValveEngine *>(_o);
+        auto *_t = static_cast<ValveEngine *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->clickedSlot(); break;
@@ -667,10 +691,14 @@ void ValveEngine::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject ValveEngine::staticMetaObject = {
-    { &Valve::staticMetaObject, qt_meta_stringdata_ValveEngine.data,
-      qt_meta_data_ValveEngine,  qt_static_metacall, nullptr, nullptr}
-};
+QT_INIT_METAOBJECT const QMetaObject ValveEngine::staticMetaObject = { {
+    &Valve::staticMetaObject,
+    qt_meta_stringdata_ValveEngine.data,
+    qt_meta_data_ValveEngine,
+    qt_static_metacall,
+    nullptr,
+    nullptr
+} };
 
 
 const QMetaObject *ValveEngine::metaObject() const
