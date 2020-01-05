@@ -41,6 +41,7 @@
             this->state = true;
             if(primaryPump->getState() != BROKEN)
                 primaryPump->switchState(ON);
+            
         }
         else{
             this->state = false;
@@ -278,7 +279,6 @@
                 default:
                     break;
             }
-
             emit GenericTpev::clickedLog(name);
             update();
         }
@@ -299,6 +299,9 @@
 
     void Engine::setState(short state) {
         this->state = state;
+        if(state){
+            emit engineSupplied();
+        }
         update();
     }
 
@@ -389,7 +392,7 @@
     }
 
     void ValveTank::clickedSlot(){
-
+        
         emit updateLastEntry();
         if(state)
             state = false;
@@ -472,12 +475,12 @@
 
     void ValveEngine::clickedSlot() {
         emit updateLastEntry();
-
         if (state) {
             state = false;
             switchEngineState(pair1, false);
             switchEngineState(pair2, false);
         } else{
+            emit clickedEval();
             state = true;
             switchEngineState(pair1, true);
             switchEngineState(pair2, true);

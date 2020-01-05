@@ -125,6 +125,9 @@
             void setPump(Pump* supplyingP);
             virtual void clickedSlot(){}
             void paintEvent(QPaintEvent*);
+        signals:
+            void engineSupplied();
+
     };
 
     // VALVE

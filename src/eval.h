@@ -22,6 +22,7 @@ class Evaluation: QTimer {
         ~Evaluation(){};
         int getMark();
         int getMistakeNumber();
+        
  
     /* signals:
         bool resolved(); */
