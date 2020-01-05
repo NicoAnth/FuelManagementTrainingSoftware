@@ -45,12 +45,6 @@
         else{
             this->state = false;
 
-            if(primaryPump->getState() || secondaryPump->getState()){
-                // afficher message "Caution : tank " + name + " emptied,
-                // its pumps aren't doing nothing in this state.
-                // Try to refill the tank by opening the associated valve"
-            }
-
             if(primaryPump->getState() != BROKEN)
                 primaryPump->switchState(OFF);
 
@@ -62,17 +56,7 @@
         update();
     }
 
-    void Tank::clickedSlot(){
-//        emit clickedEval();
-//        emit GenericTpev::updateLastEntry();
-//
-//        if(state)
-//            switchState(false);
-//        else
-//            switchState(true);
-//
-//        emit GenericTpev::clickedLog(name);
-    }
+    void Tank::clickedSlot(){}
 
     void Tank::empty() {
         if(state)
@@ -176,8 +160,6 @@
 
                     if(tmpP != nullptr){
                         tmpP->setEngine(nullptr);
-                        // afficher message
-                        // "CAUTION : pump " + tmpp.name + " doesn't supply " + tmpe.name + " anymore !"
                     }
 
                     tmpE->setPump(this);
@@ -191,24 +173,24 @@
                         tmpE->setPump(this);
                         tmpE->setState(ON);
                         supplyingEngine = tmpE;
-                    }
-
-                    // verify other engines and valveEngines
-                    ValveEngine* ve1 = tank->getVe1();
-                    ValveEngine* ve2 = tank->getVe2();
-                    if(ve1->getState()){
-                        tmpE = ve1->findAssociatedEngine(tank);
-                        if(tmpE->getPump() == nullptr){
-                            tmpE->setPump(this);
-                            tmpE->setState(ON);
-                            supplyingEngine = tmpE;
-                        }
-                    } else if(ve2->getState()){
-                        tmpE = ve2->findAssociatedEngine(tank);
-                        if(tmpE->getPump() == nullptr){
-                            tmpE->setPump(this);
-                            tmpE->setState(ON);
-                            supplyingEngine = tmpE;
+                    } else {
+                        // verify other engines and valveEngines
+                        ValveEngine *ve1 = tank->getVe1();
+                        ValveEngine *ve2 = tank->getVe2();
+                        if (ve1->getState()) {
+                            tmpE = ve1->findAssociatedEngine(tank);
+                            if (tmpE->getPump() == nullptr) {
+                                tmpE->setPump(this);
+                                tmpE->setState(ON);
+                                supplyingEngine = tmpE;
+                            }
+                        } else if (ve2->getState()) {
+                            tmpE = ve2->findAssociatedEngine(tank);
+                            if (tmpE->getPump() == nullptr) {
+                                tmpE->setPump(this);
+                                tmpE->setState(ON);
+                                supplyingEngine = tmpE;
+                            }
                         }
                     }
                 }
@@ -217,10 +199,6 @@
             this->state = state;
 
             if(tmpE != nullptr){
-                // engine no longer supplied
-                // afficher message
-                // "CAUTION : pump " + name + " doesn't supply " + tmpe.name + " anymore !"
-                // if pump secondary, set engineSupplied to null
                 if(!primary){
                     tmpE->setPump(nullptr);
                     tmpE->setState(false);
@@ -237,7 +215,7 @@
     }
 
     void Pump::setBroken(){
-        if(state == BROKEN)
+        if (state == BROKEN)
             switchState(ON);
         else
             switchState(BROKEN);
@@ -270,11 +248,7 @@
                     break;
                 case OFF :
                     switchState(ON);
-//                switchState(BROKEN);
                     break;
-//            case BROKEN :
-//                switchState(ON);
-//                break;
                 default:
                     break;
             }
@@ -396,14 +370,6 @@
         else{
             emit clickedEval();
             state = true;
-//            qInfo() << "T1 : ";
-//            qInfo() << t1->getState();
-//            qInfo() << " T2 : ";
-//            qInfo() << t2->getState();
-//            qInfo() << " T3 : ";
-//            qInfo() << t3->getState();
-//            qInfo() << " vt2 : ";
-//            qInfo() << vt2->state;
 
             if(t1->getState() && !t2->getState()){
                 t2->setState(true);
@@ -440,9 +406,6 @@
                     pair.second->setPump(nullptr);
                     pair.second->setState(false);
                     tmpP->setEngine(nullptr);
-                    // afficher message
-                    // "CAUTION :
-                    // pump " + tmpP.name + " doesn't supply " + pair1.second.getName + " anymore !"                }
                 }
             }
         } else{
@@ -463,10 +426,6 @@
         if(pair2.first == tank)
             return pair2.second;
 
-        return nullptr;
-    }
-
-    Tank* ValveEngine::findAssociatedTank(Engine *engine) {
         return nullptr;
     }
 

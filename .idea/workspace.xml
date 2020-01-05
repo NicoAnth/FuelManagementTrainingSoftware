@@ -9,7 +9,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="" />
+    <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Log.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SystemeCarburant.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/SystemeCarburant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/affichage.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/affichage.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/affichage.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/affichage.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/connexion.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/connexion.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/connexion.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/connexion.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/connexion.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src" beforeDir="false" afterPath="$PROJECT_DIR$/src/src" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

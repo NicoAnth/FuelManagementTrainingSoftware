@@ -5,7 +5,6 @@
 #include <QPainter>
 #include <QPushButton>
 
-
 // CONSTANTES
     #define TANK_WIDTH 150
     #define TANK_HEIGHT 100
@@ -177,7 +176,6 @@
 
             void switchEngineState(QPair<Tank*, Engine*>& pair, bool state);
             Engine* findAssociatedEngine(Tank* tank);
-            Tank* findAssociatedTank(Engine* engine);
 
         public slots:
             virtual void clickedSlot();

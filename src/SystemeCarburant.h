@@ -9,7 +9,6 @@
 #include <QMap>
 #include "affichage.h"
 
-
  class SystemeCarburant: public QWidget{
     Q_OBJECT
 

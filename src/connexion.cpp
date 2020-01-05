@@ -1,13 +1,12 @@
-#include "connexion.h"
 #include <QString>
 #include <QSignalMapper>
 #include <QMessageBox>
 #include <QTextStream>
 #include<QDebug>
 #include <iostream>
+#include "connexion.h"
 
 Connection::Connection(){
-    
     usersFile = new QFile("../Data/Connection/login.txt");
 }
 

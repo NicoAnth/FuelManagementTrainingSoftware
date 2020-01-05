@@ -28,5 +28,4 @@ class Connection: public QWidget{
     signals:
         void isConnected();
         void isDisconnectedSignal();
-    
 };
