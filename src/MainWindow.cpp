@@ -30,6 +30,10 @@ void MainWindow::createActions() {
     connexionAct->setStatusTip(tr("Connection to an account"));
     QObject::connect(connexionAct, SIGNAL(triggered()), this, SLOT(accountConnection()));
 
+    disconnectionAct = new QAction(tr("&Disconnect"), this);
+    connexionAct->setStatusTip(tr("Disconnection to an account"));
+    QObject::connect(disconnectionAct,SIGNAL(triggered()),connection,SLOT(isDisconnectedSlot()));
+
     // save/load
     saveAct = new QAction(tr("&Save"), this);
     saveAct->setStatusTip(tr("Save action log into a file"));
@@ -76,11 +80,17 @@ void MainWindow::createMenus() {
     fileMenu = menuBar()->addMenu(tr("&Connexion"));
     fileMenu->addAction(newAccountAct);
     fileMenu->addAction(connexionAct);
-    if(connection->getConnected()){
-        fileMenu = menuBar()->addMenu(tr("&File"));
-        fileMenu->addAction(saveAct);
-        fileMenu->addAction(loadAct);
-    }
+    fileMenu->addAction(disconnectionAct);
+    
+    QMenu *file = new QMenu("&File");
+    QAction *test = new QAction();
+    test = menuBar()->addMenu(file);
+    file->addAction(saveAct);
+    file->addAction(loadAct);
+    test->setVisible(false);
+
+    //fileMenu = menuBar()->addMenu(tr("&File"));
+
     fileMenu = menuBar()->addMenu(tr("&Mode"));
     fileMenu->addAction(exerciceAct);
     fileMenu->addAction(simulAct);
@@ -97,6 +107,9 @@ void MainWindow::createMenus() {
     subMenu->addAction(p22Act);
     subMenu->addAction(p31Act);
     subMenu->addAction(p32Act);
+
+    connect(connection,&Connection::isConnected,[=](){test->setVisible(true);});
+    connect(connection,&Connection::isDisconnectedSignal,[=](){test->setVisible(false); update();});
 }
 
 void MainWindow::saveLog() {

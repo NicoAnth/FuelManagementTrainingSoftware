@@ -31,6 +31,7 @@ class MainWindow : public QMainWindow{
         QMenu* subMenu;
         QAction *newAccountAct;
         QAction *connexionAct;
+        QAction* disconnectionAct;
         QAction *saveAct;
         QAction *loadAct;
         QAction *simulAct;

@@ -79,6 +79,7 @@ bool Connection::connectUser(QString name, QString password){
     
     if(alreadyExists(name,password)){
         QMessageBox::information(this, "Welcome", "Welcome " + name + ".");
+        emit isConnected();
         isconnected = true;
         userName = name;
         return true;
@@ -106,4 +107,15 @@ bool Connection::alreadyExists(QString name, QString password){
 bool Connection::getConnected(){
     return isconnected;
 }
+/* void Connection::disconnection(){
+        emit isDisconnectedSignal();
+        isconnected = false;
+        userName = "";
+} */
 
+void Connection::isDisconnectedSlot(){
+        emit isDisconnectedSignal();
+        isconnected = false;
+        userName = "";
+        update();
+}

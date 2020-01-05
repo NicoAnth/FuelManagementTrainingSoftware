@@ -4,7 +4,7 @@
 #include <QLineEdit>
 #include <QFile>
 
-class Connection: QWidget{
+class Connection: public QWidget{
     
     Q_OBJECT
 
@@ -20,9 +20,13 @@ class Connection: QWidget{
         void newAccountInterface();
         bool alreadyExists(QString name, QString password);
         bool getConnected();
-
+    
     public slots:
         void createUser(QString name, QString password);
         bool connectUser(QString name, QString password);
+        void isDisconnectedSlot();
+    signals:
+        void isConnected();
+        void isDisconnectedSignal();
     
 };
