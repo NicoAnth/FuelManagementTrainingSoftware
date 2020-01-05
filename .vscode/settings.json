@@ -23,6 +23,7 @@
         "ratio": "cpp",
         "utility": "cpp",
         "memory": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "qmessagebox": "cpp"
     }
 }

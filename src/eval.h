@@ -5,9 +5,8 @@
 #include "Log.h"
 #include "MainWindow.h"
 #include<QDebug>
-#include <QTimer>
 
-class Evaluation: QTimer {
+class Evaluation: QWidget {
     Q_OBJECT
 
     private:
@@ -16,7 +15,6 @@ class Evaluation: QTimer {
         SystemeCarburant* sc;
         QMap<QString, GenericTpev*>& scMap;
         Log *log;
-        QTimer *time;
     public:
         Evaluation(SystemeCarburant *systemeC, Log *log_);
         ~Evaluation(){};

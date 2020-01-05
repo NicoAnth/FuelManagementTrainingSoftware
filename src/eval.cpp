@@ -4,7 +4,6 @@
 #include <QMessageBox>
 
 Evaluation::Evaluation(SystemeCarburant *systemeC, Log *log_): sc(systemeC), scMap(sc->getMap()),log(log_){
-    time = new QTimer(this);
     mark = 10;
     mistake_nb = 0;
     QObject::connect(scMap["VT12"], SIGNAL(clickedEval()), this, SLOT(vt12()));
