@@ -85,7 +85,7 @@ static const uint qt_meta_data_Connection[] = {
 void Connection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<Connection *>(_o);
+        Connection *_t = static_cast<Connection *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->isConnected(); break;
@@ -115,21 +115,10 @@ void Connection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     }
 }
 
-<<<<<<< HEAD
 QT_INIT_METAOBJECT const QMetaObject Connection::staticMetaObject = {
     { &QWidget::staticMetaObject, qt_meta_stringdata_Connection.data,
       qt_meta_data_Connection,  qt_static_metacall, nullptr, nullptr}
 };
-=======
-QT_INIT_METAOBJECT const QMetaObject Connection::staticMetaObject = { {
-    &QWidget::staticMetaObject,
-    qt_meta_stringdata_Connection.data,
-    qt_meta_data_Connection,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
->>>>>>> mergeBranch
 
 
 const QMetaObject *Connection::metaObject() const

@@ -9,26 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Simulation.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Simulation.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SystemeCarburant.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/SystemeCarburant.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eval.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/eval.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eval.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/eval.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eval.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/eval.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_Log.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_Log.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_Log.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_Log.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_MainWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_MainWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moc_MainWindow.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/moc_MainWindow.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src" beforeDir="false" afterPath="$PROJECT_DIR$/src/src" afterDir="false" />
-    </list>
+    <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
