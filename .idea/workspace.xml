@@ -11,12 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b6661a51-2a6a-438d-b681-46a511399ba7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Orga/CR/.~lock.Compte-Rendu.odt#" beforeDir="false" afterPath="$PROJECT_DIR$/Orga/CR/.~lock.Compte-Rendu.odt#" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Orga/CR/Compte-Rendu.odt" beforeDir="false" afterPath="$PROJECT_DIR$/Orga/CR/Compte-Rendu.odt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Log.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/Log.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainWindow.o" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainWindow.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/src/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/src" beforeDir="false" afterPath="$PROJECT_DIR$/src/src" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +89,7 @@
       <workItem from="1577736288187" duration="29500000" />
       <workItem from="1577810152930" duration="1908000" />
       <workItem from="1577975822628" duration="42017000" />
-      <workItem from="1578333626112" duration="1224000" />
+      <workItem from="1578333626112" duration="2639000" />
     </task>
     <servers />
   </component>
